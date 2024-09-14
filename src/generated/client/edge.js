@@ -198,13 +198,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "POSTGRES_DB_PROD",
+        "fromEnvVar": "QUIPPET_DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"rhel-openssl-1.0.x\", \"darwin-arm64\"]\n  output = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_DB_PROD\")\n}\n\nmodel Quote {\n  id           Int            @id @default(autoincrement())\n  createdAt    DateTime       @unique @default(now())\n  meta         String?\n  content      String\n  quotee       String?\n  user         User           @relation(fields: [userId], references: [id])\n  userId       Int\n  tags         Tag[]\n  deleted      Boolean        @default(false)\n  book         Book?          @relation(fields: [bookId], references: [id])\n  bookId       Int?\n  userFavorite UserFavorite[] @relation(\"UserFavorites\") // Many-to-many relation through UserFavorite\n\n  @@map(\"quotes\")\n}\n\nmodel User {\n  id        Int            @id @default(autoincrement())\n  name      String\n  quotes    Quote[]\n  favorites UserFavorite[] @relation(\"UserFavorites\") // Many-to-many relation through UserFavorite\n\n  @@map(\"users\")\n}\n\nmodel UserFavorite {\n  user    User  @relation(fields: [userId], references: [id], name: \"UserFavorites\")\n  userId  Int\n  quote   Quote @relation(fields: [quoteId], references: [id], name: \"UserFavorites\")\n  quoteId Int\n\n  @@id([userId, quoteId])\n  @@map(\"user_favorites\")\n}\n\nmodel Book {\n  id       Int     @id @default(autoincrement())\n  title    String  @unique\n  author   Author  @relation(fields: [authorId], references: [id])\n  authorId Int\n  quotes   Quote[]\n  source   String?\n\n  @@map(\"books\")\n}\n\nmodel Author {\n  id    Int    @id @default(autoincrement())\n  name  String @unique\n  books Book[]\n\n  @@map(\"authors\")\n}\n\nmodel Tag {\n  id     Int     @id @default(autoincrement())\n  name   String  @unique\n  quotes Quote[]\n\n  @@map(\"tags\")\n}\n",
-  "inlineSchemaHash": "20a56370465685d47d01282e0b9a823e1601f159c4bb0b9f05f5e5b179fef5a9",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"rhel-openssl-1.0.x\", \"darwin-arm64\"]\n  output = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"QUIPPET_DATABASE_URL\")\n}\n\nmodel Quote {\n  id           Int            @id @default(autoincrement())\n  createdAt    DateTime       @unique @default(now())\n  meta         String?\n  content      String\n  quotee       String?\n  user         User           @relation(fields: [userId], references: [id])\n  userId       Int\n  tags         Tag[]\n  deleted      Boolean        @default(false)\n  book         Book?          @relation(fields: [bookId], references: [id])\n  bookId       Int?\n  userFavorite UserFavorite[] @relation(\"UserFavorites\") // Many-to-many relation through UserFavorite\n\n  @@map(\"quotes\")\n}\n\nmodel User {\n  id        Int            @id @default(autoincrement())\n  name      String\n  quotes    Quote[]\n  favorites UserFavorite[] @relation(\"UserFavorites\") // Many-to-many relation through UserFavorite\n\n  @@map(\"users\")\n}\n\nmodel UserFavorite {\n  user    User  @relation(fields: [userId], references: [id], name: \"UserFavorites\")\n  userId  Int\n  quote   Quote @relation(fields: [quoteId], references: [id], name: \"UserFavorites\")\n  quoteId Int\n\n  @@id([userId, quoteId])\n  @@map(\"user_favorites\")\n}\n\nmodel Book {\n  id       Int     @id @default(autoincrement())\n  title    String  @unique\n  author   Author  @relation(fields: [authorId], references: [id])\n  authorId Int\n  quotes   Quote[]\n  source   String?\n\n  @@map(\"books\")\n}\n\nmodel Author {\n  id    Int    @id @default(autoincrement())\n  name  String @unique\n  books Book[]\n\n  @@map(\"authors\")\n}\n\nmodel Tag {\n  id     Int     @id @default(autoincrement())\n  name   String  @unique\n  quotes Quote[]\n\n  @@map(\"tags\")\n}\n",
+  "inlineSchemaHash": "d955202e5817ba07cd0de3204b18564133653f7fee45fe59d0c249ef481207b7",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -215,7 +215,7 @@ config.engineWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    POSTGRES_DB_PROD: typeof globalThis !== 'undefined' && globalThis['POSTGRES_DB_PROD'] || typeof process !== 'undefined' && process.env && process.env.POSTGRES_DB_PROD || undefined
+    QUIPPET_DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['QUIPPET_DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.QUIPPET_DATABASE_URL || undefined
   }
 })
 
