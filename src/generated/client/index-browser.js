@@ -6,7 +6,7 @@ const {
   objectEnumValues,
   makeStrictEnum,
   Public,
-  getRuntime,
+  getRuntime
 } = require('./runtime/index-browser.js')
 
 
@@ -16,12 +16,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.12.1
- * Query Engine version: 473ed3124229e22d881cb7addf559799debae1ab
+ * Prisma Client JS version: 5.19.1
+ * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
  */
 Prisma.prismaVersion = {
-  client: "5.12.1",
-  engine: "473ed3124229e22d881cb7addf559799debae1ab"
+  client: "5.19.1",
+  engine: "69d742ee20b815d88e17e54db4a2a7a3b30324e3"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -119,6 +119,13 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  telegramId: 'telegramId',
+  timezone: 'timezone'
+};
+
 exports.Prisma.QuoteScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -128,11 +135,6 @@ exports.Prisma.QuoteScalarFieldEnum = {
   userId: 'userId',
   deleted: 'deleted',
   bookId: 'bookId'
-};
-
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
 };
 
 exports.Prisma.UserFavoriteScalarFieldEnum = {
@@ -157,6 +159,33 @@ exports.Prisma.TagScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  userId: 'userId',
+  created: 'created'
+};
+
+exports.Prisma.HabitScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  dataType: 'dataType'
+};
+
+exports.Prisma.HabitLogScalarFieldEnum = {
+  id: 'id',
+  habitId: 'habitId',
+  date: 'date',
+  value: 'value'
+};
+
+exports.Prisma.ReminderScalarFieldEnum = {
+  id: 'id',
+  habitId: 'habitId',
+  time: 'time'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -174,12 +203,16 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  Quote: 'Quote',
   User: 'User',
+  Quote: 'Quote',
   UserFavorite: 'UserFavorite',
   Book: 'Book',
   Author: 'Author',
-  Tag: 'Tag'
+  Tag: 'Tag',
+  Message: 'Message',
+  Habit: 'Habit',
+  HabitLog: 'HabitLog',
+  Reminder: 'Reminder'
 };
 
 /**

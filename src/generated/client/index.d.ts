@@ -14,15 +14,15 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model Quote
- * 
- */
-export type Quote = $Result.DefaultSelection<Prisma.$QuotePayload>
-/**
  * Model User
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Quote
+ * 
+ */
+export type Quote = $Result.DefaultSelection<Prisma.$QuotePayload>
 /**
  * Model UserFavorite
  * 
@@ -43,6 +43,26 @@ export type Author = $Result.DefaultSelection<Prisma.$AuthorPayload>
  * 
  */
 export type Tag = $Result.DefaultSelection<Prisma.$TagPayload>
+/**
+ * Model Message
+ * 
+ */
+export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
+/**
+ * Model Habit
+ * 
+ */
+export type Habit = $Result.DefaultSelection<Prisma.$HabitPayload>
+/**
+ * Model HabitLog
+ * 
+ */
+export type HabitLog = $Result.DefaultSelection<Prisma.$HabitLogPayload>
+/**
+ * Model Reminder
+ * 
+ */
+export type Reminder = $Result.DefaultSelection<Prisma.$ReminderPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -51,16 +71,16 @@ export type Tag = $Result.DefaultSelection<Prisma.$TagPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Quotes
- * const quotes = await prisma.quote.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  *
  * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 export class PrismaClient<
-  T extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof T ? T['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<T['log']> : never : never,
+  ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -72,15 +92,15 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Quotes
-   * const quotes = await prisma.quote.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    *
    * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
-  constructor(optionsArg ?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
+  constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
   $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): void;
 
   /**
@@ -146,6 +166,7 @@ export class PrismaClient<
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
+
   /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
    * @example
@@ -164,19 +185,9 @@ export class PrismaClient<
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
 
-  $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
+  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb, ExtArgs>
 
       /**
-   * `prisma.quote`: Exposes CRUD operations for the **Quote** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Quotes
-    * const quotes = await prisma.quote.findMany()
-    * ```
-    */
-  get quote(): Prisma.QuoteDelegate<ExtArgs>;
-
-  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -185,6 +196,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.quote`: Exposes CRUD operations for the **Quote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Quotes
+    * const quotes = await prisma.quote.findMany()
+    * ```
+    */
+  get quote(): Prisma.QuoteDelegate<ExtArgs>;
 
   /**
    * `prisma.userFavorite`: Exposes CRUD operations for the **UserFavorite** model.
@@ -225,6 +246,46 @@ export class PrismaClient<
     * ```
     */
   get tag(): Prisma.TagDelegate<ExtArgs>;
+
+  /**
+   * `prisma.message`: Exposes CRUD operations for the **Message** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.message.findMany()
+    * ```
+    */
+  get message(): Prisma.MessageDelegate<ExtArgs>;
+
+  /**
+   * `prisma.habit`: Exposes CRUD operations for the **Habit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Habits
+    * const habits = await prisma.habit.findMany()
+    * ```
+    */
+  get habit(): Prisma.HabitDelegate<ExtArgs>;
+
+  /**
+   * `prisma.habitLog`: Exposes CRUD operations for the **HabitLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HabitLogs
+    * const habitLogs = await prisma.habitLog.findMany()
+    * ```
+    */
+  get habitLog(): Prisma.HabitLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.reminder`: Exposes CRUD operations for the **Reminder** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reminders
+    * const reminders = await prisma.reminder.findMany()
+    * ```
+    */
+  get reminder(): Prisma.ReminderDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -282,8 +343,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.12.1
-   * Query Engine version: 473ed3124229e22d881cb7addf559799debae1ab
+   * Prisma Client JS version: 5.19.1
+   * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
    */
   export type PrismaVersion = {
     client: string
@@ -295,51 +356,13 @@ export namespace Prisma {
    * Utility Types
    */
 
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches a JSON object.
-   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. 
-   */
-  export type JsonObject = {[Key in string]?: JsonValue}
 
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches a JSON array.
-   */
-  export interface JsonArray extends Array<JsonValue> {}
-
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches any valid JSON value.
-   */
-  export type JsonValue = string | number | boolean | JsonObject | JsonArray | null
-
-  /**
-   * Matches a JSON object.
-   * Unlike `JsonObject`, this type allows undefined and read-only properties.
-   */
-  export type InputJsonObject = {readonly [Key in string]?: InputJsonValue | null}
-
-  /**
-   * Matches a JSON array.
-   * Unlike `JsonArray`, readonly arrays are assignable to this type.
-   */
-  export interface InputJsonArray extends ReadonlyArray<InputJsonValue | null> {}
-
-  /**
-   * Matches any valid value that can be used as an input for operations like
-   * create and update as the value of a JSON field. Unlike `JsonValue`, this
-   * type allows read-only arrays and read-only object properties and disallows
-   * `null` at the top level.
-   *
-   * `null` cannot be used as the value of a JSON field because its meaning
-   * would be ambiguous. Use `Prisma.JsonNull` to store the JSON null value or
-   * `Prisma.DbNull` to clear the JSON value and set the field to the database
-   * NULL value instead.
-   *
-   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
-   */
-  export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray | { toJSON(): unknown }
+  export import JsonObject = runtime.JsonObject
+  export import JsonArray = runtime.JsonArray
+  export import JsonValue = runtime.JsonValue
+  export import InputJsonObject = runtime.InputJsonObject
+  export import InputJsonArray = runtime.InputJsonArray
+  export import InputJsonValue = runtime.InputJsonValue
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
@@ -410,6 +433,11 @@ export namespace Prisma {
     include: any
   }
 
+  type SelectAndOmit = {
+    select: any
+    omit: any
+  }
+
   /**
    * Get the type of the value, that the Promise holds.
    */
@@ -458,7 +486,9 @@ export namespace Prisma {
   } &
     (T extends SelectAndInclude
       ? 'Please either choose `select` or `include`.'
-      : {})
+      : T extends SelectAndOmit
+        ? 'Please either choose `select` or `omit`.'
+        : {})
 
   /**
    * Subset + Intersection
@@ -695,12 +725,16 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Quote: 'Quote',
     User: 'User',
+    Quote: 'Quote',
     UserFavorite: 'UserFavorite',
     Book: 'Book',
     Author: 'Author',
-    Tag: 'Tag'
+    Tag: 'Tag',
+    Message: 'Message',
+    Habit: 'Habit',
+    HabitLog: 'HabitLog',
+    Reminder: 'Reminder'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -710,146 +744,153 @@ export namespace Prisma {
     db?: Datasource
   }
 
-
-  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.InternalArgs}, $Utils.Record<string, any>> {
-    returns: Prisma.TypeMap<this['params']['extArgs']>
+  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.InternalArgs, clientOptions: PrismaClientOptions }, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs'], this['params']['clientOptions']>
   }
 
-  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: 'quote' | 'user' | 'userFavorite' | 'book' | 'author' | 'tag'
+      modelProps: "user" | "quote" | "userFavorite" | "book" | "author" | "tag" | "message" | "habit" | "habitLog" | "reminder"
       txIsolationLevel: Prisma.TransactionIsolationLevel
-    },
+    }
     model: {
-      Quote: {
-        payload: Prisma.$QuotePayload<ExtArgs>
-        fields: Prisma.QuoteFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.QuoteFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.QuoteFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
-          }
-          findFirst: {
-            args: Prisma.QuoteFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.QuoteFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
-          }
-          findMany: {
-            args: Prisma.QuoteFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
-          }
-          create: {
-            args: Prisma.QuoteCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
-          }
-          createMany: {
-            args: Prisma.QuoteCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          delete: {
-            args: Prisma.QuoteDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
-          }
-          update: {
-            args: Prisma.QuoteUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
-          }
-          deleteMany: {
-            args: Prisma.QuoteDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.QuoteUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.QuoteUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
-          }
-          aggregate: {
-            args: Prisma.QuoteAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateQuote>
-          }
-          groupBy: {
-            args: Prisma.QuoteGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<QuoteGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.QuoteCountArgs<ExtArgs>,
-            result: $Utils.Optional<QuoteCountAggregateOutputType> | number
-          }
-        }
-      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UserFindUniqueArgs<ExtArgs>,
+            args: Prisma.UserFindUniqueArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>,
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           findFirst: {
-            args: Prisma.UserFindFirstArgs<ExtArgs>,
+            args: Prisma.UserFindFirstArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>,
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           findMany: {
-            args: Prisma.UserFindManyArgs<ExtArgs>,
+            args: Prisma.UserFindManyArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           create: {
-            args: Prisma.UserCreateArgs<ExtArgs>,
+            args: Prisma.UserCreateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           createMany: {
-            args: Prisma.UserCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.UserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           delete: {
-            args: Prisma.UserDeleteArgs<ExtArgs>,
+            args: Prisma.UserDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           update: {
-            args: Prisma.UserUpdateArgs<ExtArgs>,
+            args: Prisma.UserUpdateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           deleteMany: {
-            args: Prisma.UserDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.UserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UserUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.UserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
           }
           upsert: {
-            args: Prisma.UserUpsertArgs<ExtArgs>,
+            args: Prisma.UserUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           aggregate: {
-            args: Prisma.UserAggregateArgs<ExtArgs>,
+            args: Prisma.UserAggregateArgs<ExtArgs>
             result: $Utils.Optional<AggregateUser>
           }
           groupBy: {
-            args: Prisma.UserGroupByArgs<ExtArgs>,
+            args: Prisma.UserGroupByArgs<ExtArgs>
             result: $Utils.Optional<UserGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UserCountArgs<ExtArgs>,
+            args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Quote: {
+        payload: Prisma.$QuotePayload<ExtArgs>
+        fields: Prisma.QuoteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          findFirst: {
+            args: Prisma.QuoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          findMany: {
+            args: Prisma.QuoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          create: {
+            args: Prisma.QuoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          createMany: {
+            args: Prisma.QuoteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuoteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          delete: {
+            args: Prisma.QuoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          update: {
+            args: Prisma.QuoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          deleteMany: {
+            args: Prisma.QuoteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuoteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.QuoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          aggregate: {
+            args: Prisma.QuoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuote>
+          }
+          groupBy: {
+            args: Prisma.QuoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuoteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuoteCountArgs<ExtArgs>
+            result: $Utils.Optional<QuoteCountAggregateOutputType> | number
           }
         }
       }
@@ -858,63 +899,67 @@ export namespace Prisma {
         fields: Prisma.UserFavoriteFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UserFavoriteFindUniqueArgs<ExtArgs>,
+            args: Prisma.UserFavoriteFindUniqueArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UserFavoriteFindUniqueOrThrowArgs<ExtArgs>,
+            args: Prisma.UserFavoriteFindUniqueOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>
           }
           findFirst: {
-            args: Prisma.UserFavoriteFindFirstArgs<ExtArgs>,
+            args: Prisma.UserFavoriteFindFirstArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UserFavoriteFindFirstOrThrowArgs<ExtArgs>,
+            args: Prisma.UserFavoriteFindFirstOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>
           }
           findMany: {
-            args: Prisma.UserFavoriteFindManyArgs<ExtArgs>,
+            args: Prisma.UserFavoriteFindManyArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>[]
           }
           create: {
-            args: Prisma.UserFavoriteCreateArgs<ExtArgs>,
+            args: Prisma.UserFavoriteCreateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>
           }
           createMany: {
-            args: Prisma.UserFavoriteCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.UserFavoriteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserFavoriteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>[]
           }
           delete: {
-            args: Prisma.UserFavoriteDeleteArgs<ExtArgs>,
+            args: Prisma.UserFavoriteDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>
           }
           update: {
-            args: Prisma.UserFavoriteUpdateArgs<ExtArgs>,
+            args: Prisma.UserFavoriteUpdateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>
           }
           deleteMany: {
-            args: Prisma.UserFavoriteDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.UserFavoriteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UserFavoriteUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.UserFavoriteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
           }
           upsert: {
-            args: Prisma.UserFavoriteUpsertArgs<ExtArgs>,
+            args: Prisma.UserFavoriteUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserFavoritePayload>
           }
           aggregate: {
-            args: Prisma.UserFavoriteAggregateArgs<ExtArgs>,
+            args: Prisma.UserFavoriteAggregateArgs<ExtArgs>
             result: $Utils.Optional<AggregateUserFavorite>
           }
           groupBy: {
-            args: Prisma.UserFavoriteGroupByArgs<ExtArgs>,
+            args: Prisma.UserFavoriteGroupByArgs<ExtArgs>
             result: $Utils.Optional<UserFavoriteGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UserFavoriteCountArgs<ExtArgs>,
+            args: Prisma.UserFavoriteCountArgs<ExtArgs>
             result: $Utils.Optional<UserFavoriteCountAggregateOutputType> | number
           }
         }
@@ -924,63 +969,67 @@ export namespace Prisma {
         fields: Prisma.BookFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.BookFindUniqueArgs<ExtArgs>,
+            args: Prisma.BookFindUniqueArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.BookFindUniqueOrThrowArgs<ExtArgs>,
+            args: Prisma.BookFindUniqueOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload>
           }
           findFirst: {
-            args: Prisma.BookFindFirstArgs<ExtArgs>,
+            args: Prisma.BookFindFirstArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.BookFindFirstOrThrowArgs<ExtArgs>,
+            args: Prisma.BookFindFirstOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload>
           }
           findMany: {
-            args: Prisma.BookFindManyArgs<ExtArgs>,
+            args: Prisma.BookFindManyArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload>[]
           }
           create: {
-            args: Prisma.BookCreateArgs<ExtArgs>,
+            args: Prisma.BookCreateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload>
           }
           createMany: {
-            args: Prisma.BookCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.BookCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BookCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>[]
           }
           delete: {
-            args: Prisma.BookDeleteArgs<ExtArgs>,
+            args: Prisma.BookDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload>
           }
           update: {
-            args: Prisma.BookUpdateArgs<ExtArgs>,
+            args: Prisma.BookUpdateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload>
           }
           deleteMany: {
-            args: Prisma.BookDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.BookDeleteManyArgs<ExtArgs>
+            result: BatchPayload
           }
           updateMany: {
-            args: Prisma.BookUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.BookUpdateManyArgs<ExtArgs>
+            result: BatchPayload
           }
           upsert: {
-            args: Prisma.BookUpsertArgs<ExtArgs>,
+            args: Prisma.BookUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BookPayload>
           }
           aggregate: {
-            args: Prisma.BookAggregateArgs<ExtArgs>,
+            args: Prisma.BookAggregateArgs<ExtArgs>
             result: $Utils.Optional<AggregateBook>
           }
           groupBy: {
-            args: Prisma.BookGroupByArgs<ExtArgs>,
+            args: Prisma.BookGroupByArgs<ExtArgs>
             result: $Utils.Optional<BookGroupByOutputType>[]
           }
           count: {
-            args: Prisma.BookCountArgs<ExtArgs>,
+            args: Prisma.BookCountArgs<ExtArgs>
             result: $Utils.Optional<BookCountAggregateOutputType> | number
           }
         }
@@ -990,63 +1039,67 @@ export namespace Prisma {
         fields: Prisma.AuthorFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.AuthorFindUniqueArgs<ExtArgs>,
+            args: Prisma.AuthorFindUniqueArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.AuthorFindUniqueOrThrowArgs<ExtArgs>,
+            args: Prisma.AuthorFindUniqueOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload>
           }
           findFirst: {
-            args: Prisma.AuthorFindFirstArgs<ExtArgs>,
+            args: Prisma.AuthorFindFirstArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.AuthorFindFirstOrThrowArgs<ExtArgs>,
+            args: Prisma.AuthorFindFirstOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload>
           }
           findMany: {
-            args: Prisma.AuthorFindManyArgs<ExtArgs>,
+            args: Prisma.AuthorFindManyArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload>[]
           }
           create: {
-            args: Prisma.AuthorCreateArgs<ExtArgs>,
+            args: Prisma.AuthorCreateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload>
           }
           createMany: {
-            args: Prisma.AuthorCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.AuthorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuthorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuthorPayload>[]
           }
           delete: {
-            args: Prisma.AuthorDeleteArgs<ExtArgs>,
+            args: Prisma.AuthorDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload>
           }
           update: {
-            args: Prisma.AuthorUpdateArgs<ExtArgs>,
+            args: Prisma.AuthorUpdateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload>
           }
           deleteMany: {
-            args: Prisma.AuthorDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.AuthorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
           }
           updateMany: {
-            args: Prisma.AuthorUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.AuthorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
           }
           upsert: {
-            args: Prisma.AuthorUpsertArgs<ExtArgs>,
+            args: Prisma.AuthorUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AuthorPayload>
           }
           aggregate: {
-            args: Prisma.AuthorAggregateArgs<ExtArgs>,
+            args: Prisma.AuthorAggregateArgs<ExtArgs>
             result: $Utils.Optional<AggregateAuthor>
           }
           groupBy: {
-            args: Prisma.AuthorGroupByArgs<ExtArgs>,
+            args: Prisma.AuthorGroupByArgs<ExtArgs>
             result: $Utils.Optional<AuthorGroupByOutputType>[]
           }
           count: {
-            args: Prisma.AuthorCountArgs<ExtArgs>,
+            args: Prisma.AuthorCountArgs<ExtArgs>
             result: $Utils.Optional<AuthorCountAggregateOutputType> | number
           }
         }
@@ -1056,64 +1109,348 @@ export namespace Prisma {
         fields: Prisma.TagFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.TagFindUniqueArgs<ExtArgs>,
+            args: Prisma.TagFindUniqueArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.TagFindUniqueOrThrowArgs<ExtArgs>,
+            args: Prisma.TagFindUniqueOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           findFirst: {
-            args: Prisma.TagFindFirstArgs<ExtArgs>,
+            args: Prisma.TagFindFirstArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.TagFindFirstOrThrowArgs<ExtArgs>,
+            args: Prisma.TagFindFirstOrThrowArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           findMany: {
-            args: Prisma.TagFindManyArgs<ExtArgs>,
+            args: Prisma.TagFindManyArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
           }
           create: {
-            args: Prisma.TagCreateArgs<ExtArgs>,
+            args: Prisma.TagCreateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           createMany: {
-            args: Prisma.TagCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.TagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TagCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
           }
           delete: {
-            args: Prisma.TagDeleteArgs<ExtArgs>,
+            args: Prisma.TagDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           update: {
-            args: Prisma.TagUpdateArgs<ExtArgs>,
+            args: Prisma.TagUpdateArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           deleteMany: {
-            args: Prisma.TagDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.TagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
           }
           updateMany: {
-            args: Prisma.TagUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
+            args: Prisma.TagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
           }
           upsert: {
-            args: Prisma.TagUpsertArgs<ExtArgs>,
+            args: Prisma.TagUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           aggregate: {
-            args: Prisma.TagAggregateArgs<ExtArgs>,
+            args: Prisma.TagAggregateArgs<ExtArgs>
             result: $Utils.Optional<AggregateTag>
           }
           groupBy: {
-            args: Prisma.TagGroupByArgs<ExtArgs>,
+            args: Prisma.TagGroupByArgs<ExtArgs>
             result: $Utils.Optional<TagGroupByOutputType>[]
           }
           count: {
-            args: Prisma.TagCountArgs<ExtArgs>,
+            args: Prisma.TagCountArgs<ExtArgs>
             result: $Utils.Optional<TagCountAggregateOutputType> | number
+          }
+        }
+      }
+      Message: {
+        payload: Prisma.$MessagePayload<ExtArgs>
+        fields: Prisma.MessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findMany: {
+            args: Prisma.MessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          create: {
+            args: Prisma.MessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          createMany: {
+            args: Prisma.MessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          update: {
+            args: Prisma.MessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessage>
+          }
+          groupBy: {
+            args: Prisma.MessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageCountAggregateOutputType> | number
+          }
+        }
+      }
+      Habit: {
+        payload: Prisma.$HabitPayload<ExtArgs>
+        fields: Prisma.HabitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HabitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HabitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>
+          }
+          findFirst: {
+            args: Prisma.HabitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HabitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>
+          }
+          findMany: {
+            args: Prisma.HabitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>[]
+          }
+          create: {
+            args: Prisma.HabitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>
+          }
+          createMany: {
+            args: Prisma.HabitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HabitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>[]
+          }
+          delete: {
+            args: Prisma.HabitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>
+          }
+          update: {
+            args: Prisma.HabitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>
+          }
+          deleteMany: {
+            args: Prisma.HabitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HabitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HabitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitPayload>
+          }
+          aggregate: {
+            args: Prisma.HabitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHabit>
+          }
+          groupBy: {
+            args: Prisma.HabitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HabitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HabitCountArgs<ExtArgs>
+            result: $Utils.Optional<HabitCountAggregateOutputType> | number
+          }
+        }
+      }
+      HabitLog: {
+        payload: Prisma.$HabitLogPayload<ExtArgs>
+        fields: Prisma.HabitLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HabitLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HabitLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>
+          }
+          findFirst: {
+            args: Prisma.HabitLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HabitLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>
+          }
+          findMany: {
+            args: Prisma.HabitLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>[]
+          }
+          create: {
+            args: Prisma.HabitLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>
+          }
+          createMany: {
+            args: Prisma.HabitLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HabitLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>[]
+          }
+          delete: {
+            args: Prisma.HabitLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>
+          }
+          update: {
+            args: Prisma.HabitLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.HabitLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HabitLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HabitLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HabitLogPayload>
+          }
+          aggregate: {
+            args: Prisma.HabitLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHabitLog>
+          }
+          groupBy: {
+            args: Prisma.HabitLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HabitLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HabitLogCountArgs<ExtArgs>
+            result: $Utils.Optional<HabitLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      Reminder: {
+        payload: Prisma.$ReminderPayload<ExtArgs>
+        fields: Prisma.ReminderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReminderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReminderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          findFirst: {
+            args: Prisma.ReminderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReminderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          findMany: {
+            args: Prisma.ReminderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+          }
+          create: {
+            args: Prisma.ReminderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          createMany: {
+            args: Prisma.ReminderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReminderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+          }
+          delete: {
+            args: Prisma.ReminderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          update: {
+            args: Prisma.ReminderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReminderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReminderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ReminderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          aggregate: {
+            args: Prisma.ReminderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReminder>
+          }
+          groupBy: {
+            args: Prisma.ReminderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReminderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReminderCountArgs<ExtArgs>
+            result: $Utils.Optional<ReminderCountAggregateOutputType> | number
           }
         }
       }
@@ -1122,15 +1459,11 @@ export namespace Prisma {
     other: {
       payload: any
       operations: {
-        $executeRawUnsafe: {
-          args: [query: string, ...values: any[]],
-          result: any
-        }
         $executeRaw: {
           args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
           result: any
         }
-        $queryRawUnsafe: {
+        $executeRawUnsafe: {
           args: [query: string, ...values: any[]],
           result: any
         }
@@ -1138,10 +1471,14 @@ export namespace Prisma {
           args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
           result: any
         }
+        $queryRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
       }
     }
   }
-  export const defineExtension: $Extensions.ExtendsHook<'define', Prisma.TypeMapCb, $Extensions.DefaultArgs>
+  export const defineExtension: $Extensions.ExtendsHook<"define", Prisma.TypeMapCb, $Extensions.DefaultArgs>
   export type DefaultPrismaClient = PrismaClient
   export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
   export interface PrismaClientOptions {
@@ -1186,6 +1523,7 @@ export namespace Prisma {
     }
   }
 
+
   /* Types for Logging */
   export type LogLevel = 'info' | 'query' | 'warn' | 'error'
   export type LogDefinition = {
@@ -1222,6 +1560,7 @@ export namespace Prisma {
     | 'findFirstOrThrow'
     | 'create'
     | 'createMany'
+    | 'createManyAndReturn'
     | 'update'
     | 'updateMany'
     | 'upsert'
@@ -1272,6 +1611,64 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    quotes: number
+    favorites: number
+    messages: number
+    habits: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quotes?: boolean | UserCountOutputTypeCountQuotesArgs
+    favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
+    messages?: boolean | UserCountOutputTypeCountMessagesArgs
+    habits?: boolean | UserCountOutputTypeCountHabitsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountQuotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFavoritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserFavoriteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountHabitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HabitWhereInput
+  }
+
+
+  /**
    * Count Type QuoteCountOutputType
    */
 
@@ -1286,7 +1683,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * QuoteCountOutputType without action
    */
@@ -1297,7 +1693,6 @@ export namespace Prisma {
     select?: QuoteCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * QuoteCountOutputType without action
    */
@@ -1305,58 +1700,12 @@ export namespace Prisma {
     where?: TagWhereInput
   }
 
-
   /**
    * QuoteCountOutputType without action
    */
   export type QuoteCountOutputTypeCountUserFavoriteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserFavoriteWhereInput
   }
-
-
-
-  /**
-   * Count Type UserCountOutputType
-   */
-
-  export type UserCountOutputType = {
-    quotes: number
-    favorites: number
-  }
-
-  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    quotes?: boolean | UserCountOutputTypeCountQuotesArgs
-    favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
-  }
-
-  // Custom InputTypes
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserCountOutputType
-     */
-    select?: UserCountOutputTypeSelect<ExtArgs> | null
-  }
-
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountQuotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: QuoteWhereInput
-  }
-
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountFavoritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserFavoriteWhereInput
-  }
-
 
 
   /**
@@ -1372,7 +1721,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * BookCountOutputType without action
    */
@@ -1383,14 +1731,12 @@ export namespace Prisma {
     select?: BookCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * BookCountOutputType without action
    */
   export type BookCountOutputTypeCountQuotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QuoteWhereInput
   }
-
 
 
   /**
@@ -1406,7 +1752,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * AuthorCountOutputType without action
    */
@@ -1417,14 +1762,12 @@ export namespace Prisma {
     select?: AuthorCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * AuthorCountOutputType without action
    */
   export type AuthorCountOutputTypeCountBooksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BookWhereInput
   }
-
 
 
   /**
@@ -1440,7 +1783,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * TagCountOutputType without action
    */
@@ -1451,7 +1793,6 @@ export namespace Prisma {
     select?: TagCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * TagCountOutputType without action
    */
@@ -1460,10 +1801,1095 @@ export namespace Prisma {
   }
 
 
+  /**
+   * Count Type HabitCountOutputType
+   */
+
+  export type HabitCountOutputType = {
+    reminders: number
+    habitLogs: number
+  }
+
+  export type HabitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reminders?: boolean | HabitCountOutputTypeCountRemindersArgs
+    habitLogs?: boolean | HabitCountOutputTypeCountHabitLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HabitCountOutputType without action
+   */
+  export type HabitCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitCountOutputType
+     */
+    select?: HabitCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HabitCountOutputType without action
+   */
+  export type HabitCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReminderWhereInput
+  }
+
+  /**
+   * HabitCountOutputType without action
+   */
+  export type HabitCountOutputTypeCountHabitLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HabitLogWhereInput
+  }
+
 
   /**
    * Models
    */
+
+  /**
+   * Model User
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    id: number | null
+    telegramId: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    id: number | null
+    telegramId: bigint | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    telegramId: bigint | null
+    timezone: string | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    telegramId: bigint | null
+    timezone: string | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    id: number
+    name: number
+    telegramId: number
+    timezone: number
+    _all: number
+  }
+
+
+  export type UserAvgAggregateInputType = {
+    id?: true
+    telegramId?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    id?: true
+    telegramId?: true
+  }
+
+  export type UserMinAggregateInputType = {
+    id?: true
+    name?: true
+    telegramId?: true
+    timezone?: true
+  }
+
+  export type UserMaxAggregateInputType = {
+    id?: true
+    name?: true
+    telegramId?: true
+    timezone?: true
+  }
+
+  export type UserCountAggregateInputType = {
+    id?: true
+    name?: true
+    telegramId?: true
+    timezone?: true
+    _all?: true
+  }
+
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which User to aggregate.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Users
+    **/
+    _count?: true | UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
+  }
+
+
+
+
+  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: UserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type UserGroupByOutputType = {
+    id: number
+    name: string
+    telegramId: bigint
+    timezone: string
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    telegramId?: boolean
+    timezone?: boolean
+    quotes?: boolean | User$quotesArgs<ExtArgs>
+    favorites?: boolean | User$favoritesArgs<ExtArgs>
+    messages?: boolean | User$messagesArgs<ExtArgs>
+    habits?: boolean | User$habitsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    telegramId?: boolean
+    timezone?: boolean
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectScalar = {
+    id?: boolean
+    name?: boolean
+    telegramId?: boolean
+    timezone?: boolean
+  }
+
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quotes?: boolean | User$quotesArgs<ExtArgs>
+    favorites?: boolean | User$favoritesArgs<ExtArgs>
+    messages?: boolean | User$messagesArgs<ExtArgs>
+    habits?: boolean | User$habitsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "User"
+    objects: {
+      quotes: Prisma.$QuotePayload<ExtArgs>[]
+      favorites: Prisma.$UserFavoritePayload<ExtArgs>[]
+      messages: Prisma.$MessagePayload<ExtArgs>[]
+      habits: Prisma.$HabitPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      telegramId: bigint
+      timezone: string
+    }, ExtArgs["result"]["user"]>
+    composites: {}
+  }
+
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
+
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserCountAggregateInputType | true
+    }
+
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Users.
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCountArgs>(
+      args?: Subset<T, UserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserGroupByArgs['orderBy'] }
+        : { orderBy?: UserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    quotes<T extends User$quotesArgs<ExtArgs> = {}>(args?: Subset<T, User$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany"> | Null>
+    favorites<T extends User$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "findMany"> | Null>
+    messages<T extends User$messagesArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
+    habits<T extends User$habitsArgs<ExtArgs> = {}>(args?: Subset<T, User$habitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the User model
+   */ 
+  interface UserFieldRefs {
+    readonly id: FieldRef<"User", 'Int'>
+    readonly name: FieldRef<"User", 'String'>
+    readonly telegramId: FieldRef<"User", 'BigInt'>
+    readonly timezone: FieldRef<"User", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * User findUnique
+   */
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findUniqueOrThrow
+   */
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findFirst
+   */
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findFirstOrThrow
+   */
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findMany
+   */
+  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which Users to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User create
+   */
+  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a User.
+     */
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
+  }
+
+  /**
+   * User createMany
+   */
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User createManyAndReturn
+   */
+  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User update
+   */
+  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a User.
+     */
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    /**
+     * Choose, which User to update.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User updateMany
+   */
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+  }
+
+  /**
+   * User upsert
+   */
+  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the User to update in case it exists.
+     */
+    where: UserWhereUniqueInput
+    /**
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
+     */
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+    /**
+     * In case the User was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+  }
+
+  /**
+   * User delete
+   */
+  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter which User to delete.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User deleteMany
+   */
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Users to delete
+     */
+    where?: UserWhereInput
+  }
+
+  /**
+   * User.quotes
+   */
+  export type User$quotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    where?: QuoteWhereInput
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    cursor?: QuoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
+   * User.favorites
+   */
+  export type User$favoritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFavorite
+     */
+    select?: UserFavoriteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFavoriteInclude<ExtArgs> | null
+    where?: UserFavoriteWhereInput
+    orderBy?: UserFavoriteOrderByWithRelationInput | UserFavoriteOrderByWithRelationInput[]
+    cursor?: UserFavoriteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserFavoriteScalarFieldEnum | UserFavoriteScalarFieldEnum[]
+  }
+
+  /**
+   * User.messages
+   */
+  export type User$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.habits
+   */
+  export type User$habitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    where?: HabitWhereInput
+    orderBy?: HabitOrderByWithRelationInput | HabitOrderByWithRelationInput[]
+    cursor?: HabitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HabitScalarFieldEnum | HabitScalarFieldEnum[]
+  }
+
+  /**
+   * User without action
+   */
+  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model Quote
@@ -1702,6 +3128,19 @@ export namespace Prisma {
     _count?: boolean | QuoteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["quote"]>
 
+  export type QuoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    meta?: boolean
+    content?: boolean
+    quotee?: boolean
+    userId?: boolean
+    deleted?: boolean
+    bookId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    book?: boolean | Quote$bookArgs<ExtArgs>
+  }, ExtArgs["result"]["quote"]>
+
   export type QuoteSelectScalar = {
     id?: boolean
     createdAt?: boolean
@@ -1720,7 +3159,10 @@ export namespace Prisma {
     userFavorite?: boolean | Quote$userFavoriteArgs<ExtArgs>
     _count?: boolean | QuoteCountOutputTypeDefaultArgs<ExtArgs>
   }
-
+  export type QuoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    book?: boolean | Quote$bookArgs<ExtArgs>
+  }
 
   export type $QuotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Quote"
@@ -1743,7 +3185,6 @@ export namespace Prisma {
     composites: {}
   }
 
-
   type QuoteGetPayload<S extends boolean | null | undefined | QuoteDefaultArgs> = $Result.GetResult<Prisma.$QuotePayload, S>
 
   type QuoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
@@ -1763,14 +3204,12 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUnique<T extends QuoteFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, QuoteFindUniqueArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+     */
+    findUnique<T extends QuoteFindUniqueArgs>(args: SelectSubset<T, QuoteFindUniqueArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
 
     /**
-     * Find one Quote that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Quote that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {QuoteFindUniqueOrThrowArgs} args - Arguments to find a Quote
      * @example
      * // Get one Quote
@@ -1779,10 +3218,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUniqueOrThrow<T extends QuoteFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, QuoteFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+     */
+    findUniqueOrThrow<T extends QuoteFindUniqueOrThrowArgs>(args: SelectSubset<T, QuoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
 
     /**
      * Find the first Quote that matches the filter.
@@ -1796,10 +3233,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirst<T extends QuoteFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, QuoteFindFirstArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+     */
+    findFirst<T extends QuoteFindFirstArgs>(args?: SelectSubset<T, QuoteFindFirstArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
 
     /**
      * Find the first Quote that matches the filter or
@@ -1814,16 +3249,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirstOrThrow<T extends QuoteFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, QuoteFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+     */
+    findFirstOrThrow<T extends QuoteFindFirstOrThrowArgs>(args?: SelectSubset<T, QuoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
 
     /**
      * Find zero or more Quotes that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuoteFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {QuoteFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Quotes
      * const quotes = await prisma.quote.findMany()
@@ -1834,10 +3267,8 @@ export namespace Prisma {
      * // Only select the `id`
      * const quoteWithIdOnly = await prisma.quote.findMany({ select: { id: true } })
      * 
-    **/
-    findMany<T extends QuoteFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, QuoteFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findMany'>>
+     */
+    findMany<T extends QuoteFindManyArgs>(args?: SelectSubset<T, QuoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany">>
 
     /**
      * Create a Quote.
@@ -1850,26 +3281,46 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    create<T extends QuoteCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, QuoteCreateArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+     */
+    create<T extends QuoteCreateArgs>(args: SelectSubset<T, QuoteCreateArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "create">, never, ExtArgs>
 
     /**
      * Create many Quotes.
-     *     @param {QuoteCreateManyArgs} args - Arguments to create many Quotes.
-     *     @example
-     *     // Create many Quotes
-     *     const quote = await prisma.quote.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {QuoteCreateManyArgs} args - Arguments to create many Quotes.
+     * @example
+     * // Create many Quotes
+     * const quote = await prisma.quote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
-    **/
-    createMany<T extends QuoteCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, QuoteCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    createMany<T extends QuoteCreateManyArgs>(args?: SelectSubset<T, QuoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Quotes and returns the data saved in the database.
+     * @param {QuoteCreateManyAndReturnArgs} args - Arguments to create many Quotes.
+     * @example
+     * // Create many Quotes
+     * const quote = await prisma.quote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Quotes and only return the `id`
+     * const quoteWithIdOnly = await prisma.quote.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuoteCreateManyAndReturnArgs>(args?: SelectSubset<T, QuoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a Quote.
@@ -1882,10 +3333,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    delete<T extends QuoteDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, QuoteDeleteArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+     */
+    delete<T extends QuoteDeleteArgs>(args: SelectSubset<T, QuoteDeleteArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "delete">, never, ExtArgs>
 
     /**
      * Update one Quote.
@@ -1901,10 +3350,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    update<T extends QuoteUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, QuoteUpdateArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+     */
+    update<T extends QuoteUpdateArgs>(args: SelectSubset<T, QuoteUpdateArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "update">, never, ExtArgs>
 
     /**
      * Delete zero or more Quotes.
@@ -1917,10 +3364,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    deleteMany<T extends QuoteDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, QuoteDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    deleteMany<T extends QuoteDeleteManyArgs>(args?: SelectSubset<T, QuoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Quotes.
@@ -1938,10 +3383,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    updateMany<T extends QuoteUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, QuoteUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    updateMany<T extends QuoteUpdateManyArgs>(args: SelectSubset<T, QuoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one Quote.
@@ -1959,10 +3402,9 @@ export namespace Prisma {
      *     // ... the filter for the Quote we want to update
      *   }
      * })
-    **/
-    upsert<T extends QuoteUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, QuoteUpsertArgs<ExtArgs>>
-    ): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+     */
+    upsert<T extends QuoteUpsertArgs>(args: SelectSubset<T, QuoteUpsertArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
 
     /**
      * Count the number of Quotes.
@@ -2102,37 +3544,33 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__QuoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
-    tags<T extends Quote$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Quote$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    book<T extends Quote$bookArgs<ExtArgs> = {}>(args?: Subset<T, Quote$bookArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
-
-    userFavorite<T extends Quote$userFavoriteArgs<ExtArgs> = {}>(args?: Subset<T, Quote$userFavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'findMany'> | Null>;
-
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tags<T extends Quote$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Quote$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany"> | Null>
+    book<T extends Quote$bookArgs<ExtArgs> = {}>(args?: Subset<T, Quote$bookArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    userFavorite<T extends Quote$userFavoriteArgs<ExtArgs> = {}>(args?: Subset<T, Quote$userFavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
   }
+
 
 
 
@@ -2152,7 +3590,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Quote findUnique
    */
@@ -2162,7 +3599,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2170,7 +3607,6 @@ export namespace Prisma {
      */
     where: QuoteWhereUniqueInput
   }
-
 
   /**
    * Quote findUniqueOrThrow
@@ -2181,7 +3617,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2189,7 +3625,6 @@ export namespace Prisma {
      */
     where: QuoteWhereUniqueInput
   }
-
 
   /**
    * Quote findFirst
@@ -2200,7 +3635,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2238,7 +3673,6 @@ export namespace Prisma {
      */
     distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
   }
-
 
   /**
    * Quote findFirstOrThrow
@@ -2249,7 +3683,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2288,7 +3722,6 @@ export namespace Prisma {
     distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
   }
 
-
   /**
    * Quote findMany
    */
@@ -2298,7 +3731,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2332,7 +3765,6 @@ export namespace Prisma {
     distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
   }
 
-
   /**
    * Quote create
    */
@@ -2342,7 +3774,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2350,7 +3782,6 @@ export namespace Prisma {
      */
     data: XOR<QuoteCreateInput, QuoteUncheckedCreateInput>
   }
-
 
   /**
    * Quote createMany
@@ -2363,6 +3794,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  /**
+   * Quote createManyAndReturn
+   */
+  export type QuoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Quotes.
+     */
+    data: QuoteCreateManyInput | QuoteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
 
   /**
    * Quote update
@@ -2373,7 +3822,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2385,7 +3834,6 @@ export namespace Prisma {
      */
     where: QuoteWhereUniqueInput
   }
-
 
   /**
    * Quote updateMany
@@ -2401,7 +3849,6 @@ export namespace Prisma {
     where?: QuoteWhereInput
   }
 
-
   /**
    * Quote upsert
    */
@@ -2411,7 +3858,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2428,7 +3875,6 @@ export namespace Prisma {
     update: XOR<QuoteUpdateInput, QuoteUncheckedUpdateInput>
   }
 
-
   /**
    * Quote delete
    */
@@ -2438,7 +3884,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     /**
@@ -2446,7 +3892,6 @@ export namespace Prisma {
      */
     where: QuoteWhereUniqueInput
   }
-
 
   /**
    * Quote deleteMany
@@ -2458,7 +3903,6 @@ export namespace Prisma {
     where?: QuoteWhereInput
   }
 
-
   /**
    * Quote.tags
    */
@@ -2468,7 +3912,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     where?: TagWhereInput
@@ -2479,7 +3923,6 @@ export namespace Prisma {
     distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
 
-
   /**
    * Quote.book
    */
@@ -2489,12 +3932,11 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     where?: BookWhereInput
   }
-
 
   /**
    * Quote.userFavorite
@@ -2505,7 +3947,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     where?: UserFavoriteWhereInput
@@ -2515,7 +3957,6 @@ export namespace Prisma {
     skip?: number
     distinct?: UserFavoriteScalarFieldEnum | UserFavoriteScalarFieldEnum[]
   }
-
 
   /**
    * Quote without action
@@ -2526,979 +3967,10 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
   }
-
-
-
-  /**
-   * Model User
-   */
-
-  export type AggregateUser = {
-    _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserMinAggregateOutputType = {
-    id: number | null
-    name: string | null
-  }
-
-  export type UserMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
-  }
-
-  export type UserCountAggregateOutputType = {
-    id: number
-    name: number
-    _all: number
-  }
-
-
-  export type UserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    id?: true
-  }
-
-  export type UserMinAggregateInputType = {
-    id?: true
-    name?: true
-  }
-
-  export type UserMaxAggregateInputType = {
-    id?: true
-    name?: true
-  }
-
-  export type UserCountAggregateInputType = {
-    id?: true
-    name?: true
-    _all?: true
-  }
-
-  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which User to aggregate.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Users
-    **/
-    _count?: true | UserCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: UserMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: UserMaxAggregateInputType
-  }
-
-  export type GetUserAggregateType<T extends UserAggregateArgs> = {
-        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUser[P]>
-      : GetScalarType<T[P], AggregateUser[P]>
-  }
-
-
-
-
-  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
-    by: UserScalarFieldEnum[] | UserScalarFieldEnum
-    having?: UserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
-    _min?: UserMinAggregateInputType
-    _max?: UserMaxAggregateInputType
-  }
-
-  export type UserGroupByOutputType = {
-    id: number
-    name: string
-    _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
-
-  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<UserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UserGroupByOutputType[P]>
-            : GetScalarType<T[P], UserGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    quotes?: boolean | User$quotesArgs<ExtArgs>
-    favorites?: boolean | User$favoritesArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectScalar = {
-    id?: boolean
-    name?: boolean
-  }
-
-  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    quotes?: boolean | User$quotesArgs<ExtArgs>
-    favorites?: boolean | User$favoritesArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-
-  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "User"
-    objects: {
-      quotes: Prisma.$QuotePayload<ExtArgs>[]
-      favorites: Prisma.$UserFavoritePayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string
-    }, ExtArgs["result"]["user"]>
-    composites: {}
-  }
-
-
-  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
-
-  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: UserCountAggregateInputType | true
-    }
-
-  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
-    /**
-     * Find zero or one User that matches the filter.
-     * @param {UserFindUniqueArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends UserFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one User that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first User that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindFirstArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends UserFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first User that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends UserFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more Users that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Users
-     * const users = await prisma.user.findMany()
-     * 
-     * // Get first 10 Users
-     * const users = await prisma.user.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends UserFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a User.
-     * @param {UserCreateArgs} args - Arguments to create a User.
-     * @example
-     * // Create one User
-     * const User = await prisma.user.create({
-     *   data: {
-     *     // ... data to create a User
-     *   }
-     * })
-     * 
-    **/
-    create<T extends UserCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, UserCreateArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many Users.
-     *     @param {UserCreateManyArgs} args - Arguments to create many Users.
-     *     @example
-     *     // Create many Users
-     *     const user = await prisma.user.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends UserCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a User.
-     * @param {UserDeleteArgs} args - Arguments to delete one User.
-     * @example
-     * // Delete one User
-     * const User = await prisma.user.delete({
-     *   where: {
-     *     // ... filter to delete one User
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends UserDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, UserDeleteArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one User.
-     * @param {UserUpdateArgs} args - Arguments to update one User.
-     * @example
-     * // Update one User
-     * const user = await prisma.user.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends UserUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, UserUpdateArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more Users.
-     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
-     * @example
-     * // Delete a few Users
-     * const { count } = await prisma.user.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends UserDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends UserUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one User.
-     * @param {UserUpsertArgs} args - Arguments to update or create a User.
-     * @example
-     * // Update or create a User
-     * const user = await prisma.user.upsert({
-     *   create: {
-     *     // ... data to create a User
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the User we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends UserUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, UserUpsertArgs<ExtArgs>>
-    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserCountArgs} args - Arguments to filter Users to count.
-     * @example
-     * // Count the number of Users
-     * const count = await prisma.user.count({
-     *   where: {
-     *     // ... the filter for the Users we want to count
-     *   }
-     * })
-    **/
-    count<T extends UserCountArgs>(
-      args?: Subset<T, UserCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UserCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a User.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
-
-    /**
-     * Group by User.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends UserGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserGroupByArgs['orderBy'] }
-        : { orderBy?: UserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the User model
-   */
-  readonly fields: UserFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for User.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    quotes<T extends User$quotesArgs<ExtArgs> = {}>(args?: Subset<T, User$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    favorites<T extends User$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the User model
-   */ 
-  interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'Int'>
-    readonly name: FieldRef<"User", 'String'>
-  }
-    
-
-  // Custom InputTypes
-
-  /**
-   * User findUnique
-   */
-  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where: UserWhereUniqueInput
-  }
-
-
-  /**
-   * User findUniqueOrThrow
-   */
-  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where: UserWhereUniqueInput
-  }
-
-
-  /**
-   * User findFirst
-   */
-  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-
-  /**
-   * User findFirstOrThrow
-   */
-  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-
-  /**
-   * User findMany
-   */
-  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which Users to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-
-  /**
-   * User create
-   */
-  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The data needed to create a User.
-     */
-    data: XOR<UserCreateInput, UserUncheckedCreateInput>
-  }
-
-
-  /**
-   * User createMany
-   */
-  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * User update
-   */
-  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The data needed to update a User.
-     */
-    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-    /**
-     * Choose, which User to update.
-     */
-    where: UserWhereUniqueInput
-  }
-
-
-  /**
-   * User updateMany
-   */
-  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-  }
-
-
-  /**
-   * User upsert
-   */
-  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The filter to search for the User to update in case it exists.
-     */
-    where: UserWhereUniqueInput
-    /**
-     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
-     */
-    create: XOR<UserCreateInput, UserUncheckedCreateInput>
-    /**
-     * In case the User was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-  }
-
-
-  /**
-   * User delete
-   */
-  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter which User to delete.
-     */
-    where: UserWhereUniqueInput
-  }
-
-
-  /**
-   * User deleteMany
-   */
-  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Users to delete
-     */
-    where?: UserWhereInput
-  }
-
-
-  /**
-   * User.quotes
-   */
-  export type User$quotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Quote
-     */
-    select?: QuoteSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: QuoteInclude<ExtArgs> | null
-    where?: QuoteWhereInput
-    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
-    cursor?: QuoteWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
-  }
-
-
-  /**
-   * User.favorites
-   */
-  export type User$favoritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserFavorite
-     */
-    select?: UserFavoriteSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserFavoriteInclude<ExtArgs> | null
-    where?: UserFavoriteWhereInput
-    orderBy?: UserFavoriteOrderByWithRelationInput | UserFavoriteOrderByWithRelationInput[]
-    cursor?: UserFavoriteWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UserFavoriteScalarFieldEnum | UserFavoriteScalarFieldEnum[]
-  }
-
-
-  /**
-   * User without action
-   */
-  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude<ExtArgs> | null
-  }
-
 
 
   /**
@@ -3683,6 +4155,13 @@ export namespace Prisma {
     quote?: boolean | QuoteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userFavorite"]>
 
+  export type UserFavoriteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    quoteId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userFavorite"]>
+
   export type UserFavoriteSelectScalar = {
     userId?: boolean
     quoteId?: boolean
@@ -3692,7 +4171,10 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     quote?: boolean | QuoteDefaultArgs<ExtArgs>
   }
-
+  export type UserFavoriteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }
 
   export type $UserFavoritePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserFavorite"
@@ -3706,7 +4188,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["userFavorite"]>
     composites: {}
   }
-
 
   type UserFavoriteGetPayload<S extends boolean | null | undefined | UserFavoriteDefaultArgs> = $Result.GetResult<Prisma.$UserFavoritePayload, S>
 
@@ -3727,14 +4208,12 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUnique<T extends UserFavoriteFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, UserFavoriteFindUniqueArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+     */
+    findUnique<T extends UserFavoriteFindUniqueArgs>(args: SelectSubset<T, UserFavoriteFindUniqueArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
 
     /**
-     * Find one UserFavorite that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one UserFavorite that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {UserFavoriteFindUniqueOrThrowArgs} args - Arguments to find a UserFavorite
      * @example
      * // Get one UserFavorite
@@ -3743,10 +4222,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUniqueOrThrow<T extends UserFavoriteFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFavoriteFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+     */
+    findUniqueOrThrow<T extends UserFavoriteFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFavoriteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
 
     /**
      * Find the first UserFavorite that matches the filter.
@@ -3760,10 +4237,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirst<T extends UserFavoriteFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFavoriteFindFirstArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+     */
+    findFirst<T extends UserFavoriteFindFirstArgs>(args?: SelectSubset<T, UserFavoriteFindFirstArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
 
     /**
      * Find the first UserFavorite that matches the filter or
@@ -3778,16 +4253,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirstOrThrow<T extends UserFavoriteFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFavoriteFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+     */
+    findFirstOrThrow<T extends UserFavoriteFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFavoriteFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
 
     /**
      * Find zero or more UserFavorites that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFavoriteFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {UserFavoriteFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all UserFavorites
      * const userFavorites = await prisma.userFavorite.findMany()
@@ -3798,10 +4271,8 @@ export namespace Prisma {
      * // Only select the `userId`
      * const userFavoriteWithUserIdOnly = await prisma.userFavorite.findMany({ select: { userId: true } })
      * 
-    **/
-    findMany<T extends UserFavoriteFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFavoriteFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'findMany'>>
+     */
+    findMany<T extends UserFavoriteFindManyArgs>(args?: SelectSubset<T, UserFavoriteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "findMany">>
 
     /**
      * Create a UserFavorite.
@@ -3814,26 +4285,46 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    create<T extends UserFavoriteCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, UserFavoriteCreateArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+     */
+    create<T extends UserFavoriteCreateArgs>(args: SelectSubset<T, UserFavoriteCreateArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "create">, never, ExtArgs>
 
     /**
      * Create many UserFavorites.
-     *     @param {UserFavoriteCreateManyArgs} args - Arguments to create many UserFavorites.
-     *     @example
-     *     // Create many UserFavorites
-     *     const userFavorite = await prisma.userFavorite.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {UserFavoriteCreateManyArgs} args - Arguments to create many UserFavorites.
+     * @example
+     * // Create many UserFavorites
+     * const userFavorite = await prisma.userFavorite.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
-    **/
-    createMany<T extends UserFavoriteCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFavoriteCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    createMany<T extends UserFavoriteCreateManyArgs>(args?: SelectSubset<T, UserFavoriteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserFavorites and returns the data saved in the database.
+     * @param {UserFavoriteCreateManyAndReturnArgs} args - Arguments to create many UserFavorites.
+     * @example
+     * // Create many UserFavorites
+     * const userFavorite = await prisma.userFavorite.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserFavorites and only return the `userId`
+     * const userFavoriteWithUserIdOnly = await prisma.userFavorite.createManyAndReturn({ 
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserFavoriteCreateManyAndReturnArgs>(args?: SelectSubset<T, UserFavoriteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a UserFavorite.
@@ -3846,10 +4337,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    delete<T extends UserFavoriteDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, UserFavoriteDeleteArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+     */
+    delete<T extends UserFavoriteDeleteArgs>(args: SelectSubset<T, UserFavoriteDeleteArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "delete">, never, ExtArgs>
 
     /**
      * Update one UserFavorite.
@@ -3865,10 +4354,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    update<T extends UserFavoriteUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, UserFavoriteUpdateArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+     */
+    update<T extends UserFavoriteUpdateArgs>(args: SelectSubset<T, UserFavoriteUpdateArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "update">, never, ExtArgs>
 
     /**
      * Delete zero or more UserFavorites.
@@ -3881,10 +4368,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    deleteMany<T extends UserFavoriteDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, UserFavoriteDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    deleteMany<T extends UserFavoriteDeleteManyArgs>(args?: SelectSubset<T, UserFavoriteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more UserFavorites.
@@ -3902,10 +4387,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    updateMany<T extends UserFavoriteUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, UserFavoriteUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    updateMany<T extends UserFavoriteUpdateManyArgs>(args: SelectSubset<T, UserFavoriteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one UserFavorite.
@@ -3923,10 +4406,9 @@ export namespace Prisma {
      *     // ... the filter for the UserFavorite we want to update
      *   }
      * })
-    **/
-    upsert<T extends UserFavoriteUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, UserFavoriteUpsertArgs<ExtArgs>>
-    ): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+     */
+    upsert<T extends UserFavoriteUpsertArgs>(args: SelectSubset<T, UserFavoriteUpsertArgs<ExtArgs>>): Prisma__UserFavoriteClient<$Result.GetResult<Prisma.$UserFavoritePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
 
     /**
      * Count the number of UserFavorites.
@@ -4066,33 +4548,31 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__UserFavoriteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
-    quote<T extends QuoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuoteDefaultArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    quote<T extends QuoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuoteDefaultArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
   }
+
 
 
 
@@ -4106,7 +4586,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * UserFavorite findUnique
    */
@@ -4116,7 +4595,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4124,7 +4603,6 @@ export namespace Prisma {
      */
     where: UserFavoriteWhereUniqueInput
   }
-
 
   /**
    * UserFavorite findUniqueOrThrow
@@ -4135,7 +4613,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4143,7 +4621,6 @@ export namespace Prisma {
      */
     where: UserFavoriteWhereUniqueInput
   }
-
 
   /**
    * UserFavorite findFirst
@@ -4154,7 +4631,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4192,7 +4669,6 @@ export namespace Prisma {
      */
     distinct?: UserFavoriteScalarFieldEnum | UserFavoriteScalarFieldEnum[]
   }
-
 
   /**
    * UserFavorite findFirstOrThrow
@@ -4203,7 +4679,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4242,7 +4718,6 @@ export namespace Prisma {
     distinct?: UserFavoriteScalarFieldEnum | UserFavoriteScalarFieldEnum[]
   }
 
-
   /**
    * UserFavorite findMany
    */
@@ -4252,7 +4727,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4286,7 +4761,6 @@ export namespace Prisma {
     distinct?: UserFavoriteScalarFieldEnum | UserFavoriteScalarFieldEnum[]
   }
 
-
   /**
    * UserFavorite create
    */
@@ -4296,7 +4770,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4304,7 +4778,6 @@ export namespace Prisma {
      */
     data: XOR<UserFavoriteCreateInput, UserFavoriteUncheckedCreateInput>
   }
-
 
   /**
    * UserFavorite createMany
@@ -4317,6 +4790,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  /**
+   * UserFavorite createManyAndReturn
+   */
+  export type UserFavoriteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFavorite
+     */
+    select?: UserFavoriteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many UserFavorites.
+     */
+    data: UserFavoriteCreateManyInput | UserFavoriteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFavoriteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
 
   /**
    * UserFavorite update
@@ -4327,7 +4818,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4339,7 +4830,6 @@ export namespace Prisma {
      */
     where: UserFavoriteWhereUniqueInput
   }
-
 
   /**
    * UserFavorite updateMany
@@ -4355,7 +4845,6 @@ export namespace Prisma {
     where?: UserFavoriteWhereInput
   }
 
-
   /**
    * UserFavorite upsert
    */
@@ -4365,7 +4854,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4382,7 +4871,6 @@ export namespace Prisma {
     update: XOR<UserFavoriteUpdateInput, UserFavoriteUncheckedUpdateInput>
   }
 
-
   /**
    * UserFavorite delete
    */
@@ -4392,7 +4880,7 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
     /**
@@ -4400,7 +4888,6 @@ export namespace Prisma {
      */
     where: UserFavoriteWhereUniqueInput
   }
-
 
   /**
    * UserFavorite deleteMany
@@ -4412,7 +4899,6 @@ export namespace Prisma {
     where?: UserFavoriteWhereInput
   }
 
-
   /**
    * UserFavorite without action
    */
@@ -4422,11 +4908,10 @@ export namespace Prisma {
      */
     select?: UserFavoriteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: UserFavoriteInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -4628,6 +5113,14 @@ export namespace Prisma {
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
 
+  export type BookSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    authorId?: boolean
+    source?: boolean
+    author?: boolean | AuthorDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book"]>
+
   export type BookSelectScalar = {
     id?: boolean
     title?: boolean
@@ -4640,7 +5133,9 @@ export namespace Prisma {
     quotes?: boolean | Book$quotesArgs<ExtArgs>
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
   }
-
+  export type BookIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | AuthorDefaultArgs<ExtArgs>
+  }
 
   export type $BookPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Book"
@@ -4656,7 +5151,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["book"]>
     composites: {}
   }
-
 
   type BookGetPayload<S extends boolean | null | undefined | BookDefaultArgs> = $Result.GetResult<Prisma.$BookPayload, S>
 
@@ -4677,14 +5171,12 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUnique<T extends BookFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, BookFindUniqueArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+     */
+    findUnique<T extends BookFindUniqueArgs>(args: SelectSubset<T, BookFindUniqueArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
 
     /**
-     * Find one Book that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Book that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {BookFindUniqueOrThrowArgs} args - Arguments to find a Book
      * @example
      * // Get one Book
@@ -4693,10 +5185,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUniqueOrThrow<T extends BookFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BookFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+     */
+    findUniqueOrThrow<T extends BookFindUniqueOrThrowArgs>(args: SelectSubset<T, BookFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
 
     /**
      * Find the first Book that matches the filter.
@@ -4710,10 +5200,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirst<T extends BookFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, BookFindFirstArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+     */
+    findFirst<T extends BookFindFirstArgs>(args?: SelectSubset<T, BookFindFirstArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
 
     /**
      * Find the first Book that matches the filter or
@@ -4728,16 +5216,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirstOrThrow<T extends BookFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BookFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+     */
+    findFirstOrThrow<T extends BookFindFirstOrThrowArgs>(args?: SelectSubset<T, BookFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
 
     /**
      * Find zero or more Books that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BookFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {BookFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Books
      * const books = await prisma.book.findMany()
@@ -4748,10 +5234,8 @@ export namespace Prisma {
      * // Only select the `id`
      * const bookWithIdOnly = await prisma.book.findMany({ select: { id: true } })
      * 
-    **/
-    findMany<T extends BookFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BookFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'findMany'>>
+     */
+    findMany<T extends BookFindManyArgs>(args?: SelectSubset<T, BookFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findMany">>
 
     /**
      * Create a Book.
@@ -4764,26 +5248,46 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    create<T extends BookCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, BookCreateArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+     */
+    create<T extends BookCreateArgs>(args: SelectSubset<T, BookCreateArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "create">, never, ExtArgs>
 
     /**
      * Create many Books.
-     *     @param {BookCreateManyArgs} args - Arguments to create many Books.
-     *     @example
-     *     // Create many Books
-     *     const book = await prisma.book.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {BookCreateManyArgs} args - Arguments to create many Books.
+     * @example
+     * // Create many Books
+     * const book = await prisma.book.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
-    **/
-    createMany<T extends BookCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BookCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    createMany<T extends BookCreateManyArgs>(args?: SelectSubset<T, BookCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Books and returns the data saved in the database.
+     * @param {BookCreateManyAndReturnArgs} args - Arguments to create many Books.
+     * @example
+     * // Create many Books
+     * const book = await prisma.book.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Books and only return the `id`
+     * const bookWithIdOnly = await prisma.book.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BookCreateManyAndReturnArgs>(args?: SelectSubset<T, BookCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a Book.
@@ -4796,10 +5300,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    delete<T extends BookDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, BookDeleteArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+     */
+    delete<T extends BookDeleteArgs>(args: SelectSubset<T, BookDeleteArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "delete">, never, ExtArgs>
 
     /**
      * Update one Book.
@@ -4815,10 +5317,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    update<T extends BookUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, BookUpdateArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+     */
+    update<T extends BookUpdateArgs>(args: SelectSubset<T, BookUpdateArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "update">, never, ExtArgs>
 
     /**
      * Delete zero or more Books.
@@ -4831,10 +5331,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    deleteMany<T extends BookDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BookDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    deleteMany<T extends BookDeleteManyArgs>(args?: SelectSubset<T, BookDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Books.
@@ -4852,10 +5350,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    updateMany<T extends BookUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, BookUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    updateMany<T extends BookUpdateManyArgs>(args: SelectSubset<T, BookUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one Book.
@@ -4873,10 +5369,9 @@ export namespace Prisma {
      *     // ... the filter for the Book we want to update
      *   }
      * })
-    **/
-    upsert<T extends BookUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, BookUpsertArgs<ExtArgs>>
-    ): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+     */
+    upsert<T extends BookUpsertArgs>(args: SelectSubset<T, BookUpsertArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
 
     /**
      * Count the number of Books.
@@ -5016,33 +5511,31 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__BookClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    author<T extends AuthorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AuthorDefaultArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
-    quotes<T extends Book$quotesArgs<ExtArgs> = {}>(args?: Subset<T, Book$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findMany'> | Null>;
-
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    author<T extends AuthorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AuthorDefaultArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    quotes<T extends Book$quotesArgs<ExtArgs> = {}>(args?: Subset<T, Book$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
   }
+
 
 
 
@@ -5058,7 +5551,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Book findUnique
    */
@@ -5068,7 +5560,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5076,7 +5568,6 @@ export namespace Prisma {
      */
     where: BookWhereUniqueInput
   }
-
 
   /**
    * Book findUniqueOrThrow
@@ -5087,7 +5578,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5095,7 +5586,6 @@ export namespace Prisma {
      */
     where: BookWhereUniqueInput
   }
-
 
   /**
    * Book findFirst
@@ -5106,7 +5596,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5144,7 +5634,6 @@ export namespace Prisma {
      */
     distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
   }
-
 
   /**
    * Book findFirstOrThrow
@@ -5155,7 +5644,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5194,7 +5683,6 @@ export namespace Prisma {
     distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
   }
 
-
   /**
    * Book findMany
    */
@@ -5204,7 +5692,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5238,7 +5726,6 @@ export namespace Prisma {
     distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
   }
 
-
   /**
    * Book create
    */
@@ -5248,7 +5735,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5256,7 +5743,6 @@ export namespace Prisma {
      */
     data: XOR<BookCreateInput, BookUncheckedCreateInput>
   }
-
 
   /**
    * Book createMany
@@ -5269,6 +5755,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  /**
+   * Book createManyAndReturn
+   */
+  export type BookCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Books.
+     */
+    data: BookCreateManyInput | BookCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookIncludeCreateManyAndReturn<ExtArgs> | null
+  }
 
   /**
    * Book update
@@ -5279,7 +5783,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5291,7 +5795,6 @@ export namespace Prisma {
      */
     where: BookWhereUniqueInput
   }
-
 
   /**
    * Book updateMany
@@ -5307,7 +5810,6 @@ export namespace Prisma {
     where?: BookWhereInput
   }
 
-
   /**
    * Book upsert
    */
@@ -5317,7 +5819,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5334,7 +5836,6 @@ export namespace Prisma {
     update: XOR<BookUpdateInput, BookUncheckedUpdateInput>
   }
 
-
   /**
    * Book delete
    */
@@ -5344,7 +5845,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     /**
@@ -5352,7 +5853,6 @@ export namespace Prisma {
      */
     where: BookWhereUniqueInput
   }
-
 
   /**
    * Book deleteMany
@@ -5364,7 +5864,6 @@ export namespace Prisma {
     where?: BookWhereInput
   }
 
-
   /**
    * Book.quotes
    */
@@ -5374,7 +5873,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     where?: QuoteWhereInput
@@ -5385,7 +5884,6 @@ export namespace Prisma {
     distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
   }
 
-
   /**
    * Book without action
    */
@@ -5395,11 +5893,10 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -5580,6 +6077,11 @@ export namespace Prisma {
     _count?: boolean | AuthorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["author"]>
 
+  export type AuthorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["author"]>
+
   export type AuthorSelectScalar = {
     id?: boolean
     name?: boolean
@@ -5589,7 +6091,7 @@ export namespace Prisma {
     books?: boolean | Author$booksArgs<ExtArgs>
     _count?: boolean | AuthorCountOutputTypeDefaultArgs<ExtArgs>
   }
-
+  export type AuthorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $AuthorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Author"
@@ -5602,7 +6104,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["author"]>
     composites: {}
   }
-
 
   type AuthorGetPayload<S extends boolean | null | undefined | AuthorDefaultArgs> = $Result.GetResult<Prisma.$AuthorPayload, S>
 
@@ -5623,14 +6124,12 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUnique<T extends AuthorFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, AuthorFindUniqueArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+     */
+    findUnique<T extends AuthorFindUniqueArgs>(args: SelectSubset<T, AuthorFindUniqueArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
 
     /**
-     * Find one Author that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Author that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {AuthorFindUniqueOrThrowArgs} args - Arguments to find a Author
      * @example
      * // Get one Author
@@ -5639,10 +6138,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUniqueOrThrow<T extends AuthorFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, AuthorFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+     */
+    findUniqueOrThrow<T extends AuthorFindUniqueOrThrowArgs>(args: SelectSubset<T, AuthorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
 
     /**
      * Find the first Author that matches the filter.
@@ -5656,10 +6153,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirst<T extends AuthorFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, AuthorFindFirstArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+     */
+    findFirst<T extends AuthorFindFirstArgs>(args?: SelectSubset<T, AuthorFindFirstArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
 
     /**
      * Find the first Author that matches the filter or
@@ -5674,16 +6169,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirstOrThrow<T extends AuthorFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, AuthorFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+     */
+    findFirstOrThrow<T extends AuthorFindFirstOrThrowArgs>(args?: SelectSubset<T, AuthorFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
 
     /**
      * Find zero or more Authors that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AuthorFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {AuthorFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Authors
      * const authors = await prisma.author.findMany()
@@ -5694,10 +6187,8 @@ export namespace Prisma {
      * // Only select the `id`
      * const authorWithIdOnly = await prisma.author.findMany({ select: { id: true } })
      * 
-    **/
-    findMany<T extends AuthorFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, AuthorFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'findMany'>>
+     */
+    findMany<T extends AuthorFindManyArgs>(args?: SelectSubset<T, AuthorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findMany">>
 
     /**
      * Create a Author.
@@ -5710,26 +6201,46 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    create<T extends AuthorCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, AuthorCreateArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+     */
+    create<T extends AuthorCreateArgs>(args: SelectSubset<T, AuthorCreateArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "create">, never, ExtArgs>
 
     /**
      * Create many Authors.
-     *     @param {AuthorCreateManyArgs} args - Arguments to create many Authors.
-     *     @example
-     *     // Create many Authors
-     *     const author = await prisma.author.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {AuthorCreateManyArgs} args - Arguments to create many Authors.
+     * @example
+     * // Create many Authors
+     * const author = await prisma.author.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
-    **/
-    createMany<T extends AuthorCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, AuthorCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    createMany<T extends AuthorCreateManyArgs>(args?: SelectSubset<T, AuthorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Authors and returns the data saved in the database.
+     * @param {AuthorCreateManyAndReturnArgs} args - Arguments to create many Authors.
+     * @example
+     * // Create many Authors
+     * const author = await prisma.author.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Authors and only return the `id`
+     * const authorWithIdOnly = await prisma.author.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuthorCreateManyAndReturnArgs>(args?: SelectSubset<T, AuthorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a Author.
@@ -5742,10 +6253,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    delete<T extends AuthorDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, AuthorDeleteArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+     */
+    delete<T extends AuthorDeleteArgs>(args: SelectSubset<T, AuthorDeleteArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "delete">, never, ExtArgs>
 
     /**
      * Update one Author.
@@ -5761,10 +6270,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    update<T extends AuthorUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, AuthorUpdateArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+     */
+    update<T extends AuthorUpdateArgs>(args: SelectSubset<T, AuthorUpdateArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "update">, never, ExtArgs>
 
     /**
      * Delete zero or more Authors.
@@ -5777,10 +6284,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    deleteMany<T extends AuthorDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, AuthorDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    deleteMany<T extends AuthorDeleteManyArgs>(args?: SelectSubset<T, AuthorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Authors.
@@ -5798,10 +6303,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    updateMany<T extends AuthorUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, AuthorUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    updateMany<T extends AuthorUpdateManyArgs>(args: SelectSubset<T, AuthorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one Author.
@@ -5819,10 +6322,9 @@ export namespace Prisma {
      *     // ... the filter for the Author we want to update
      *   }
      * })
-    **/
-    upsert<T extends AuthorUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, AuthorUpsertArgs<ExtArgs>>
-    ): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+     */
+    upsert<T extends AuthorUpsertArgs>(args: SelectSubset<T, AuthorUpsertArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
 
     /**
      * Count the number of Authors.
@@ -5962,31 +6464,30 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__AuthorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    books<T extends Author$booksArgs<ExtArgs> = {}>(args?: Subset<T, Author$booksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, 'findMany'> | Null>;
-
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    books<T extends Author$booksArgs<ExtArgs> = {}>(args?: Subset<T, Author$booksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
   }
+
 
 
 
@@ -6000,7 +6501,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Author findUnique
    */
@@ -6010,7 +6510,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6018,7 +6518,6 @@ export namespace Prisma {
      */
     where: AuthorWhereUniqueInput
   }
-
 
   /**
    * Author findUniqueOrThrow
@@ -6029,7 +6528,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6037,7 +6536,6 @@ export namespace Prisma {
      */
     where: AuthorWhereUniqueInput
   }
-
 
   /**
    * Author findFirst
@@ -6048,7 +6546,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6086,7 +6584,6 @@ export namespace Prisma {
      */
     distinct?: AuthorScalarFieldEnum | AuthorScalarFieldEnum[]
   }
-
 
   /**
    * Author findFirstOrThrow
@@ -6097,7 +6594,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6136,7 +6633,6 @@ export namespace Prisma {
     distinct?: AuthorScalarFieldEnum | AuthorScalarFieldEnum[]
   }
 
-
   /**
    * Author findMany
    */
@@ -6146,7 +6642,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6180,7 +6676,6 @@ export namespace Prisma {
     distinct?: AuthorScalarFieldEnum | AuthorScalarFieldEnum[]
   }
 
-
   /**
    * Author create
    */
@@ -6190,7 +6685,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6198,7 +6693,6 @@ export namespace Prisma {
      */
     data: XOR<AuthorCreateInput, AuthorUncheckedCreateInput>
   }
-
 
   /**
    * Author createMany
@@ -6211,6 +6705,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  /**
+   * Author createManyAndReturn
+   */
+  export type AuthorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Author
+     */
+    select?: AuthorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Authors.
+     */
+    data: AuthorCreateManyInput | AuthorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
 
   /**
    * Author update
@@ -6221,7 +6729,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6233,7 +6741,6 @@ export namespace Prisma {
      */
     where: AuthorWhereUniqueInput
   }
-
 
   /**
    * Author updateMany
@@ -6249,7 +6756,6 @@ export namespace Prisma {
     where?: AuthorWhereInput
   }
 
-
   /**
    * Author upsert
    */
@@ -6259,7 +6765,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6276,7 +6782,6 @@ export namespace Prisma {
     update: XOR<AuthorUpdateInput, AuthorUncheckedUpdateInput>
   }
 
-
   /**
    * Author delete
    */
@@ -6286,7 +6791,7 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
     /**
@@ -6294,7 +6799,6 @@ export namespace Prisma {
      */
     where: AuthorWhereUniqueInput
   }
-
 
   /**
    * Author deleteMany
@@ -6306,7 +6810,6 @@ export namespace Prisma {
     where?: AuthorWhereInput
   }
 
-
   /**
    * Author.books
    */
@@ -6316,7 +6819,7 @@ export namespace Prisma {
      */
     select?: BookSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: BookInclude<ExtArgs> | null
     where?: BookWhereInput
@@ -6327,7 +6830,6 @@ export namespace Prisma {
     distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
   }
 
-
   /**
    * Author without action
    */
@@ -6337,11 +6839,10 @@ export namespace Prisma {
      */
     select?: AuthorSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: AuthorInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -6522,6 +7023,11 @@ export namespace Prisma {
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tag"]>
 
+  export type TagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["tag"]>
+
   export type TagSelectScalar = {
     id?: boolean
     name?: boolean
@@ -6531,7 +7037,7 @@ export namespace Prisma {
     quotes?: boolean | Tag$quotesArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }
-
+  export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $TagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tag"
@@ -6544,7 +7050,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["tag"]>
     composites: {}
   }
-
 
   type TagGetPayload<S extends boolean | null | undefined | TagDefaultArgs> = $Result.GetResult<Prisma.$TagPayload, S>
 
@@ -6565,14 +7070,12 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUnique<T extends TagFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, TagFindUniqueArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+     */
+    findUnique<T extends TagFindUniqueArgs>(args: SelectSubset<T, TagFindUniqueArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
 
     /**
-     * Find one Tag that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Tag that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {TagFindUniqueOrThrowArgs} args - Arguments to find a Tag
      * @example
      * // Get one Tag
@@ -6581,10 +7084,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUniqueOrThrow<T extends TagFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, TagFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+     */
+    findUniqueOrThrow<T extends TagFindUniqueOrThrowArgs>(args: SelectSubset<T, TagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
 
     /**
      * Find the first Tag that matches the filter.
@@ -6598,10 +7099,8 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirst<T extends TagFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, TagFindFirstArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+     */
+    findFirst<T extends TagFindFirstArgs>(args?: SelectSubset<T, TagFindFirstArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
 
     /**
      * Find the first Tag that matches the filter or
@@ -6616,16 +7115,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirstOrThrow<T extends TagFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, TagFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+     */
+    findFirstOrThrow<T extends TagFindFirstOrThrowArgs>(args?: SelectSubset<T, TagFindFirstOrThrowArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
 
     /**
      * Find zero or more Tags that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TagFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {TagFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Tags
      * const tags = await prisma.tag.findMany()
@@ -6636,10 +7133,8 @@ export namespace Prisma {
      * // Only select the `id`
      * const tagWithIdOnly = await prisma.tag.findMany({ select: { id: true } })
      * 
-    **/
-    findMany<T extends TagFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, TagFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'findMany'>>
+     */
+    findMany<T extends TagFindManyArgs>(args?: SelectSubset<T, TagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany">>
 
     /**
      * Create a Tag.
@@ -6652,26 +7147,46 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    create<T extends TagCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, TagCreateArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+     */
+    create<T extends TagCreateArgs>(args: SelectSubset<T, TagCreateArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "create">, never, ExtArgs>
 
     /**
      * Create many Tags.
-     *     @param {TagCreateManyArgs} args - Arguments to create many Tags.
-     *     @example
-     *     // Create many Tags
-     *     const tag = await prisma.tag.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {TagCreateManyArgs} args - Arguments to create many Tags.
+     * @example
+     * // Create many Tags
+     * const tag = await prisma.tag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
-    **/
-    createMany<T extends TagCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, TagCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    createMany<T extends TagCreateManyArgs>(args?: SelectSubset<T, TagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tags and returns the data saved in the database.
+     * @param {TagCreateManyAndReturnArgs} args - Arguments to create many Tags.
+     * @example
+     * // Create many Tags
+     * const tag = await prisma.tag.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tags and only return the `id`
+     * const tagWithIdOnly = await prisma.tag.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TagCreateManyAndReturnArgs>(args?: SelectSubset<T, TagCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a Tag.
@@ -6684,10 +7199,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    delete<T extends TagDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, TagDeleteArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+     */
+    delete<T extends TagDeleteArgs>(args: SelectSubset<T, TagDeleteArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "delete">, never, ExtArgs>
 
     /**
      * Update one Tag.
@@ -6703,10 +7216,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    update<T extends TagUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, TagUpdateArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+     */
+    update<T extends TagUpdateArgs>(args: SelectSubset<T, TagUpdateArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "update">, never, ExtArgs>
 
     /**
      * Delete zero or more Tags.
@@ -6719,10 +7230,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    deleteMany<T extends TagDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, TagDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    deleteMany<T extends TagDeleteManyArgs>(args?: SelectSubset<T, TagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Tags.
@@ -6740,10 +7249,8 @@ export namespace Prisma {
      *   }
      * })
      * 
-    **/
-    updateMany<T extends TagUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, TagUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
+     */
+    updateMany<T extends TagUpdateManyArgs>(args: SelectSubset<T, TagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one Tag.
@@ -6761,10 +7268,9 @@ export namespace Prisma {
      *     // ... the filter for the Tag we want to update
      *   }
      * })
-    **/
-    upsert<T extends TagUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, TagUpsertArgs<ExtArgs>>
-    ): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+     */
+    upsert<T extends TagUpsertArgs>(args: SelectSubset<T, TagUpsertArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
 
     /**
      * Count the number of Tags.
@@ -6904,31 +7410,30 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__TagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    quotes<T extends Tag$quotesArgs<ExtArgs> = {}>(args?: Subset<T, Tag$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, 'findMany'> | Null>;
-
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    quotes<T extends Tag$quotesArgs<ExtArgs> = {}>(args?: Subset<T, Tag$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
   }
+
 
 
 
@@ -6942,7 +7447,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Tag findUnique
    */
@@ -6952,7 +7456,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -6960,7 +7464,6 @@ export namespace Prisma {
      */
     where: TagWhereUniqueInput
   }
-
 
   /**
    * Tag findUniqueOrThrow
@@ -6971,7 +7474,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -6979,7 +7482,6 @@ export namespace Prisma {
      */
     where: TagWhereUniqueInput
   }
-
 
   /**
    * Tag findFirst
@@ -6990,7 +7492,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -7028,7 +7530,6 @@ export namespace Prisma {
      */
     distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
-
 
   /**
    * Tag findFirstOrThrow
@@ -7039,7 +7540,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -7078,7 +7579,6 @@ export namespace Prisma {
     distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
 
-
   /**
    * Tag findMany
    */
@@ -7088,7 +7588,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -7122,7 +7622,6 @@ export namespace Prisma {
     distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
 
-
   /**
    * Tag create
    */
@@ -7132,7 +7631,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -7140,7 +7639,6 @@ export namespace Prisma {
      */
     data: XOR<TagCreateInput, TagUncheckedCreateInput>
   }
-
 
   /**
    * Tag createMany
@@ -7153,6 +7651,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  /**
+   * Tag createManyAndReturn
+   */
+  export type TagCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Tags.
+     */
+    data: TagCreateManyInput | TagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
 
   /**
    * Tag update
@@ -7163,7 +7675,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -7175,7 +7687,6 @@ export namespace Prisma {
      */
     where: TagWhereUniqueInput
   }
-
 
   /**
    * Tag updateMany
@@ -7191,7 +7702,6 @@ export namespace Prisma {
     where?: TagWhereInput
   }
 
-
   /**
    * Tag upsert
    */
@@ -7201,7 +7711,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -7218,7 +7728,6 @@ export namespace Prisma {
     update: XOR<TagUpdateInput, TagUncheckedUpdateInput>
   }
 
-
   /**
    * Tag delete
    */
@@ -7228,7 +7737,7 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
     /**
@@ -7236,7 +7745,6 @@ export namespace Prisma {
      */
     where: TagWhereUniqueInput
   }
-
 
   /**
    * Tag deleteMany
@@ -7248,7 +7756,6 @@ export namespace Prisma {
     where?: TagWhereInput
   }
 
-
   /**
    * Tag.quotes
    */
@@ -7258,7 +7765,7 @@ export namespace Prisma {
      */
     select?: QuoteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
     where?: QuoteWhereInput
@@ -7269,7 +7776,6 @@ export namespace Prisma {
     distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
   }
 
-
   /**
    * Tag without action
    */
@@ -7279,11 +7785,3884 @@ export namespace Prisma {
      */
     select?: TagSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Choose, which related nodes to fetch as well
      */
     include?: TagInclude<ExtArgs> | null
   }
 
+
+  /**
+   * Model Message
+   */
+
+  export type AggregateMessage = {
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  export type MessageAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type MessageSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type MessageMinAggregateOutputType = {
+    id: number | null
+    text: string | null
+    userId: number | null
+    created: Date | null
+  }
+
+  export type MessageMaxAggregateOutputType = {
+    id: number | null
+    text: string | null
+    userId: number | null
+    created: Date | null
+  }
+
+  export type MessageCountAggregateOutputType = {
+    id: number
+    text: number
+    userId: number
+    created: number
+    _all: number
+  }
+
+
+  export type MessageAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type MessageSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type MessageMinAggregateInputType = {
+    id?: true
+    text?: true
+    userId?: true
+    created?: true
+  }
+
+  export type MessageMaxAggregateInputType = {
+    id?: true
+    text?: true
+    userId?: true
+    created?: true
+  }
+
+  export type MessageCountAggregateInputType = {
+    id?: true
+    text?: true
+    userId?: true
+    created?: true
+    _all?: true
+  }
+
+  export type MessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Message to aggregate.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Messages
+    **/
+    _count?: true | MessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MessageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MessageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type GetMessageAggregateType<T extends MessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessage[P]>
+      : GetScalarType<T[P], AggregateMessage[P]>
+  }
+
+
+
+
+  export type MessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithAggregationInput | MessageOrderByWithAggregationInput[]
+    by: MessageScalarFieldEnum[] | MessageScalarFieldEnum
+    having?: MessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageCountAggregateInputType | true
+    _avg?: MessageAvgAggregateInputType
+    _sum?: MessageSumAggregateInputType
+    _min?: MessageMinAggregateInputType
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type MessageGroupByOutputType = {
+    id: number
+    text: string
+    userId: number
+    created: Date
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  type GetMessageGroupByPayload<T extends MessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    userId?: boolean
+    created?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    userId?: boolean
+    created?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectScalar = {
+    id?: boolean
+    text?: boolean
+    userId?: boolean
+    created?: boolean
+  }
+
+  export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Message"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      text: string
+      userId: number
+      created: Date
+    }, ExtArgs["result"]["message"]>
+    composites: {}
+  }
+
+  type MessageGetPayload<S extends boolean | null | undefined | MessageDefaultArgs> = $Result.GetResult<Prisma.$MessagePayload, S>
+
+  type MessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MessageFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MessageCountAggregateInputType | true
+    }
+
+  export interface MessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Message'], meta: { name: 'Message' } }
+    /**
+     * Find zero or one Message that matches the filter.
+     * @param {MessageFindUniqueArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageFindUniqueArgs>(args: SelectSubset<T, MessageFindUniqueArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Message that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MessageFindUniqueOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Message that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageFindFirstArgs>(args?: SelectSubset<T, MessageFindFirstArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Message that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Messages
+     * const messages = await prisma.message.findMany()
+     * 
+     * // Get first 10 Messages
+     * const messages = await prisma.message.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messageWithIdOnly = await prisma.message.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessageFindManyArgs>(args?: SelectSubset<T, MessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Message.
+     * @param {MessageCreateArgs} args - Arguments to create a Message.
+     * @example
+     * // Create one Message
+     * const Message = await prisma.message.create({
+     *   data: {
+     *     // ... data to create a Message
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageCreateArgs>(args: SelectSubset<T, MessageCreateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Messages.
+     * @param {MessageCreateManyArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageCreateManyArgs>(args?: SelectSubset<T, MessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Messages and returns the data saved in the database.
+     * @param {MessageCreateManyAndReturnArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Messages and only return the `id`
+     * const messageWithIdOnly = await prisma.message.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Message.
+     * @param {MessageDeleteArgs} args - Arguments to delete one Message.
+     * @example
+     * // Delete one Message
+     * const Message = await prisma.message.delete({
+     *   where: {
+     *     // ... filter to delete one Message
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageDeleteArgs>(args: SelectSubset<T, MessageDeleteArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Message.
+     * @param {MessageUpdateArgs} args - Arguments to update one Message.
+     * @example
+     * // Update one Message
+     * const message = await prisma.message.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageUpdateArgs>(args: SelectSubset<T, MessageUpdateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Messages.
+     * @param {MessageDeleteManyArgs} args - Arguments to filter Messages to delete.
+     * @example
+     * // Delete a few Messages
+     * const { count } = await prisma.message.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageDeleteManyArgs>(args?: SelectSubset<T, MessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageUpdateManyArgs>(args: SelectSubset<T, MessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Message.
+     * @param {MessageUpsertArgs} args - Arguments to update or create a Message.
+     * @example
+     * // Update or create a Message
+     * const message = await prisma.message.upsert({
+     *   create: {
+     *     // ... data to create a Message
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Message we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageUpsertArgs>(args: SelectSubset<T, MessageUpsertArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageCountArgs} args - Arguments to filter Messages to count.
+     * @example
+     * // Count the number of Messages
+     * const count = await prisma.message.count({
+     *   where: {
+     *     // ... the filter for the Messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageCountArgs>(
+      args?: Subset<T, MessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageAggregateArgs>(args: Subset<T, MessageAggregateArgs>): Prisma.PrismaPromise<GetMessageAggregateType<T>>
+
+    /**
+     * Group by Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageGroupByArgs['orderBy'] }
+        : { orderBy?: MessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Message model
+   */
+  readonly fields: MessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Message.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Message model
+   */ 
+  interface MessageFieldRefs {
+    readonly id: FieldRef<"Message", 'Int'>
+    readonly text: FieldRef<"Message", 'String'>
+    readonly userId: FieldRef<"Message", 'Int'>
+    readonly created: FieldRef<"Message", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Message findUnique
+   */
+  export type MessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findUniqueOrThrow
+   */
+  export type MessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findFirst
+   */
+  export type MessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findFirstOrThrow
+   */
+  export type MessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findMany
+   */
+  export type MessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message create
+   */
+  export type MessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Message.
+     */
+    data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+  }
+
+  /**
+   * Message createMany
+   */
+  export type MessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Message createManyAndReturn
+   */
+  export type MessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Message update
+   */
+  export type MessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Message.
+     */
+    data: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+    /**
+     * Choose, which Message to update.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message updateMany
+   */
+  export type MessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+  }
+
+  /**
+   * Message upsert
+   */
+  export type MessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Message to update in case it exists.
+     */
+    where: MessageWhereUniqueInput
+    /**
+     * In case the Message found by the `where` argument doesn't exist, create a new Message with this data.
+     */
+    create: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+    /**
+     * In case the Message was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+  }
+
+  /**
+   * Message delete
+   */
+  export type MessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter which Message to delete.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message deleteMany
+   */
+  export type MessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Messages to delete
+     */
+    where?: MessageWhereInput
+  }
+
+  /**
+   * Message without action
+   */
+  export type MessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Habit
+   */
+
+  export type AggregateHabit = {
+    _count: HabitCountAggregateOutputType | null
+    _avg: HabitAvgAggregateOutputType | null
+    _sum: HabitSumAggregateOutputType | null
+    _min: HabitMinAggregateOutputType | null
+    _max: HabitMaxAggregateOutputType | null
+  }
+
+  export type HabitAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type HabitSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type HabitMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    name: string | null
+    dataType: string | null
+  }
+
+  export type HabitMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    name: string | null
+    dataType: string | null
+  }
+
+  export type HabitCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    dataType: number
+    _all: number
+  }
+
+
+  export type HabitAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type HabitSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type HabitMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    dataType?: true
+  }
+
+  export type HabitMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    dataType?: true
+  }
+
+  export type HabitCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    dataType?: true
+    _all?: true
+  }
+
+  export type HabitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Habit to aggregate.
+     */
+    where?: HabitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Habits to fetch.
+     */
+    orderBy?: HabitOrderByWithRelationInput | HabitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HabitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Habits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Habits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Habits
+    **/
+    _count?: true | HabitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HabitAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HabitSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HabitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HabitMaxAggregateInputType
+  }
+
+  export type GetHabitAggregateType<T extends HabitAggregateArgs> = {
+        [P in keyof T & keyof AggregateHabit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHabit[P]>
+      : GetScalarType<T[P], AggregateHabit[P]>
+  }
+
+
+
+
+  export type HabitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HabitWhereInput
+    orderBy?: HabitOrderByWithAggregationInput | HabitOrderByWithAggregationInput[]
+    by: HabitScalarFieldEnum[] | HabitScalarFieldEnum
+    having?: HabitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HabitCountAggregateInputType | true
+    _avg?: HabitAvgAggregateInputType
+    _sum?: HabitSumAggregateInputType
+    _min?: HabitMinAggregateInputType
+    _max?: HabitMaxAggregateInputType
+  }
+
+  export type HabitGroupByOutputType = {
+    id: number
+    userId: number
+    name: string
+    dataType: string
+    _count: HabitCountAggregateOutputType | null
+    _avg: HabitAvgAggregateOutputType | null
+    _sum: HabitSumAggregateOutputType | null
+    _min: HabitMinAggregateOutputType | null
+    _max: HabitMaxAggregateOutputType | null
+  }
+
+  type GetHabitGroupByPayload<T extends HabitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HabitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HabitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HabitGroupByOutputType[P]>
+            : GetScalarType<T[P], HabitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HabitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    dataType?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    reminders?: boolean | Habit$remindersArgs<ExtArgs>
+    habitLogs?: boolean | Habit$habitLogsArgs<ExtArgs>
+    _count?: boolean | HabitCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["habit"]>
+
+  export type HabitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    dataType?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["habit"]>
+
+  export type HabitSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    dataType?: boolean
+  }
+
+  export type HabitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    reminders?: boolean | Habit$remindersArgs<ExtArgs>
+    habitLogs?: boolean | Habit$habitLogsArgs<ExtArgs>
+    _count?: boolean | HabitCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type HabitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $HabitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Habit"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      reminders: Prisma.$ReminderPayload<ExtArgs>[]
+      habitLogs: Prisma.$HabitLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      name: string
+      dataType: string
+    }, ExtArgs["result"]["habit"]>
+    composites: {}
+  }
+
+  type HabitGetPayload<S extends boolean | null | undefined | HabitDefaultArgs> = $Result.GetResult<Prisma.$HabitPayload, S>
+
+  type HabitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HabitFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: HabitCountAggregateInputType | true
+    }
+
+  export interface HabitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Habit'], meta: { name: 'Habit' } }
+    /**
+     * Find zero or one Habit that matches the filter.
+     * @param {HabitFindUniqueArgs} args - Arguments to find a Habit
+     * @example
+     * // Get one Habit
+     * const habit = await prisma.habit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HabitFindUniqueArgs>(args: SelectSubset<T, HabitFindUniqueArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Habit that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {HabitFindUniqueOrThrowArgs} args - Arguments to find a Habit
+     * @example
+     * // Get one Habit
+     * const habit = await prisma.habit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HabitFindUniqueOrThrowArgs>(args: SelectSubset<T, HabitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Habit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitFindFirstArgs} args - Arguments to find a Habit
+     * @example
+     * // Get one Habit
+     * const habit = await prisma.habit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HabitFindFirstArgs>(args?: SelectSubset<T, HabitFindFirstArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Habit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitFindFirstOrThrowArgs} args - Arguments to find a Habit
+     * @example
+     * // Get one Habit
+     * const habit = await prisma.habit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HabitFindFirstOrThrowArgs>(args?: SelectSubset<T, HabitFindFirstOrThrowArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Habits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Habits
+     * const habits = await prisma.habit.findMany()
+     * 
+     * // Get first 10 Habits
+     * const habits = await prisma.habit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const habitWithIdOnly = await prisma.habit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HabitFindManyArgs>(args?: SelectSubset<T, HabitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Habit.
+     * @param {HabitCreateArgs} args - Arguments to create a Habit.
+     * @example
+     * // Create one Habit
+     * const Habit = await prisma.habit.create({
+     *   data: {
+     *     // ... data to create a Habit
+     *   }
+     * })
+     * 
+     */
+    create<T extends HabitCreateArgs>(args: SelectSubset<T, HabitCreateArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Habits.
+     * @param {HabitCreateManyArgs} args - Arguments to create many Habits.
+     * @example
+     * // Create many Habits
+     * const habit = await prisma.habit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HabitCreateManyArgs>(args?: SelectSubset<T, HabitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Habits and returns the data saved in the database.
+     * @param {HabitCreateManyAndReturnArgs} args - Arguments to create many Habits.
+     * @example
+     * // Create many Habits
+     * const habit = await prisma.habit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Habits and only return the `id`
+     * const habitWithIdOnly = await prisma.habit.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HabitCreateManyAndReturnArgs>(args?: SelectSubset<T, HabitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Habit.
+     * @param {HabitDeleteArgs} args - Arguments to delete one Habit.
+     * @example
+     * // Delete one Habit
+     * const Habit = await prisma.habit.delete({
+     *   where: {
+     *     // ... filter to delete one Habit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HabitDeleteArgs>(args: SelectSubset<T, HabitDeleteArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Habit.
+     * @param {HabitUpdateArgs} args - Arguments to update one Habit.
+     * @example
+     * // Update one Habit
+     * const habit = await prisma.habit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HabitUpdateArgs>(args: SelectSubset<T, HabitUpdateArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Habits.
+     * @param {HabitDeleteManyArgs} args - Arguments to filter Habits to delete.
+     * @example
+     * // Delete a few Habits
+     * const { count } = await prisma.habit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HabitDeleteManyArgs>(args?: SelectSubset<T, HabitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Habits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Habits
+     * const habit = await prisma.habit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HabitUpdateManyArgs>(args: SelectSubset<T, HabitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Habit.
+     * @param {HabitUpsertArgs} args - Arguments to update or create a Habit.
+     * @example
+     * // Update or create a Habit
+     * const habit = await prisma.habit.upsert({
+     *   create: {
+     *     // ... data to create a Habit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Habit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HabitUpsertArgs>(args: SelectSubset<T, HabitUpsertArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Habits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitCountArgs} args - Arguments to filter Habits to count.
+     * @example
+     * // Count the number of Habits
+     * const count = await prisma.habit.count({
+     *   where: {
+     *     // ... the filter for the Habits we want to count
+     *   }
+     * })
+    **/
+    count<T extends HabitCountArgs>(
+      args?: Subset<T, HabitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HabitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Habit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HabitAggregateArgs>(args: Subset<T, HabitAggregateArgs>): Prisma.PrismaPromise<GetHabitAggregateType<T>>
+
+    /**
+     * Group by Habit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HabitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HabitGroupByArgs['orderBy'] }
+        : { orderBy?: HabitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HabitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHabitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Habit model
+   */
+  readonly fields: HabitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Habit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HabitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    reminders<T extends Habit$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Habit$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany"> | Null>
+    habitLogs<T extends Habit$habitLogsArgs<ExtArgs> = {}>(args?: Subset<T, Habit$habitLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Habit model
+   */ 
+  interface HabitFieldRefs {
+    readonly id: FieldRef<"Habit", 'Int'>
+    readonly userId: FieldRef<"Habit", 'Int'>
+    readonly name: FieldRef<"Habit", 'String'>
+    readonly dataType: FieldRef<"Habit", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Habit findUnique
+   */
+  export type HabitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * Filter, which Habit to fetch.
+     */
+    where: HabitWhereUniqueInput
+  }
+
+  /**
+   * Habit findUniqueOrThrow
+   */
+  export type HabitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * Filter, which Habit to fetch.
+     */
+    where: HabitWhereUniqueInput
+  }
+
+  /**
+   * Habit findFirst
+   */
+  export type HabitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * Filter, which Habit to fetch.
+     */
+    where?: HabitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Habits to fetch.
+     */
+    orderBy?: HabitOrderByWithRelationInput | HabitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Habits.
+     */
+    cursor?: HabitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Habits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Habits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Habits.
+     */
+    distinct?: HabitScalarFieldEnum | HabitScalarFieldEnum[]
+  }
+
+  /**
+   * Habit findFirstOrThrow
+   */
+  export type HabitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * Filter, which Habit to fetch.
+     */
+    where?: HabitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Habits to fetch.
+     */
+    orderBy?: HabitOrderByWithRelationInput | HabitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Habits.
+     */
+    cursor?: HabitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Habits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Habits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Habits.
+     */
+    distinct?: HabitScalarFieldEnum | HabitScalarFieldEnum[]
+  }
+
+  /**
+   * Habit findMany
+   */
+  export type HabitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * Filter, which Habits to fetch.
+     */
+    where?: HabitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Habits to fetch.
+     */
+    orderBy?: HabitOrderByWithRelationInput | HabitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Habits.
+     */
+    cursor?: HabitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Habits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Habits.
+     */
+    skip?: number
+    distinct?: HabitScalarFieldEnum | HabitScalarFieldEnum[]
+  }
+
+  /**
+   * Habit create
+   */
+  export type HabitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Habit.
+     */
+    data: XOR<HabitCreateInput, HabitUncheckedCreateInput>
+  }
+
+  /**
+   * Habit createMany
+   */
+  export type HabitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Habits.
+     */
+    data: HabitCreateManyInput | HabitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Habit createManyAndReturn
+   */
+  export type HabitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Habits.
+     */
+    data: HabitCreateManyInput | HabitCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Habit update
+   */
+  export type HabitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Habit.
+     */
+    data: XOR<HabitUpdateInput, HabitUncheckedUpdateInput>
+    /**
+     * Choose, which Habit to update.
+     */
+    where: HabitWhereUniqueInput
+  }
+
+  /**
+   * Habit updateMany
+   */
+  export type HabitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Habits.
+     */
+    data: XOR<HabitUpdateManyMutationInput, HabitUncheckedUpdateManyInput>
+    /**
+     * Filter which Habits to update
+     */
+    where?: HabitWhereInput
+  }
+
+  /**
+   * Habit upsert
+   */
+  export type HabitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Habit to update in case it exists.
+     */
+    where: HabitWhereUniqueInput
+    /**
+     * In case the Habit found by the `where` argument doesn't exist, create a new Habit with this data.
+     */
+    create: XOR<HabitCreateInput, HabitUncheckedCreateInput>
+    /**
+     * In case the Habit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HabitUpdateInput, HabitUncheckedUpdateInput>
+  }
+
+  /**
+   * Habit delete
+   */
+  export type HabitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+    /**
+     * Filter which Habit to delete.
+     */
+    where: HabitWhereUniqueInput
+  }
+
+  /**
+   * Habit deleteMany
+   */
+  export type HabitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Habits to delete
+     */
+    where?: HabitWhereInput
+  }
+
+  /**
+   * Habit.reminders
+   */
+  export type Habit$remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    where?: ReminderWhereInput
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    cursor?: ReminderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * Habit.habitLogs
+   */
+  export type Habit$habitLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    where?: HabitLogWhereInput
+    orderBy?: HabitLogOrderByWithRelationInput | HabitLogOrderByWithRelationInput[]
+    cursor?: HabitLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HabitLogScalarFieldEnum | HabitLogScalarFieldEnum[]
+  }
+
+  /**
+   * Habit without action
+   */
+  export type HabitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Habit
+     */
+    select?: HabitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HabitLog
+   */
+
+  export type AggregateHabitLog = {
+    _count: HabitLogCountAggregateOutputType | null
+    _avg: HabitLogAvgAggregateOutputType | null
+    _sum: HabitLogSumAggregateOutputType | null
+    _min: HabitLogMinAggregateOutputType | null
+    _max: HabitLogMaxAggregateOutputType | null
+  }
+
+  export type HabitLogAvgAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+  }
+
+  export type HabitLogSumAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+  }
+
+  export type HabitLogMinAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+    date: Date | null
+    value: string | null
+  }
+
+  export type HabitLogMaxAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+    date: Date | null
+    value: string | null
+  }
+
+  export type HabitLogCountAggregateOutputType = {
+    id: number
+    habitId: number
+    date: number
+    value: number
+    _all: number
+  }
+
+
+  export type HabitLogAvgAggregateInputType = {
+    id?: true
+    habitId?: true
+  }
+
+  export type HabitLogSumAggregateInputType = {
+    id?: true
+    habitId?: true
+  }
+
+  export type HabitLogMinAggregateInputType = {
+    id?: true
+    habitId?: true
+    date?: true
+    value?: true
+  }
+
+  export type HabitLogMaxAggregateInputType = {
+    id?: true
+    habitId?: true
+    date?: true
+    value?: true
+  }
+
+  export type HabitLogCountAggregateInputType = {
+    id?: true
+    habitId?: true
+    date?: true
+    value?: true
+    _all?: true
+  }
+
+  export type HabitLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HabitLog to aggregate.
+     */
+    where?: HabitLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HabitLogs to fetch.
+     */
+    orderBy?: HabitLogOrderByWithRelationInput | HabitLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HabitLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HabitLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HabitLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HabitLogs
+    **/
+    _count?: true | HabitLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HabitLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HabitLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HabitLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HabitLogMaxAggregateInputType
+  }
+
+  export type GetHabitLogAggregateType<T extends HabitLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateHabitLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHabitLog[P]>
+      : GetScalarType<T[P], AggregateHabitLog[P]>
+  }
+
+
+
+
+  export type HabitLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HabitLogWhereInput
+    orderBy?: HabitLogOrderByWithAggregationInput | HabitLogOrderByWithAggregationInput[]
+    by: HabitLogScalarFieldEnum[] | HabitLogScalarFieldEnum
+    having?: HabitLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HabitLogCountAggregateInputType | true
+    _avg?: HabitLogAvgAggregateInputType
+    _sum?: HabitLogSumAggregateInputType
+    _min?: HabitLogMinAggregateInputType
+    _max?: HabitLogMaxAggregateInputType
+  }
+
+  export type HabitLogGroupByOutputType = {
+    id: number
+    habitId: number
+    date: Date
+    value: string
+    _count: HabitLogCountAggregateOutputType | null
+    _avg: HabitLogAvgAggregateOutputType | null
+    _sum: HabitLogSumAggregateOutputType | null
+    _min: HabitLogMinAggregateOutputType | null
+    _max: HabitLogMaxAggregateOutputType | null
+  }
+
+  type GetHabitLogGroupByPayload<T extends HabitLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HabitLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HabitLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HabitLogGroupByOutputType[P]>
+            : GetScalarType<T[P], HabitLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HabitLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    habitId?: boolean
+    date?: boolean
+    value?: boolean
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["habitLog"]>
+
+  export type HabitLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    habitId?: boolean
+    date?: boolean
+    value?: boolean
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["habitLog"]>
+
+  export type HabitLogSelectScalar = {
+    id?: boolean
+    habitId?: boolean
+    date?: boolean
+    value?: boolean
+  }
+
+  export type HabitLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }
+  export type HabitLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }
+
+  export type $HabitLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HabitLog"
+    objects: {
+      habit: Prisma.$HabitPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      habitId: number
+      date: Date
+      value: string
+    }, ExtArgs["result"]["habitLog"]>
+    composites: {}
+  }
+
+  type HabitLogGetPayload<S extends boolean | null | undefined | HabitLogDefaultArgs> = $Result.GetResult<Prisma.$HabitLogPayload, S>
+
+  type HabitLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HabitLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: HabitLogCountAggregateInputType | true
+    }
+
+  export interface HabitLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HabitLog'], meta: { name: 'HabitLog' } }
+    /**
+     * Find zero or one HabitLog that matches the filter.
+     * @param {HabitLogFindUniqueArgs} args - Arguments to find a HabitLog
+     * @example
+     * // Get one HabitLog
+     * const habitLog = await prisma.habitLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HabitLogFindUniqueArgs>(args: SelectSubset<T, HabitLogFindUniqueArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one HabitLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {HabitLogFindUniqueOrThrowArgs} args - Arguments to find a HabitLog
+     * @example
+     * // Get one HabitLog
+     * const habitLog = await prisma.habitLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HabitLogFindUniqueOrThrowArgs>(args: SelectSubset<T, HabitLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first HabitLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitLogFindFirstArgs} args - Arguments to find a HabitLog
+     * @example
+     * // Get one HabitLog
+     * const habitLog = await prisma.habitLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HabitLogFindFirstArgs>(args?: SelectSubset<T, HabitLogFindFirstArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first HabitLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitLogFindFirstOrThrowArgs} args - Arguments to find a HabitLog
+     * @example
+     * // Get one HabitLog
+     * const habitLog = await prisma.habitLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HabitLogFindFirstOrThrowArgs>(args?: SelectSubset<T, HabitLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more HabitLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HabitLogs
+     * const habitLogs = await prisma.habitLog.findMany()
+     * 
+     * // Get first 10 HabitLogs
+     * const habitLogs = await prisma.habitLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const habitLogWithIdOnly = await prisma.habitLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HabitLogFindManyArgs>(args?: SelectSubset<T, HabitLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a HabitLog.
+     * @param {HabitLogCreateArgs} args - Arguments to create a HabitLog.
+     * @example
+     * // Create one HabitLog
+     * const HabitLog = await prisma.habitLog.create({
+     *   data: {
+     *     // ... data to create a HabitLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends HabitLogCreateArgs>(args: SelectSubset<T, HabitLogCreateArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many HabitLogs.
+     * @param {HabitLogCreateManyArgs} args - Arguments to create many HabitLogs.
+     * @example
+     * // Create many HabitLogs
+     * const habitLog = await prisma.habitLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HabitLogCreateManyArgs>(args?: SelectSubset<T, HabitLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HabitLogs and returns the data saved in the database.
+     * @param {HabitLogCreateManyAndReturnArgs} args - Arguments to create many HabitLogs.
+     * @example
+     * // Create many HabitLogs
+     * const habitLog = await prisma.habitLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HabitLogs and only return the `id`
+     * const habitLogWithIdOnly = await prisma.habitLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HabitLogCreateManyAndReturnArgs>(args?: SelectSubset<T, HabitLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a HabitLog.
+     * @param {HabitLogDeleteArgs} args - Arguments to delete one HabitLog.
+     * @example
+     * // Delete one HabitLog
+     * const HabitLog = await prisma.habitLog.delete({
+     *   where: {
+     *     // ... filter to delete one HabitLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HabitLogDeleteArgs>(args: SelectSubset<T, HabitLogDeleteArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one HabitLog.
+     * @param {HabitLogUpdateArgs} args - Arguments to update one HabitLog.
+     * @example
+     * // Update one HabitLog
+     * const habitLog = await prisma.habitLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HabitLogUpdateArgs>(args: SelectSubset<T, HabitLogUpdateArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more HabitLogs.
+     * @param {HabitLogDeleteManyArgs} args - Arguments to filter HabitLogs to delete.
+     * @example
+     * // Delete a few HabitLogs
+     * const { count } = await prisma.habitLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HabitLogDeleteManyArgs>(args?: SelectSubset<T, HabitLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HabitLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HabitLogs
+     * const habitLog = await prisma.habitLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HabitLogUpdateManyArgs>(args: SelectSubset<T, HabitLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HabitLog.
+     * @param {HabitLogUpsertArgs} args - Arguments to update or create a HabitLog.
+     * @example
+     * // Update or create a HabitLog
+     * const habitLog = await prisma.habitLog.upsert({
+     *   create: {
+     *     // ... data to create a HabitLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HabitLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HabitLogUpsertArgs>(args: SelectSubset<T, HabitLogUpsertArgs<ExtArgs>>): Prisma__HabitLogClient<$Result.GetResult<Prisma.$HabitLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of HabitLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitLogCountArgs} args - Arguments to filter HabitLogs to count.
+     * @example
+     * // Count the number of HabitLogs
+     * const count = await prisma.habitLog.count({
+     *   where: {
+     *     // ... the filter for the HabitLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends HabitLogCountArgs>(
+      args?: Subset<T, HabitLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HabitLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HabitLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HabitLogAggregateArgs>(args: Subset<T, HabitLogAggregateArgs>): Prisma.PrismaPromise<GetHabitLogAggregateType<T>>
+
+    /**
+     * Group by HabitLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HabitLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HabitLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HabitLogGroupByArgs['orderBy'] }
+        : { orderBy?: HabitLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HabitLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHabitLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HabitLog model
+   */
+  readonly fields: HabitLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HabitLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HabitLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    habit<T extends HabitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HabitDefaultArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HabitLog model
+   */ 
+  interface HabitLogFieldRefs {
+    readonly id: FieldRef<"HabitLog", 'Int'>
+    readonly habitId: FieldRef<"HabitLog", 'Int'>
+    readonly date: FieldRef<"HabitLog", 'DateTime'>
+    readonly value: FieldRef<"HabitLog", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HabitLog findUnique
+   */
+  export type HabitLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * Filter, which HabitLog to fetch.
+     */
+    where: HabitLogWhereUniqueInput
+  }
+
+  /**
+   * HabitLog findUniqueOrThrow
+   */
+  export type HabitLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * Filter, which HabitLog to fetch.
+     */
+    where: HabitLogWhereUniqueInput
+  }
+
+  /**
+   * HabitLog findFirst
+   */
+  export type HabitLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * Filter, which HabitLog to fetch.
+     */
+    where?: HabitLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HabitLogs to fetch.
+     */
+    orderBy?: HabitLogOrderByWithRelationInput | HabitLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HabitLogs.
+     */
+    cursor?: HabitLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HabitLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HabitLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HabitLogs.
+     */
+    distinct?: HabitLogScalarFieldEnum | HabitLogScalarFieldEnum[]
+  }
+
+  /**
+   * HabitLog findFirstOrThrow
+   */
+  export type HabitLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * Filter, which HabitLog to fetch.
+     */
+    where?: HabitLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HabitLogs to fetch.
+     */
+    orderBy?: HabitLogOrderByWithRelationInput | HabitLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HabitLogs.
+     */
+    cursor?: HabitLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HabitLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HabitLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HabitLogs.
+     */
+    distinct?: HabitLogScalarFieldEnum | HabitLogScalarFieldEnum[]
+  }
+
+  /**
+   * HabitLog findMany
+   */
+  export type HabitLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * Filter, which HabitLogs to fetch.
+     */
+    where?: HabitLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HabitLogs to fetch.
+     */
+    orderBy?: HabitLogOrderByWithRelationInput | HabitLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HabitLogs.
+     */
+    cursor?: HabitLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HabitLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HabitLogs.
+     */
+    skip?: number
+    distinct?: HabitLogScalarFieldEnum | HabitLogScalarFieldEnum[]
+  }
+
+  /**
+   * HabitLog create
+   */
+  export type HabitLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HabitLog.
+     */
+    data: XOR<HabitLogCreateInput, HabitLogUncheckedCreateInput>
+  }
+
+  /**
+   * HabitLog createMany
+   */
+  export type HabitLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HabitLogs.
+     */
+    data: HabitLogCreateManyInput | HabitLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HabitLog createManyAndReturn
+   */
+  export type HabitLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many HabitLogs.
+     */
+    data: HabitLogCreateManyInput | HabitLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HabitLog update
+   */
+  export type HabitLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HabitLog.
+     */
+    data: XOR<HabitLogUpdateInput, HabitLogUncheckedUpdateInput>
+    /**
+     * Choose, which HabitLog to update.
+     */
+    where: HabitLogWhereUniqueInput
+  }
+
+  /**
+   * HabitLog updateMany
+   */
+  export type HabitLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HabitLogs.
+     */
+    data: XOR<HabitLogUpdateManyMutationInput, HabitLogUncheckedUpdateManyInput>
+    /**
+     * Filter which HabitLogs to update
+     */
+    where?: HabitLogWhereInput
+  }
+
+  /**
+   * HabitLog upsert
+   */
+  export type HabitLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HabitLog to update in case it exists.
+     */
+    where: HabitLogWhereUniqueInput
+    /**
+     * In case the HabitLog found by the `where` argument doesn't exist, create a new HabitLog with this data.
+     */
+    create: XOR<HabitLogCreateInput, HabitLogUncheckedCreateInput>
+    /**
+     * In case the HabitLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HabitLogUpdateInput, HabitLogUncheckedUpdateInput>
+  }
+
+  /**
+   * HabitLog delete
+   */
+  export type HabitLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+    /**
+     * Filter which HabitLog to delete.
+     */
+    where: HabitLogWhereUniqueInput
+  }
+
+  /**
+   * HabitLog deleteMany
+   */
+  export type HabitLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HabitLogs to delete
+     */
+    where?: HabitLogWhereInput
+  }
+
+  /**
+   * HabitLog without action
+   */
+  export type HabitLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HabitLog
+     */
+    select?: HabitLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HabitLogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Reminder
+   */
+
+  export type AggregateReminder = {
+    _count: ReminderCountAggregateOutputType | null
+    _avg: ReminderAvgAggregateOutputType | null
+    _sum: ReminderSumAggregateOutputType | null
+    _min: ReminderMinAggregateOutputType | null
+    _max: ReminderMaxAggregateOutputType | null
+  }
+
+  export type ReminderAvgAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+  }
+
+  export type ReminderSumAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+  }
+
+  export type ReminderMinAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+    time: string | null
+  }
+
+  export type ReminderMaxAggregateOutputType = {
+    id: number | null
+    habitId: number | null
+    time: string | null
+  }
+
+  export type ReminderCountAggregateOutputType = {
+    id: number
+    habitId: number
+    time: number
+    _all: number
+  }
+
+
+  export type ReminderAvgAggregateInputType = {
+    id?: true
+    habitId?: true
+  }
+
+  export type ReminderSumAggregateInputType = {
+    id?: true
+    habitId?: true
+  }
+
+  export type ReminderMinAggregateInputType = {
+    id?: true
+    habitId?: true
+    time?: true
+  }
+
+  export type ReminderMaxAggregateInputType = {
+    id?: true
+    habitId?: true
+    time?: true
+  }
+
+  export type ReminderCountAggregateInputType = {
+    id?: true
+    habitId?: true
+    time?: true
+    _all?: true
+  }
+
+  export type ReminderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reminder to aggregate.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Reminders
+    **/
+    _count?: true | ReminderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReminderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReminderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReminderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReminderMaxAggregateInputType
+  }
+
+  export type GetReminderAggregateType<T extends ReminderAggregateArgs> = {
+        [P in keyof T & keyof AggregateReminder]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReminder[P]>
+      : GetScalarType<T[P], AggregateReminder[P]>
+  }
+
+
+
+
+  export type ReminderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReminderWhereInput
+    orderBy?: ReminderOrderByWithAggregationInput | ReminderOrderByWithAggregationInput[]
+    by: ReminderScalarFieldEnum[] | ReminderScalarFieldEnum
+    having?: ReminderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReminderCountAggregateInputType | true
+    _avg?: ReminderAvgAggregateInputType
+    _sum?: ReminderSumAggregateInputType
+    _min?: ReminderMinAggregateInputType
+    _max?: ReminderMaxAggregateInputType
+  }
+
+  export type ReminderGroupByOutputType = {
+    id: number
+    habitId: number
+    time: string
+    _count: ReminderCountAggregateOutputType | null
+    _avg: ReminderAvgAggregateOutputType | null
+    _sum: ReminderSumAggregateOutputType | null
+    _min: ReminderMinAggregateOutputType | null
+    _max: ReminderMaxAggregateOutputType | null
+  }
+
+  type GetReminderGroupByPayload<T extends ReminderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReminderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReminderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReminderGroupByOutputType[P]>
+            : GetScalarType<T[P], ReminderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReminderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    habitId?: boolean
+    time?: boolean
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reminder"]>
+
+  export type ReminderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    habitId?: boolean
+    time?: boolean
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reminder"]>
+
+  export type ReminderSelectScalar = {
+    id?: boolean
+    habitId?: boolean
+    time?: boolean
+  }
+
+  export type ReminderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }
+  export type ReminderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
+  }
+
+  export type $ReminderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Reminder"
+    objects: {
+      habit: Prisma.$HabitPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      habitId: number
+      time: string
+    }, ExtArgs["result"]["reminder"]>
+    composites: {}
+  }
+
+  type ReminderGetPayload<S extends boolean | null | undefined | ReminderDefaultArgs> = $Result.GetResult<Prisma.$ReminderPayload, S>
+
+  type ReminderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ReminderFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ReminderCountAggregateInputType | true
+    }
+
+  export interface ReminderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Reminder'], meta: { name: 'Reminder' } }
+    /**
+     * Find zero or one Reminder that matches the filter.
+     * @param {ReminderFindUniqueArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReminderFindUniqueArgs>(args: SelectSubset<T, ReminderFindUniqueArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Reminder that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ReminderFindUniqueOrThrowArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReminderFindUniqueOrThrowArgs>(args: SelectSubset<T, ReminderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Reminder that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderFindFirstArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReminderFindFirstArgs>(args?: SelectSubset<T, ReminderFindFirstArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Reminder that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderFindFirstOrThrowArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReminderFindFirstOrThrowArgs>(args?: SelectSubset<T, ReminderFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Reminders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reminders
+     * const reminders = await prisma.reminder.findMany()
+     * 
+     * // Get first 10 Reminders
+     * const reminders = await prisma.reminder.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reminderWithIdOnly = await prisma.reminder.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReminderFindManyArgs>(args?: SelectSubset<T, ReminderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Reminder.
+     * @param {ReminderCreateArgs} args - Arguments to create a Reminder.
+     * @example
+     * // Create one Reminder
+     * const Reminder = await prisma.reminder.create({
+     *   data: {
+     *     // ... data to create a Reminder
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReminderCreateArgs>(args: SelectSubset<T, ReminderCreateArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Reminders.
+     * @param {ReminderCreateManyArgs} args - Arguments to create many Reminders.
+     * @example
+     * // Create many Reminders
+     * const reminder = await prisma.reminder.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReminderCreateManyArgs>(args?: SelectSubset<T, ReminderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reminders and returns the data saved in the database.
+     * @param {ReminderCreateManyAndReturnArgs} args - Arguments to create many Reminders.
+     * @example
+     * // Create many Reminders
+     * const reminder = await prisma.reminder.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reminders and only return the `id`
+     * const reminderWithIdOnly = await prisma.reminder.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReminderCreateManyAndReturnArgs>(args?: SelectSubset<T, ReminderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Reminder.
+     * @param {ReminderDeleteArgs} args - Arguments to delete one Reminder.
+     * @example
+     * // Delete one Reminder
+     * const Reminder = await prisma.reminder.delete({
+     *   where: {
+     *     // ... filter to delete one Reminder
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReminderDeleteArgs>(args: SelectSubset<T, ReminderDeleteArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Reminder.
+     * @param {ReminderUpdateArgs} args - Arguments to update one Reminder.
+     * @example
+     * // Update one Reminder
+     * const reminder = await prisma.reminder.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReminderUpdateArgs>(args: SelectSubset<T, ReminderUpdateArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Reminders.
+     * @param {ReminderDeleteManyArgs} args - Arguments to filter Reminders to delete.
+     * @example
+     * // Delete a few Reminders
+     * const { count } = await prisma.reminder.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReminderDeleteManyArgs>(args?: SelectSubset<T, ReminderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reminders
+     * const reminder = await prisma.reminder.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReminderUpdateManyArgs>(args: SelectSubset<T, ReminderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Reminder.
+     * @param {ReminderUpsertArgs} args - Arguments to update or create a Reminder.
+     * @example
+     * // Update or create a Reminder
+     * const reminder = await prisma.reminder.upsert({
+     *   create: {
+     *     // ... data to create a Reminder
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Reminder we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReminderUpsertArgs>(args: SelectSubset<T, ReminderUpsertArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderCountArgs} args - Arguments to filter Reminders to count.
+     * @example
+     * // Count the number of Reminders
+     * const count = await prisma.reminder.count({
+     *   where: {
+     *     // ... the filter for the Reminders we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReminderCountArgs>(
+      args?: Subset<T, ReminderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReminderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Reminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReminderAggregateArgs>(args: Subset<T, ReminderAggregateArgs>): Prisma.PrismaPromise<GetReminderAggregateType<T>>
+
+    /**
+     * Group by Reminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReminderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReminderGroupByArgs['orderBy'] }
+        : { orderBy?: ReminderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReminderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReminderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Reminder model
+   */
+  readonly fields: ReminderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Reminder.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReminderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    habit<T extends HabitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HabitDefaultArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Reminder model
+   */ 
+  interface ReminderFieldRefs {
+    readonly id: FieldRef<"Reminder", 'Int'>
+    readonly habitId: FieldRef<"Reminder", 'Int'>
+    readonly time: FieldRef<"Reminder", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Reminder findUnique
+   */
+  export type ReminderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder findUniqueOrThrow
+   */
+  export type ReminderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder findFirst
+   */
+  export type ReminderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reminders.
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reminders.
+     */
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * Reminder findFirstOrThrow
+   */
+  export type ReminderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reminders.
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reminders.
+     */
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * Reminder findMany
+   */
+  export type ReminderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminders to fetch.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Reminders.
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * Reminder create
+   */
+  export type ReminderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Reminder.
+     */
+    data: XOR<ReminderCreateInput, ReminderUncheckedCreateInput>
+  }
+
+  /**
+   * Reminder createMany
+   */
+  export type ReminderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Reminders.
+     */
+    data: ReminderCreateManyInput | ReminderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Reminder createManyAndReturn
+   */
+  export type ReminderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Reminders.
+     */
+    data: ReminderCreateManyInput | ReminderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Reminder update
+   */
+  export type ReminderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Reminder.
+     */
+    data: XOR<ReminderUpdateInput, ReminderUncheckedUpdateInput>
+    /**
+     * Choose, which Reminder to update.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder updateMany
+   */
+  export type ReminderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Reminders.
+     */
+    data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyInput>
+    /**
+     * Filter which Reminders to update
+     */
+    where?: ReminderWhereInput
+  }
+
+  /**
+   * Reminder upsert
+   */
+  export type ReminderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Reminder to update in case it exists.
+     */
+    where: ReminderWhereUniqueInput
+    /**
+     * In case the Reminder found by the `where` argument doesn't exist, create a new Reminder with this data.
+     */
+    create: XOR<ReminderCreateInput, ReminderUncheckedCreateInput>
+    /**
+     * In case the Reminder was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReminderUpdateInput, ReminderUncheckedUpdateInput>
+  }
+
+  /**
+   * Reminder delete
+   */
+  export type ReminderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter which Reminder to delete.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder deleteMany
+   */
+  export type ReminderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reminders to delete
+     */
+    where?: ReminderWhereInput
+  }
+
+  /**
+   * Reminder without action
+   */
+  export type ReminderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+  }
 
 
   /**
@@ -7300,6 +11679,16 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const UserScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    telegramId: 'telegramId',
+    timezone: 'timezone'
+  };
+
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
   export const QuoteScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
@@ -7312,14 +11701,6 @@ export namespace Prisma {
   };
 
   export type QuoteScalarFieldEnum = (typeof QuoteScalarFieldEnum)[keyof typeof QuoteScalarFieldEnum]
-
-
-  export const UserScalarFieldEnum: {
-    id: 'id',
-    name: 'name'
-  };
-
-  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
   export const UserFavoriteScalarFieldEnum: {
@@ -7354,6 +11735,45 @@ export namespace Prisma {
   };
 
   export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+  export const MessageScalarFieldEnum: {
+    id: 'id',
+    text: 'text',
+    userId: 'userId',
+    created: 'created'
+  };
+
+  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+  export const HabitScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    dataType: 'dataType'
+  };
+
+  export type HabitScalarFieldEnum = (typeof HabitScalarFieldEnum)[keyof typeof HabitScalarFieldEnum]
+
+
+  export const HabitLogScalarFieldEnum: {
+    id: 'id',
+    habitId: 'habitId',
+    date: 'date',
+    value: 'value'
+  };
+
+  export type HabitLogScalarFieldEnum = (typeof HabitLogScalarFieldEnum)[keyof typeof HabitLogScalarFieldEnum]
+
+
+  export const ReminderScalarFieldEnum: {
+    id: 'id',
+    habitId: 'habitId',
+    time: 'time'
+  };
+
+  export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7400,20 +11820,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -7424,6 +11830,34 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -7450,6 +11884,67 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type UserWhereInput = {
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    id?: IntFilter<"User"> | number
+    name?: StringFilter<"User"> | string
+    telegramId?: BigIntFilter<"User"> | bigint | number
+    timezone?: StringFilter<"User"> | string
+    quotes?: QuoteListRelationFilter
+    favorites?: UserFavoriteListRelationFilter
+    messages?: MessageListRelationFilter
+    habits?: HabitListRelationFilter
+  }
+
+  export type UserOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    telegramId?: SortOrder
+    timezone?: SortOrder
+    quotes?: QuoteOrderByRelationAggregateInput
+    favorites?: UserFavoriteOrderByRelationAggregateInput
+    messages?: MessageOrderByRelationAggregateInput
+    habits?: HabitOrderByRelationAggregateInput
+  }
+
+  export type UserWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    telegramId?: bigint | number
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    name?: StringFilter<"User"> | string
+    timezone?: StringFilter<"User"> | string
+    quotes?: QuoteListRelationFilter
+    favorites?: UserFavoriteListRelationFilter
+    messages?: MessageListRelationFilter
+    habits?: HabitListRelationFilter
+  }, "id" | "telegramId">
+
+  export type UserOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    telegramId?: SortOrder
+    timezone?: SortOrder
+    _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
+    _max?: UserMaxOrderByAggregateInput
+    _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
+  }
+
+  export type UserScalarWhereWithAggregatesInput = {
+    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    OR?: UserScalarWhereWithAggregatesInput[]
+    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"User"> | number
+    name?: StringWithAggregatesFilter<"User"> | string
+    telegramId?: BigIntWithAggregatesFilter<"User"> | bigint | number
+    timezone?: StringWithAggregatesFilter<"User"> | string
+  }
 
   export type QuoteWhereInput = {
     AND?: QuoteWhereInput | QuoteWhereInput[]
@@ -7530,51 +12025,6 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter<"Quote"> | number
     deleted?: BoolWithAggregatesFilter<"Quote"> | boolean
     bookId?: IntNullableWithAggregatesFilter<"Quote"> | number | null
-  }
-
-  export type UserWhereInput = {
-    AND?: UserWhereInput | UserWhereInput[]
-    OR?: UserWhereInput[]
-    NOT?: UserWhereInput | UserWhereInput[]
-    id?: IntFilter<"User"> | number
-    name?: StringFilter<"User"> | string
-    quotes?: QuoteListRelationFilter
-    favorites?: UserFavoriteListRelationFilter
-  }
-
-  export type UserOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    quotes?: QuoteOrderByRelationAggregateInput
-    favorites?: UserFavoriteOrderByRelationAggregateInput
-  }
-
-  export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: UserWhereInput | UserWhereInput[]
-    OR?: UserWhereInput[]
-    NOT?: UserWhereInput | UserWhereInput[]
-    name?: StringFilter<"User"> | string
-    quotes?: QuoteListRelationFilter
-    favorites?: UserFavoriteListRelationFilter
-  }, "id">
-
-  export type UserOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
-    _max?: UserMaxOrderByAggregateInput
-    _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
-  }
-
-  export type UserScalarWhereWithAggregatesInput = {
-    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    OR?: UserScalarWhereWithAggregatesInput[]
-    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"User"> | number
-    name?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type UserFavoriteWhereInput = {
@@ -7762,6 +12212,279 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Tag"> | string
   }
 
+  export type MessageWhereInput = {
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    id?: IntFilter<"Message"> | number
+    text?: StringFilter<"Message"> | string
+    userId?: IntFilter<"Message"> | number
+    created?: DateTimeFilter<"Message"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type MessageOrderByWithRelationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    userId?: SortOrder
+    created?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    text?: StringFilter<"Message"> | string
+    userId?: IntFilter<"Message"> | number
+    created?: DateTimeFilter<"Message"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type MessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    userId?: SortOrder
+    created?: SortOrder
+    _count?: MessageCountOrderByAggregateInput
+    _avg?: MessageAvgOrderByAggregateInput
+    _max?: MessageMaxOrderByAggregateInput
+    _min?: MessageMinOrderByAggregateInput
+    _sum?: MessageSumOrderByAggregateInput
+  }
+
+  export type MessageScalarWhereWithAggregatesInput = {
+    AND?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    OR?: MessageScalarWhereWithAggregatesInput[]
+    NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Message"> | number
+    text?: StringWithAggregatesFilter<"Message"> | string
+    userId?: IntWithAggregatesFilter<"Message"> | number
+    created?: DateTimeWithAggregatesFilter<"Message"> | Date | string
+  }
+
+  export type HabitWhereInput = {
+    AND?: HabitWhereInput | HabitWhereInput[]
+    OR?: HabitWhereInput[]
+    NOT?: HabitWhereInput | HabitWhereInput[]
+    id?: IntFilter<"Habit"> | number
+    userId?: IntFilter<"Habit"> | number
+    name?: StringFilter<"Habit"> | string
+    dataType?: StringFilter<"Habit"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    reminders?: ReminderListRelationFilter
+    habitLogs?: HabitLogListRelationFilter
+  }
+
+  export type HabitOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    dataType?: SortOrder
+    user?: UserOrderByWithRelationInput
+    reminders?: ReminderOrderByRelationAggregateInput
+    habitLogs?: HabitLogOrderByRelationAggregateInput
+  }
+
+  export type HabitWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: HabitWhereInput | HabitWhereInput[]
+    OR?: HabitWhereInput[]
+    NOT?: HabitWhereInput | HabitWhereInput[]
+    userId?: IntFilter<"Habit"> | number
+    name?: StringFilter<"Habit"> | string
+    dataType?: StringFilter<"Habit"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    reminders?: ReminderListRelationFilter
+    habitLogs?: HabitLogListRelationFilter
+  }, "id">
+
+  export type HabitOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    dataType?: SortOrder
+    _count?: HabitCountOrderByAggregateInput
+    _avg?: HabitAvgOrderByAggregateInput
+    _max?: HabitMaxOrderByAggregateInput
+    _min?: HabitMinOrderByAggregateInput
+    _sum?: HabitSumOrderByAggregateInput
+  }
+
+  export type HabitScalarWhereWithAggregatesInput = {
+    AND?: HabitScalarWhereWithAggregatesInput | HabitScalarWhereWithAggregatesInput[]
+    OR?: HabitScalarWhereWithAggregatesInput[]
+    NOT?: HabitScalarWhereWithAggregatesInput | HabitScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Habit"> | number
+    userId?: IntWithAggregatesFilter<"Habit"> | number
+    name?: StringWithAggregatesFilter<"Habit"> | string
+    dataType?: StringWithAggregatesFilter<"Habit"> | string
+  }
+
+  export type HabitLogWhereInput = {
+    AND?: HabitLogWhereInput | HabitLogWhereInput[]
+    OR?: HabitLogWhereInput[]
+    NOT?: HabitLogWhereInput | HabitLogWhereInput[]
+    id?: IntFilter<"HabitLog"> | number
+    habitId?: IntFilter<"HabitLog"> | number
+    date?: DateTimeFilter<"HabitLog"> | Date | string
+    value?: StringFilter<"HabitLog"> | string
+    habit?: XOR<HabitRelationFilter, HabitWhereInput>
+  }
+
+  export type HabitLogOrderByWithRelationInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    date?: SortOrder
+    value?: SortOrder
+    habit?: HabitOrderByWithRelationInput
+  }
+
+  export type HabitLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    habitId_date?: HabitLogHabitIdDateCompoundUniqueInput
+    AND?: HabitLogWhereInput | HabitLogWhereInput[]
+    OR?: HabitLogWhereInput[]
+    NOT?: HabitLogWhereInput | HabitLogWhereInput[]
+    habitId?: IntFilter<"HabitLog"> | number
+    date?: DateTimeFilter<"HabitLog"> | Date | string
+    value?: StringFilter<"HabitLog"> | string
+    habit?: XOR<HabitRelationFilter, HabitWhereInput>
+  }, "id" | "habitId_date">
+
+  export type HabitLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    date?: SortOrder
+    value?: SortOrder
+    _count?: HabitLogCountOrderByAggregateInput
+    _avg?: HabitLogAvgOrderByAggregateInput
+    _max?: HabitLogMaxOrderByAggregateInput
+    _min?: HabitLogMinOrderByAggregateInput
+    _sum?: HabitLogSumOrderByAggregateInput
+  }
+
+  export type HabitLogScalarWhereWithAggregatesInput = {
+    AND?: HabitLogScalarWhereWithAggregatesInput | HabitLogScalarWhereWithAggregatesInput[]
+    OR?: HabitLogScalarWhereWithAggregatesInput[]
+    NOT?: HabitLogScalarWhereWithAggregatesInput | HabitLogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"HabitLog"> | number
+    habitId?: IntWithAggregatesFilter<"HabitLog"> | number
+    date?: DateTimeWithAggregatesFilter<"HabitLog"> | Date | string
+    value?: StringWithAggregatesFilter<"HabitLog"> | string
+  }
+
+  export type ReminderWhereInput = {
+    AND?: ReminderWhereInput | ReminderWhereInput[]
+    OR?: ReminderWhereInput[]
+    NOT?: ReminderWhereInput | ReminderWhereInput[]
+    id?: IntFilter<"Reminder"> | number
+    habitId?: IntFilter<"Reminder"> | number
+    time?: StringFilter<"Reminder"> | string
+    habit?: XOR<HabitRelationFilter, HabitWhereInput>
+  }
+
+  export type ReminderOrderByWithRelationInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    time?: SortOrder
+    habit?: HabitOrderByWithRelationInput
+  }
+
+  export type ReminderWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    habitId_time?: ReminderHabitIdTimeCompoundUniqueInput
+    AND?: ReminderWhereInput | ReminderWhereInput[]
+    OR?: ReminderWhereInput[]
+    NOT?: ReminderWhereInput | ReminderWhereInput[]
+    habitId?: IntFilter<"Reminder"> | number
+    time?: StringFilter<"Reminder"> | string
+    habit?: XOR<HabitRelationFilter, HabitWhereInput>
+  }, "id" | "habitId_time">
+
+  export type ReminderOrderByWithAggregationInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    time?: SortOrder
+    _count?: ReminderCountOrderByAggregateInput
+    _avg?: ReminderAvgOrderByAggregateInput
+    _max?: ReminderMaxOrderByAggregateInput
+    _min?: ReminderMinOrderByAggregateInput
+    _sum?: ReminderSumOrderByAggregateInput
+  }
+
+  export type ReminderScalarWhereWithAggregatesInput = {
+    AND?: ReminderScalarWhereWithAggregatesInput | ReminderScalarWhereWithAggregatesInput[]
+    OR?: ReminderScalarWhereWithAggregatesInput[]
+    NOT?: ReminderScalarWhereWithAggregatesInput | ReminderScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Reminder"> | number
+    habitId?: IntWithAggregatesFilter<"Reminder"> | number
+    time?: StringWithAggregatesFilter<"Reminder"> | string
+  }
+
+  export type UserCreateInput = {
+    name: string
+    telegramId: bigint | number
+    timezone?: string
+    quotes?: QuoteCreateNestedManyWithoutUserInput
+    favorites?: UserFavoriteCreateNestedManyWithoutUserInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateInput = {
+    id?: number
+    name: string
+    telegramId: bigint | number
+    timezone?: string
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
+    favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
+    favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
+    favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateManyInput = {
+    id?: number
+    name: string
+    telegramId: bigint | number
+    timezone?: string
+  }
+
+  export type UserUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+  }
+
   export type QuoteCreateInput = {
     createdAt?: Date | string
     meta?: string | null
@@ -7840,46 +12563,6 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     deleted?: BoolFieldUpdateOperationsInput | boolean
     bookId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type UserCreateInput = {
-    name: string
-    quotes?: QuoteCreateNestedManyWithoutUserInput
-    favorites?: UserFavoriteCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateInput = {
-    id?: number
-    name: string
-    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
-    favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    quotes?: QuoteUpdateManyWithoutUserNestedInput
-    favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
-    favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateManyInput = {
-    id?: number
-    name: string
-  }
-
-  export type UserUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type UserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserFavoriteCreateInput = {
@@ -8037,6 +12720,187 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
+  export type MessageCreateInput = {
+    text: string
+    created: Date | string
+    user: UserCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateInput = {
+    id?: number
+    text: string
+    userId: number
+    created: Date | string
+  }
+
+  export type MessageUpdateInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyInput = {
+    id?: number
+    text: string
+    userId: number
+    created: Date | string
+  }
+
+  export type MessageUpdateManyMutationInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HabitCreateInput = {
+    name: string
+    dataType: string
+    user: UserCreateNestedOneWithoutHabitsInput
+    reminders?: ReminderCreateNestedManyWithoutHabitInput
+    habitLogs?: HabitLogCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitUncheckedCreateInput = {
+    id?: number
+    userId: number
+    name: string
+    dataType: string
+    reminders?: ReminderUncheckedCreateNestedManyWithoutHabitInput
+    habitLogs?: HabitLogUncheckedCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutHabitsNestedInput
+    reminders?: ReminderUpdateManyWithoutHabitNestedInput
+    habitLogs?: HabitLogUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+    reminders?: ReminderUncheckedUpdateManyWithoutHabitNestedInput
+    habitLogs?: HabitLogUncheckedUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitCreateManyInput = {
+    id?: number
+    userId: number
+    name: string
+    dataType: string
+  }
+
+  export type HabitUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HabitUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HabitLogCreateInput = {
+    date: Date | string
+    value: string
+    habit: HabitCreateNestedOneWithoutHabitLogsInput
+  }
+
+  export type HabitLogUncheckedCreateInput = {
+    id?: number
+    habitId: number
+    date: Date | string
+    value: string
+  }
+
+  export type HabitLogUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: StringFieldUpdateOperationsInput | string
+    habit?: HabitUpdateOneRequiredWithoutHabitLogsNestedInput
+  }
+
+  export type HabitLogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    habitId?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HabitLogCreateManyInput = {
+    id?: number
+    habitId: number
+    date: Date | string
+    value: string
+  }
+
+  export type HabitLogUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HabitLogUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    habitId?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ReminderCreateInput = {
+    time: string
+    habit: HabitCreateNestedOneWithoutRemindersInput
+  }
+
+  export type ReminderUncheckedCreateInput = {
+    id?: number
+    habitId: number
+    time: string
+  }
+
+  export type ReminderUpdateInput = {
+    time?: StringFieldUpdateOperationsInput | string
+    habit?: HabitUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type ReminderUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    habitId?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ReminderCreateManyInput = {
+    id?: number
+    habitId: number
+    time: string
+  }
+
+  export type ReminderUpdateManyMutationInput = {
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ReminderUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    habitId?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8046,6 +12910,153 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type QuoteListRelationFilter = {
+    every?: QuoteWhereInput
+    some?: QuoteWhereInput
+    none?: QuoteWhereInput
+  }
+
+  export type UserFavoriteListRelationFilter = {
+    every?: UserFavoriteWhereInput
+    some?: UserFavoriteWhereInput
+    none?: UserFavoriteWhereInput
+  }
+
+  export type MessageListRelationFilter = {
+    every?: MessageWhereInput
+    some?: MessageWhereInput
+    none?: MessageWhereInput
+  }
+
+  export type HabitListRelationFilter = {
+    every?: HabitWhereInput
+    some?: HabitWhereInput
+    none?: HabitWhereInput
+  }
+
+  export type QuoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserFavoriteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HabitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    telegramId?: SortOrder
+    timezone?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    id?: SortOrder
+    telegramId?: SortOrder
+  }
+
+  export type UserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    telegramId?: SortOrder
+    timezone?: SortOrder
+  }
+
+  export type UserMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    telegramId?: SortOrder
+    timezone?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    id?: SortOrder
+    telegramId?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -8072,21 +13083,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -8121,22 +13117,12 @@ export namespace Prisma {
     isNot?: BookWhereInput | null
   }
 
-  export type UserFavoriteListRelationFilter = {
-    every?: UserFavoriteWhereInput
-    some?: UserFavoriteWhereInput
-    none?: UserFavoriteWhereInput
-  }
-
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type TagOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UserFavoriteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8185,22 +13171,6 @@ export namespace Prisma {
     bookId?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8233,24 +13203,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -8273,39 +13225,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type QuoteListRelationFilter = {
-    every?: QuoteWhereInput
-    some?: QuoteWhereInput
-    none?: QuoteWhereInput
-  }
-
-  export type QuoteOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UserCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-  }
-
-  export type UserAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type UserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-  }
-
-  export type UserMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-  }
-
-  export type UserSumOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type QuoteRelationFilter = {
@@ -8435,6 +13354,350 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type MessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    userId?: SortOrder
+    created?: SortOrder
+  }
+
+  export type MessageAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type MessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    userId?: SortOrder
+    created?: SortOrder
+  }
+
+  export type MessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    userId?: SortOrder
+    created?: SortOrder
+  }
+
+  export type MessageSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ReminderListRelationFilter = {
+    every?: ReminderWhereInput
+    some?: ReminderWhereInput
+    none?: ReminderWhereInput
+  }
+
+  export type HabitLogListRelationFilter = {
+    every?: HabitLogWhereInput
+    some?: HabitLogWhereInput
+    none?: HabitLogWhereInput
+  }
+
+  export type ReminderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HabitLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HabitCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    dataType?: SortOrder
+  }
+
+  export type HabitAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type HabitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    dataType?: SortOrder
+  }
+
+  export type HabitMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    dataType?: SortOrder
+  }
+
+  export type HabitSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type HabitRelationFilter = {
+    is?: HabitWhereInput
+    isNot?: HabitWhereInput
+  }
+
+  export type HabitLogHabitIdDateCompoundUniqueInput = {
+    habitId: number
+    date: Date | string
+  }
+
+  export type HabitLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    date?: SortOrder
+    value?: SortOrder
+  }
+
+  export type HabitLogAvgOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+  }
+
+  export type HabitLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    date?: SortOrder
+    value?: SortOrder
+  }
+
+  export type HabitLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    date?: SortOrder
+    value?: SortOrder
+  }
+
+  export type HabitLogSumOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+  }
+
+  export type ReminderHabitIdTimeCompoundUniqueInput = {
+    habitId: number
+    time: string
+  }
+
+  export type ReminderCountOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    time?: SortOrder
+  }
+
+  export type ReminderAvgOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+  }
+
+  export type ReminderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    time?: SortOrder
+  }
+
+  export type ReminderMinOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+    time?: SortOrder
+  }
+
+  export type ReminderSumOrderByAggregateInput = {
+    id?: SortOrder
+    habitId?: SortOrder
+  }
+
+  export type QuoteCreateNestedManyWithoutUserInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+  }
+
+  export type UserFavoriteCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
+    createMany?: UserFavoriteCreateManyUserInputEnvelope
+    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type HabitCreateNestedManyWithoutUserInput = {
+    create?: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput> | HabitCreateWithoutUserInput[] | HabitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HabitCreateOrConnectWithoutUserInput | HabitCreateOrConnectWithoutUserInput[]
+    createMany?: HabitCreateManyUserInputEnvelope
+    connect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+  }
+
+  export type QuoteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+  }
+
+  export type UserFavoriteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
+    createMany?: UserFavoriteCreateManyUserInputEnvelope
+    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type HabitUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput> | HabitCreateWithoutUserInput[] | HabitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HabitCreateOrConnectWithoutUserInput | HabitCreateOrConnectWithoutUserInput[]
+    createMany?: HabitCreateManyUserInputEnvelope
+    connect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type QuoteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    upsert?: QuoteUpsertWithWhereUniqueWithoutUserInput | QuoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    update?: QuoteUpdateWithWhereUniqueWithoutUserInput | QuoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QuoteUpdateManyWithWhereWithoutUserInput | QuoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+  }
+
+  export type UserFavoriteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
+    upsert?: UserFavoriteUpsertWithWhereUniqueWithoutUserInput | UserFavoriteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserFavoriteCreateManyUserInputEnvelope
+    set?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    disconnect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    delete?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    update?: UserFavoriteUpdateWithWhereUniqueWithoutUserInput | UserFavoriteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserFavoriteUpdateManyWithWhereWithoutUserInput | UserFavoriteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutUserInput | MessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutUserInput | MessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutUserInput | MessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type HabitUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput> | HabitCreateWithoutUserInput[] | HabitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HabitCreateOrConnectWithoutUserInput | HabitCreateOrConnectWithoutUserInput[]
+    upsert?: HabitUpsertWithWhereUniqueWithoutUserInput | HabitUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HabitCreateManyUserInputEnvelope
+    set?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    disconnect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    delete?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    connect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    update?: HabitUpdateWithWhereUniqueWithoutUserInput | HabitUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HabitUpdateManyWithWhereWithoutUserInput | HabitUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HabitScalarWhereInput | HabitScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type QuoteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    upsert?: QuoteUpsertWithWhereUniqueWithoutUserInput | QuoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    update?: QuoteUpdateWithWhereUniqueWithoutUserInput | QuoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QuoteUpdateManyWithWhereWithoutUserInput | QuoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+  }
+
+  export type UserFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
+    upsert?: UserFavoriteUpsertWithWhereUniqueWithoutUserInput | UserFavoriteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserFavoriteCreateManyUserInputEnvelope
+    set?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    disconnect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    delete?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
+    update?: UserFavoriteUpdateWithWhereUniqueWithoutUserInput | UserFavoriteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserFavoriteUpdateManyWithWhereWithoutUserInput | UserFavoriteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutUserInput | MessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutUserInput | MessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutUserInput | MessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type HabitUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput> | HabitCreateWithoutUserInput[] | HabitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HabitCreateOrConnectWithoutUserInput | HabitCreateOrConnectWithoutUserInput[]
+    upsert?: HabitUpsertWithWhereUniqueWithoutUserInput | HabitUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HabitCreateManyUserInputEnvelope
+    set?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    disconnect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    delete?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    connect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
+    update?: HabitUpdateWithWhereUniqueWithoutUserInput | HabitUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HabitUpdateManyWithWhereWithoutUserInput | HabitUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HabitScalarWhereInput | HabitScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutQuotesInput = {
     create?: XOR<UserCreateWithoutQuotesInput, UserUncheckedCreateWithoutQuotesInput>
     connectOrCreate?: UserCreateOrConnectWithoutQuotesInput
@@ -8479,10 +13742,6 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8534,14 +13793,6 @@ export namespace Prisma {
     deleteMany?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -8574,90 +13825,6 @@ export namespace Prisma {
     connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
     update?: UserFavoriteUpdateWithWhereUniqueWithoutQuoteInput | UserFavoriteUpdateWithWhereUniqueWithoutQuoteInput[]
     updateMany?: UserFavoriteUpdateManyWithWhereWithoutQuoteInput | UserFavoriteUpdateManyWithWhereWithoutQuoteInput[]
-    deleteMany?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
-  }
-
-  export type QuoteCreateNestedManyWithoutUserInput = {
-    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
-    createMany?: QuoteCreateManyUserInputEnvelope
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-  }
-
-  export type UserFavoriteCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
-    createMany?: UserFavoriteCreateManyUserInputEnvelope
-    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-  }
-
-  export type QuoteUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
-    createMany?: QuoteCreateManyUserInputEnvelope
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-  }
-
-  export type UserFavoriteUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
-    createMany?: UserFavoriteCreateManyUserInputEnvelope
-    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-  }
-
-  export type QuoteUpdateManyWithoutUserNestedInput = {
-    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
-    upsert?: QuoteUpsertWithWhereUniqueWithoutUserInput | QuoteUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: QuoteCreateManyUserInputEnvelope
-    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    update?: QuoteUpdateWithWhereUniqueWithoutUserInput | QuoteUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: QuoteUpdateManyWithWhereWithoutUserInput | QuoteUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
-  }
-
-  export type UserFavoriteUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
-    upsert?: UserFavoriteUpsertWithWhereUniqueWithoutUserInput | UserFavoriteUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserFavoriteCreateManyUserInputEnvelope
-    set?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    disconnect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    delete?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    update?: UserFavoriteUpdateWithWhereUniqueWithoutUserInput | UserFavoriteUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserFavoriteUpdateManyWithWhereWithoutUserInput | UserFavoriteUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
-  }
-
-  export type QuoteUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
-    upsert?: QuoteUpsertWithWhereUniqueWithoutUserInput | QuoteUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: QuoteCreateManyUserInputEnvelope
-    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    update?: QuoteUpdateWithWhereUniqueWithoutUserInput | QuoteUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: QuoteUpdateManyWithWhereWithoutUserInput | QuoteUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
-  }
-
-  export type UserFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput> | UserFavoriteCreateWithoutUserInput[] | UserFavoriteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserFavoriteCreateOrConnectWithoutUserInput | UserFavoriteCreateOrConnectWithoutUserInput[]
-    upsert?: UserFavoriteUpsertWithWhereUniqueWithoutUserInput | UserFavoriteUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserFavoriteCreateManyUserInputEnvelope
-    set?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    disconnect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    delete?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    connect?: UserFavoriteWhereUniqueInput | UserFavoriteWhereUniqueInput[]
-    update?: UserFavoriteUpdateWithWhereUniqueWithoutUserInput | UserFavoriteUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserFavoriteUpdateManyWithWhereWithoutUserInput | UserFavoriteUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
   }
 
@@ -8825,6 +13992,146 @@ export namespace Prisma {
     deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
+    upsert?: UserUpsertWithoutMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesInput, UserUpdateWithoutMessagesInput>, UserUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserCreateNestedOneWithoutHabitsInput = {
+    create?: XOR<UserCreateWithoutHabitsInput, UserUncheckedCreateWithoutHabitsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHabitsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ReminderCreateNestedManyWithoutHabitInput = {
+    create?: XOR<ReminderCreateWithoutHabitInput, ReminderUncheckedCreateWithoutHabitInput> | ReminderCreateWithoutHabitInput[] | ReminderUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutHabitInput | ReminderCreateOrConnectWithoutHabitInput[]
+    createMany?: ReminderCreateManyHabitInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+  }
+
+  export type HabitLogCreateNestedManyWithoutHabitInput = {
+    create?: XOR<HabitLogCreateWithoutHabitInput, HabitLogUncheckedCreateWithoutHabitInput> | HabitLogCreateWithoutHabitInput[] | HabitLogUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: HabitLogCreateOrConnectWithoutHabitInput | HabitLogCreateOrConnectWithoutHabitInput[]
+    createMany?: HabitLogCreateManyHabitInputEnvelope
+    connect?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+  }
+
+  export type ReminderUncheckedCreateNestedManyWithoutHabitInput = {
+    create?: XOR<ReminderCreateWithoutHabitInput, ReminderUncheckedCreateWithoutHabitInput> | ReminderCreateWithoutHabitInput[] | ReminderUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutHabitInput | ReminderCreateOrConnectWithoutHabitInput[]
+    createMany?: ReminderCreateManyHabitInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+  }
+
+  export type HabitLogUncheckedCreateNestedManyWithoutHabitInput = {
+    create?: XOR<HabitLogCreateWithoutHabitInput, HabitLogUncheckedCreateWithoutHabitInput> | HabitLogCreateWithoutHabitInput[] | HabitLogUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: HabitLogCreateOrConnectWithoutHabitInput | HabitLogCreateOrConnectWithoutHabitInput[]
+    createMany?: HabitLogCreateManyHabitInputEnvelope
+    connect?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutHabitsNestedInput = {
+    create?: XOR<UserCreateWithoutHabitsInput, UserUncheckedCreateWithoutHabitsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHabitsInput
+    upsert?: UserUpsertWithoutHabitsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHabitsInput, UserUpdateWithoutHabitsInput>, UserUncheckedUpdateWithoutHabitsInput>
+  }
+
+  export type ReminderUpdateManyWithoutHabitNestedInput = {
+    create?: XOR<ReminderCreateWithoutHabitInput, ReminderUncheckedCreateWithoutHabitInput> | ReminderCreateWithoutHabitInput[] | ReminderUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutHabitInput | ReminderCreateOrConnectWithoutHabitInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutHabitInput | ReminderUpsertWithWhereUniqueWithoutHabitInput[]
+    createMany?: ReminderCreateManyHabitInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutHabitInput | ReminderUpdateWithWhereUniqueWithoutHabitInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutHabitInput | ReminderUpdateManyWithWhereWithoutHabitInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+  }
+
+  export type HabitLogUpdateManyWithoutHabitNestedInput = {
+    create?: XOR<HabitLogCreateWithoutHabitInput, HabitLogUncheckedCreateWithoutHabitInput> | HabitLogCreateWithoutHabitInput[] | HabitLogUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: HabitLogCreateOrConnectWithoutHabitInput | HabitLogCreateOrConnectWithoutHabitInput[]
+    upsert?: HabitLogUpsertWithWhereUniqueWithoutHabitInput | HabitLogUpsertWithWhereUniqueWithoutHabitInput[]
+    createMany?: HabitLogCreateManyHabitInputEnvelope
+    set?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    disconnect?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    delete?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    connect?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    update?: HabitLogUpdateWithWhereUniqueWithoutHabitInput | HabitLogUpdateWithWhereUniqueWithoutHabitInput[]
+    updateMany?: HabitLogUpdateManyWithWhereWithoutHabitInput | HabitLogUpdateManyWithWhereWithoutHabitInput[]
+    deleteMany?: HabitLogScalarWhereInput | HabitLogScalarWhereInput[]
+  }
+
+  export type ReminderUncheckedUpdateManyWithoutHabitNestedInput = {
+    create?: XOR<ReminderCreateWithoutHabitInput, ReminderUncheckedCreateWithoutHabitInput> | ReminderCreateWithoutHabitInput[] | ReminderUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutHabitInput | ReminderCreateOrConnectWithoutHabitInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutHabitInput | ReminderUpsertWithWhereUniqueWithoutHabitInput[]
+    createMany?: ReminderCreateManyHabitInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutHabitInput | ReminderUpdateWithWhereUniqueWithoutHabitInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutHabitInput | ReminderUpdateManyWithWhereWithoutHabitInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+  }
+
+  export type HabitLogUncheckedUpdateManyWithoutHabitNestedInput = {
+    create?: XOR<HabitLogCreateWithoutHabitInput, HabitLogUncheckedCreateWithoutHabitInput> | HabitLogCreateWithoutHabitInput[] | HabitLogUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: HabitLogCreateOrConnectWithoutHabitInput | HabitLogCreateOrConnectWithoutHabitInput[]
+    upsert?: HabitLogUpsertWithWhereUniqueWithoutHabitInput | HabitLogUpsertWithWhereUniqueWithoutHabitInput[]
+    createMany?: HabitLogCreateManyHabitInputEnvelope
+    set?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    disconnect?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    delete?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    connect?: HabitLogWhereUniqueInput | HabitLogWhereUniqueInput[]
+    update?: HabitLogUpdateWithWhereUniqueWithoutHabitInput | HabitLogUpdateWithWhereUniqueWithoutHabitInput[]
+    updateMany?: HabitLogUpdateManyWithWhereWithoutHabitInput | HabitLogUpdateManyWithWhereWithoutHabitInput[]
+    deleteMany?: HabitLogScalarWhereInput | HabitLogScalarWhereInput[]
+  }
+
+  export type HabitCreateNestedOneWithoutHabitLogsInput = {
+    create?: XOR<HabitCreateWithoutHabitLogsInput, HabitUncheckedCreateWithoutHabitLogsInput>
+    connectOrCreate?: HabitCreateOrConnectWithoutHabitLogsInput
+    connect?: HabitWhereUniqueInput
+  }
+
+  export type HabitUpdateOneRequiredWithoutHabitLogsNestedInput = {
+    create?: XOR<HabitCreateWithoutHabitLogsInput, HabitUncheckedCreateWithoutHabitLogsInput>
+    connectOrCreate?: HabitCreateOrConnectWithoutHabitLogsInput
+    upsert?: HabitUpsertWithoutHabitLogsInput
+    connect?: HabitWhereUniqueInput
+    update?: XOR<XOR<HabitUpdateToOneWithWhereWithoutHabitLogsInput, HabitUpdateWithoutHabitLogsInput>, HabitUncheckedUpdateWithoutHabitLogsInput>
+  }
+
+  export type HabitCreateNestedOneWithoutRemindersInput = {
+    create?: XOR<HabitCreateWithoutRemindersInput, HabitUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: HabitCreateOrConnectWithoutRemindersInput
+    connect?: HabitWhereUniqueInput
+  }
+
+  export type HabitUpdateOneRequiredWithoutRemindersNestedInput = {
+    create?: XOR<HabitCreateWithoutRemindersInput, HabitUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: HabitCreateOrConnectWithoutRemindersInput
+    upsert?: HabitUpsertWithoutRemindersInput
+    connect?: HabitWhereUniqueInput
+    update?: XOR<XOR<HabitUpdateToOneWithWhereWithoutRemindersInput, HabitUpdateWithoutRemindersInput>, HabitUncheckedUpdateWithoutRemindersInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8834,31 +14141,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8875,20 +14157,15 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8916,6 +14193,80 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8947,23 +14298,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -9001,15 +14335,226 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type QuoteCreateWithoutUserInput = {
+    createdAt?: Date | string
+    meta?: string | null
+    content: string
+    quotee?: string | null
+    deleted?: boolean
+    tags?: TagCreateNestedManyWithoutQuotesInput
+    book?: BookCreateNestedOneWithoutQuotesInput
+    userFavorite?: UserFavoriteCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteUncheckedCreateWithoutUserInput = {
+    id?: number
+    createdAt?: Date | string
+    meta?: string | null
+    content: string
+    quotee?: string | null
+    deleted?: boolean
+    bookId?: number | null
+    tags?: TagUncheckedCreateNestedManyWithoutQuotesInput
+    userFavorite?: UserFavoriteUncheckedCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteCreateOrConnectWithoutUserInput = {
+    where: QuoteWhereUniqueInput
+    create: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput>
+  }
+
+  export type QuoteCreateManyUserInputEnvelope = {
+    data: QuoteCreateManyUserInput | QuoteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserFavoriteCreateWithoutUserInput = {
+    quote: QuoteCreateNestedOneWithoutUserFavoriteInput
+  }
+
+  export type UserFavoriteUncheckedCreateWithoutUserInput = {
+    quoteId: number
+  }
+
+  export type UserFavoriteCreateOrConnectWithoutUserInput = {
+    where: UserFavoriteWhereUniqueInput
+    create: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserFavoriteCreateManyUserInputEnvelope = {
+    data: UserFavoriteCreateManyUserInput | UserFavoriteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutUserInput = {
+    text: string
+    created: Date | string
+  }
+
+  export type MessageUncheckedCreateWithoutUserInput = {
+    id?: number
+    text: string
+    created: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageCreateManyUserInputEnvelope = {
+    data: MessageCreateManyUserInput | MessageCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HabitCreateWithoutUserInput = {
+    name: string
+    dataType: string
+    reminders?: ReminderCreateNestedManyWithoutHabitInput
+    habitLogs?: HabitLogCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitUncheckedCreateWithoutUserInput = {
+    id?: number
+    name: string
+    dataType: string
+    reminders?: ReminderUncheckedCreateNestedManyWithoutHabitInput
+    habitLogs?: HabitLogUncheckedCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitCreateOrConnectWithoutUserInput = {
+    where: HabitWhereUniqueInput
+    create: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput>
+  }
+
+  export type HabitCreateManyUserInputEnvelope = {
+    data: HabitCreateManyUserInput | HabitCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QuoteUpsertWithWhereUniqueWithoutUserInput = {
+    where: QuoteWhereUniqueInput
+    update: XOR<QuoteUpdateWithoutUserInput, QuoteUncheckedUpdateWithoutUserInput>
+    create: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput>
+  }
+
+  export type QuoteUpdateWithWhereUniqueWithoutUserInput = {
+    where: QuoteWhereUniqueInput
+    data: XOR<QuoteUpdateWithoutUserInput, QuoteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type QuoteUpdateManyWithWhereWithoutUserInput = {
+    where: QuoteScalarWhereInput
+    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type QuoteScalarWhereInput = {
+    AND?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+    OR?: QuoteScalarWhereInput[]
+    NOT?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+    id?: IntFilter<"Quote"> | number
+    createdAt?: DateTimeFilter<"Quote"> | Date | string
+    meta?: StringNullableFilter<"Quote"> | string | null
+    content?: StringFilter<"Quote"> | string
+    quotee?: StringNullableFilter<"Quote"> | string | null
+    userId?: IntFilter<"Quote"> | number
+    deleted?: BoolFilter<"Quote"> | boolean
+    bookId?: IntNullableFilter<"Quote"> | number | null
+  }
+
+  export type UserFavoriteUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserFavoriteWhereUniqueInput
+    update: XOR<UserFavoriteUpdateWithoutUserInput, UserFavoriteUncheckedUpdateWithoutUserInput>
+    create: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserFavoriteUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserFavoriteWhereUniqueInput
+    data: XOR<UserFavoriteUpdateWithoutUserInput, UserFavoriteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserFavoriteUpdateManyWithWhereWithoutUserInput = {
+    where: UserFavoriteScalarWhereInput
+    data: XOR<UserFavoriteUpdateManyMutationInput, UserFavoriteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserFavoriteScalarWhereInput = {
+    AND?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
+    OR?: UserFavoriteScalarWhereInput[]
+    NOT?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
+    userId?: IntFilter<"UserFavorite"> | number
+    quoteId?: IntFilter<"UserFavorite"> | number
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutUserInput, MessageUncheckedUpdateWithoutUserInput>
+    create: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutUserInput, MessageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutUserInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MessageScalarWhereInput = {
+    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    OR?: MessageScalarWhereInput[]
+    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    id?: IntFilter<"Message"> | number
+    text?: StringFilter<"Message"> | string
+    userId?: IntFilter<"Message"> | number
+    created?: DateTimeFilter<"Message"> | Date | string
+  }
+
+  export type HabitUpsertWithWhereUniqueWithoutUserInput = {
+    where: HabitWhereUniqueInput
+    update: XOR<HabitUpdateWithoutUserInput, HabitUncheckedUpdateWithoutUserInput>
+    create: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput>
+  }
+
+  export type HabitUpdateWithWhereUniqueWithoutUserInput = {
+    where: HabitWhereUniqueInput
+    data: XOR<HabitUpdateWithoutUserInput, HabitUncheckedUpdateWithoutUserInput>
+  }
+
+  export type HabitUpdateManyWithWhereWithoutUserInput = {
+    where: HabitScalarWhereInput
+    data: XOR<HabitUpdateManyMutationInput, HabitUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type HabitScalarWhereInput = {
+    AND?: HabitScalarWhereInput | HabitScalarWhereInput[]
+    OR?: HabitScalarWhereInput[]
+    NOT?: HabitScalarWhereInput | HabitScalarWhereInput[]
+    id?: IntFilter<"Habit"> | number
+    userId?: IntFilter<"Habit"> | number
+    name?: StringFilter<"Habit"> | string
+    dataType?: StringFilter<"Habit"> | string
+  }
+
   export type UserCreateWithoutQuotesInput = {
     name: string
+    telegramId: bigint | number
+    timezone?: string
     favorites?: UserFavoriteCreateNestedManyWithoutUserInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuotesInput = {
     id?: number
     name: string
+    telegramId: bigint | number
+    timezone?: string
     favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuotesInput = {
@@ -9080,13 +14625,21 @@ export namespace Prisma {
 
   export type UserUpdateWithoutQuotesInput = {
     name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
     favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuotesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
     favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TagUpsertWithWhereUniqueWithoutQuotesInput = {
@@ -9153,120 +14706,23 @@ export namespace Prisma {
     data: XOR<UserFavoriteUpdateManyMutationInput, UserFavoriteUncheckedUpdateManyWithoutQuoteInput>
   }
 
-  export type UserFavoriteScalarWhereInput = {
-    AND?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
-    OR?: UserFavoriteScalarWhereInput[]
-    NOT?: UserFavoriteScalarWhereInput | UserFavoriteScalarWhereInput[]
-    userId?: IntFilter<"UserFavorite"> | number
-    quoteId?: IntFilter<"UserFavorite"> | number
-  }
-
-  export type QuoteCreateWithoutUserInput = {
-    createdAt?: Date | string
-    meta?: string | null
-    content: string
-    quotee?: string | null
-    deleted?: boolean
-    tags?: TagCreateNestedManyWithoutQuotesInput
-    book?: BookCreateNestedOneWithoutQuotesInput
-    userFavorite?: UserFavoriteCreateNestedManyWithoutQuoteInput
-  }
-
-  export type QuoteUncheckedCreateWithoutUserInput = {
-    id?: number
-    createdAt?: Date | string
-    meta?: string | null
-    content: string
-    quotee?: string | null
-    deleted?: boolean
-    bookId?: number | null
-    tags?: TagUncheckedCreateNestedManyWithoutQuotesInput
-    userFavorite?: UserFavoriteUncheckedCreateNestedManyWithoutQuoteInput
-  }
-
-  export type QuoteCreateOrConnectWithoutUserInput = {
-    where: QuoteWhereUniqueInput
-    create: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput>
-  }
-
-  export type QuoteCreateManyUserInputEnvelope = {
-    data: QuoteCreateManyUserInput | QuoteCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserFavoriteCreateWithoutUserInput = {
-    quote: QuoteCreateNestedOneWithoutUserFavoriteInput
-  }
-
-  export type UserFavoriteUncheckedCreateWithoutUserInput = {
-    quoteId: number
-  }
-
-  export type UserFavoriteCreateOrConnectWithoutUserInput = {
-    where: UserFavoriteWhereUniqueInput
-    create: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput>
-  }
-
-  export type UserFavoriteCreateManyUserInputEnvelope = {
-    data: UserFavoriteCreateManyUserInput | UserFavoriteCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type QuoteUpsertWithWhereUniqueWithoutUserInput = {
-    where: QuoteWhereUniqueInput
-    update: XOR<QuoteUpdateWithoutUserInput, QuoteUncheckedUpdateWithoutUserInput>
-    create: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput>
-  }
-
-  export type QuoteUpdateWithWhereUniqueWithoutUserInput = {
-    where: QuoteWhereUniqueInput
-    data: XOR<QuoteUpdateWithoutUserInput, QuoteUncheckedUpdateWithoutUserInput>
-  }
-
-  export type QuoteUpdateManyWithWhereWithoutUserInput = {
-    where: QuoteScalarWhereInput
-    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type QuoteScalarWhereInput = {
-    AND?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
-    OR?: QuoteScalarWhereInput[]
-    NOT?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
-    id?: IntFilter<"Quote"> | number
-    createdAt?: DateTimeFilter<"Quote"> | Date | string
-    meta?: StringNullableFilter<"Quote"> | string | null
-    content?: StringFilter<"Quote"> | string
-    quotee?: StringNullableFilter<"Quote"> | string | null
-    userId?: IntFilter<"Quote"> | number
-    deleted?: BoolFilter<"Quote"> | boolean
-    bookId?: IntNullableFilter<"Quote"> | number | null
-  }
-
-  export type UserFavoriteUpsertWithWhereUniqueWithoutUserInput = {
-    where: UserFavoriteWhereUniqueInput
-    update: XOR<UserFavoriteUpdateWithoutUserInput, UserFavoriteUncheckedUpdateWithoutUserInput>
-    create: XOR<UserFavoriteCreateWithoutUserInput, UserFavoriteUncheckedCreateWithoutUserInput>
-  }
-
-  export type UserFavoriteUpdateWithWhereUniqueWithoutUserInput = {
-    where: UserFavoriteWhereUniqueInput
-    data: XOR<UserFavoriteUpdateWithoutUserInput, UserFavoriteUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UserFavoriteUpdateManyWithWhereWithoutUserInput = {
-    where: UserFavoriteScalarWhereInput
-    data: XOR<UserFavoriteUpdateManyMutationInput, UserFavoriteUncheckedUpdateManyWithoutUserInput>
-  }
-
   export type UserCreateWithoutFavoritesInput = {
     name: string
+    telegramId: bigint | number
+    timezone?: string
     quotes?: QuoteCreateNestedManyWithoutUserInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFavoritesInput = {
     id?: number
     name: string
+    telegramId: bigint | number
+    timezone?: string
     quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFavoritesInput = {
@@ -9315,13 +14771,21 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFavoritesInput = {
     name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUpdateManyWithoutUserNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoritesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuoteUpsertWithoutUserFavoriteInput = {
@@ -9534,34 +14998,295 @@ export namespace Prisma {
     data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyWithoutTagsInput>
   }
 
-  export type UserFavoriteCreateManyQuoteInput = {
+  export type UserCreateWithoutMessagesInput = {
+    name: string
+    telegramId: bigint | number
+    timezone?: string
+    quotes?: QuoteCreateNestedManyWithoutUserInput
+    favorites?: UserFavoriteCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMessagesInput = {
+    id?: number
+    name: string
+    telegramId: bigint | number
+    timezone?: string
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
+    favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type UserUpsertWithoutMessagesInput = {
+    update: XOR<UserUpdateWithoutMessagesInput, UserUncheckedUpdateWithoutMessagesInput>
+    create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessagesInput, UserUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserUpdateWithoutMessagesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
+    favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
+    favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutHabitsInput = {
+    name: string
+    telegramId: bigint | number
+    timezone?: string
+    quotes?: QuoteCreateNestedManyWithoutUserInput
+    favorites?: UserFavoriteCreateNestedManyWithoutUserInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutHabitsInput = {
+    id?: number
+    name: string
+    telegramId: bigint | number
+    timezone?: string
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
+    favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutHabitsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutHabitsInput, UserUncheckedCreateWithoutHabitsInput>
+  }
+
+  export type ReminderCreateWithoutHabitInput = {
+    time: string
+  }
+
+  export type ReminderUncheckedCreateWithoutHabitInput = {
+    id?: number
+    time: string
+  }
+
+  export type ReminderCreateOrConnectWithoutHabitInput = {
+    where: ReminderWhereUniqueInput
+    create: XOR<ReminderCreateWithoutHabitInput, ReminderUncheckedCreateWithoutHabitInput>
+  }
+
+  export type ReminderCreateManyHabitInputEnvelope = {
+    data: ReminderCreateManyHabitInput | ReminderCreateManyHabitInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HabitLogCreateWithoutHabitInput = {
+    date: Date | string
+    value: string
+  }
+
+  export type HabitLogUncheckedCreateWithoutHabitInput = {
+    id?: number
+    date: Date | string
+    value: string
+  }
+
+  export type HabitLogCreateOrConnectWithoutHabitInput = {
+    where: HabitLogWhereUniqueInput
+    create: XOR<HabitLogCreateWithoutHabitInput, HabitLogUncheckedCreateWithoutHabitInput>
+  }
+
+  export type HabitLogCreateManyHabitInputEnvelope = {
+    data: HabitLogCreateManyHabitInput | HabitLogCreateManyHabitInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutHabitsInput = {
+    update: XOR<UserUpdateWithoutHabitsInput, UserUncheckedUpdateWithoutHabitsInput>
+    create: XOR<UserCreateWithoutHabitsInput, UserUncheckedCreateWithoutHabitsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutHabitsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHabitsInput, UserUncheckedUpdateWithoutHabitsInput>
+  }
+
+  export type UserUpdateWithoutHabitsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
+    favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHabitsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    timezone?: StringFieldUpdateOperationsInput | string
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
+    favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ReminderUpsertWithWhereUniqueWithoutHabitInput = {
+    where: ReminderWhereUniqueInput
+    update: XOR<ReminderUpdateWithoutHabitInput, ReminderUncheckedUpdateWithoutHabitInput>
+    create: XOR<ReminderCreateWithoutHabitInput, ReminderUncheckedCreateWithoutHabitInput>
+  }
+
+  export type ReminderUpdateWithWhereUniqueWithoutHabitInput = {
+    where: ReminderWhereUniqueInput
+    data: XOR<ReminderUpdateWithoutHabitInput, ReminderUncheckedUpdateWithoutHabitInput>
+  }
+
+  export type ReminderUpdateManyWithWhereWithoutHabitInput = {
+    where: ReminderScalarWhereInput
+    data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyWithoutHabitInput>
+  }
+
+  export type ReminderScalarWhereInput = {
+    AND?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+    OR?: ReminderScalarWhereInput[]
+    NOT?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+    id?: IntFilter<"Reminder"> | number
+    habitId?: IntFilter<"Reminder"> | number
+    time?: StringFilter<"Reminder"> | string
+  }
+
+  export type HabitLogUpsertWithWhereUniqueWithoutHabitInput = {
+    where: HabitLogWhereUniqueInput
+    update: XOR<HabitLogUpdateWithoutHabitInput, HabitLogUncheckedUpdateWithoutHabitInput>
+    create: XOR<HabitLogCreateWithoutHabitInput, HabitLogUncheckedCreateWithoutHabitInput>
+  }
+
+  export type HabitLogUpdateWithWhereUniqueWithoutHabitInput = {
+    where: HabitLogWhereUniqueInput
+    data: XOR<HabitLogUpdateWithoutHabitInput, HabitLogUncheckedUpdateWithoutHabitInput>
+  }
+
+  export type HabitLogUpdateManyWithWhereWithoutHabitInput = {
+    where: HabitLogScalarWhereInput
+    data: XOR<HabitLogUpdateManyMutationInput, HabitLogUncheckedUpdateManyWithoutHabitInput>
+  }
+
+  export type HabitLogScalarWhereInput = {
+    AND?: HabitLogScalarWhereInput | HabitLogScalarWhereInput[]
+    OR?: HabitLogScalarWhereInput[]
+    NOT?: HabitLogScalarWhereInput | HabitLogScalarWhereInput[]
+    id?: IntFilter<"HabitLog"> | number
+    habitId?: IntFilter<"HabitLog"> | number
+    date?: DateTimeFilter<"HabitLog"> | Date | string
+    value?: StringFilter<"HabitLog"> | string
+  }
+
+  export type HabitCreateWithoutHabitLogsInput = {
+    name: string
+    dataType: string
+    user: UserCreateNestedOneWithoutHabitsInput
+    reminders?: ReminderCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitUncheckedCreateWithoutHabitLogsInput = {
+    id?: number
     userId: number
+    name: string
+    dataType: string
+    reminders?: ReminderUncheckedCreateNestedManyWithoutHabitInput
   }
 
-  export type TagUpdateWithoutQuotesInput = {
+  export type HabitCreateOrConnectWithoutHabitLogsInput = {
+    where: HabitWhereUniqueInput
+    create: XOR<HabitCreateWithoutHabitLogsInput, HabitUncheckedCreateWithoutHabitLogsInput>
+  }
+
+  export type HabitUpsertWithoutHabitLogsInput = {
+    update: XOR<HabitUpdateWithoutHabitLogsInput, HabitUncheckedUpdateWithoutHabitLogsInput>
+    create: XOR<HabitCreateWithoutHabitLogsInput, HabitUncheckedCreateWithoutHabitLogsInput>
+    where?: HabitWhereInput
+  }
+
+  export type HabitUpdateToOneWithWhereWithoutHabitLogsInput = {
+    where?: HabitWhereInput
+    data: XOR<HabitUpdateWithoutHabitLogsInput, HabitUncheckedUpdateWithoutHabitLogsInput>
+  }
+
+  export type HabitUpdateWithoutHabitLogsInput = {
     name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutHabitsNestedInput
+    reminders?: ReminderUpdateManyWithoutHabitNestedInput
   }
 
-  export type TagUncheckedUpdateWithoutQuotesInput = {
+  export type HabitUncheckedUpdateWithoutHabitLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+    reminders?: ReminderUncheckedUpdateManyWithoutHabitNestedInput
   }
 
-  export type TagUncheckedUpdateManyWithoutQuotesInput = {
+  export type HabitCreateWithoutRemindersInput = {
+    name: string
+    dataType: string
+    user: UserCreateNestedOneWithoutHabitsInput
+    habitLogs?: HabitLogCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitUncheckedCreateWithoutRemindersInput = {
+    id?: number
+    userId: number
+    name: string
+    dataType: string
+    habitLogs?: HabitLogUncheckedCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitCreateOrConnectWithoutRemindersInput = {
+    where: HabitWhereUniqueInput
+    create: XOR<HabitCreateWithoutRemindersInput, HabitUncheckedCreateWithoutRemindersInput>
+  }
+
+  export type HabitUpsertWithoutRemindersInput = {
+    update: XOR<HabitUpdateWithoutRemindersInput, HabitUncheckedUpdateWithoutRemindersInput>
+    create: XOR<HabitCreateWithoutRemindersInput, HabitUncheckedCreateWithoutRemindersInput>
+    where?: HabitWhereInput
+  }
+
+  export type HabitUpdateToOneWithWhereWithoutRemindersInput = {
+    where?: HabitWhereInput
+    data: XOR<HabitUpdateWithoutRemindersInput, HabitUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type HabitUpdateWithoutRemindersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutHabitsNestedInput
+    habitLogs?: HabitLogUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateWithoutRemindersInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type UserFavoriteUpdateWithoutQuoteInput = {
-    user?: UserUpdateOneRequiredWithoutFavoritesNestedInput
-  }
-
-  export type UserFavoriteUncheckedUpdateWithoutQuoteInput = {
-    userId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type UserFavoriteUncheckedUpdateManyWithoutQuoteInput = {
-    userId?: IntFieldUpdateOperationsInput | number
+    dataType?: StringFieldUpdateOperationsInput | string
+    habitLogs?: HabitLogUncheckedUpdateManyWithoutHabitNestedInput
   }
 
   export type QuoteCreateManyUserInput = {
@@ -9576,6 +15301,18 @@ export namespace Prisma {
 
   export type UserFavoriteCreateManyUserInput = {
     quoteId: number
+  }
+
+  export type MessageCreateManyUserInput = {
+    id?: number
+    text: string
+    created: Date | string
+  }
+
+  export type HabitCreateManyUserInput = {
+    id?: number
+    name: string
+    dataType: string
   }
 
   export type QuoteUpdateWithoutUserInput = {
@@ -9621,6 +15358,74 @@ export namespace Prisma {
 
   export type UserFavoriteUncheckedUpdateManyWithoutUserInput = {
     quoteId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageUpdateWithoutUserInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    created?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HabitUpdateWithoutUserInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+    reminders?: ReminderUpdateManyWithoutHabitNestedInput
+    habitLogs?: HabitLogUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+    reminders?: ReminderUncheckedUpdateManyWithoutHabitNestedInput
+    habitLogs?: HabitLogUncheckedUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    dataType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserFavoriteCreateManyQuoteInput = {
+    userId: number
+  }
+
+  export type TagUpdateWithoutQuotesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TagUncheckedUpdateWithoutQuotesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TagUncheckedUpdateManyWithoutQuotesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserFavoriteUpdateWithoutQuoteInput = {
+    user?: UserUpdateOneRequiredWithoutFavoritesNestedInput
+  }
+
+  export type UserFavoriteUncheckedUpdateWithoutQuoteInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserFavoriteUncheckedUpdateManyWithoutQuoteInput = {
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type QuoteCreateManyBookInput = {
@@ -9725,19 +15530,61 @@ export namespace Prisma {
     bookId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type ReminderCreateManyHabitInput = {
+    id?: number
+    time: string
+  }
+
+  export type HabitLogCreateManyHabitInput = {
+    id?: number
+    date: Date | string
+    value: string
+  }
+
+  export type ReminderUpdateWithoutHabitInput = {
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ReminderUncheckedUpdateWithoutHabitInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ReminderUncheckedUpdateManyWithoutHabitInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HabitLogUpdateWithoutHabitInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HabitLogUncheckedUpdateWithoutHabitInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HabitLogUncheckedUpdateManyWithoutHabitInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
 
 
   /**
    * Aliases for legacy arg types
    */
     /**
-     * @deprecated Use QuoteCountOutputTypeDefaultArgs instead
-     */
-    export type QuoteCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = QuoteCountOutputTypeDefaultArgs<ExtArgs>
-    /**
      * @deprecated Use UserCountOutputTypeDefaultArgs instead
      */
     export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use QuoteCountOutputTypeDefaultArgs instead
+     */
+    export type QuoteCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = QuoteCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BookCountOutputTypeDefaultArgs instead
      */
@@ -9751,13 +15598,17 @@ export namespace Prisma {
      */
     export type TagCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TagCountOutputTypeDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use QuoteDefaultArgs instead
+     * @deprecated Use HabitCountOutputTypeDefaultArgs instead
      */
-    export type QuoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = QuoteDefaultArgs<ExtArgs>
+    export type HabitCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HabitCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use QuoteDefaultArgs instead
+     */
+    export type QuoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = QuoteDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserFavoriteDefaultArgs instead
      */
@@ -9774,6 +15625,22 @@ export namespace Prisma {
      * @deprecated Use TagDefaultArgs instead
      */
     export type TagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TagDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MessageDefaultArgs instead
+     */
+    export type MessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MessageDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use HabitDefaultArgs instead
+     */
+    export type HabitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HabitDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use HabitLogDefaultArgs instead
+     */
+    export type HabitLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HabitLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ReminderDefaultArgs instead
+     */
+    export type ReminderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ReminderDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
