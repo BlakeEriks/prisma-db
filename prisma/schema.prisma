@@ -1,14 +1,36 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-1.0.x", "darwin-arm64"]
-  output = "../src/generated/client"
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "rhel-openssl-1.0.x", "darwin-arm64"]
+  previewFeatures = ["multiSchema"]
+  output          = "../src/generated/client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("QUIPPET_DATABASE_URL")
+  url      = env("DATABASE_URL")
+  schemas  = ["public", "quippets", "habits"]
 }
 
+// Cross-purpose user table
+model User {
+  id        Int            @id @default(autoincrement())
+  name      String
+  quotes    Quote[]
+  favorites UserFavorite[] @relation("UserFavorites") // Many-to-many relation through UserFavorite
+
+  // Telegram fields
+  telegramId BigInt    @unique
+  messages   Message[]
+
+  // Habit project fields
+  habits   Habit[]
+  timezone String  @default("America/New_York")
+
+  @@map("users")
+  @@schema("public")
+}
+
+// ------------ Quippet Project Models ------------ //
 model Quote {
   id           Int            @id @default(autoincrement())
   createdAt    DateTime       @unique @default(now())
@@ -21,18 +43,10 @@ model Quote {
   deleted      Boolean        @default(false)
   book         Book?          @relation(fields: [bookId], references: [id])
   bookId       Int?
-  userFavorite UserFavorite[] @relation("UserFavorites") // Many-to-many relation through UserFavorite
+  userFavorite UserFavorite[] @relation("UserFavorites") // Many-to-many
 
   @@map("quotes")
-}
-
-model User {
-  id        Int            @id @default(autoincrement())
-  name      String
-  quotes    Quote[]
-  favorites UserFavorite[] @relation("UserFavorites") // Many-to-many relation through UserFavorite
-
-  @@map("users")
+  @@schema("quippets")
 }
 
 model UserFavorite {
@@ -43,6 +57,7 @@ model UserFavorite {
 
   @@id([userId, quoteId])
   @@map("user_favorites")
+  @@schema("quippets")
 }
 
 model Book {
@@ -54,6 +69,7 @@ model Book {
   source   String?
 
   @@map("books")
+  @@schema("quippets")
 }
 
 model Author {
@@ -62,6 +78,7 @@ model Author {
   books Book[]
 
   @@map("authors")
+  @@schema("quippets")
 }
 
 model Tag {
@@ -70,4 +87,54 @@ model Tag {
   quotes Quote[]
 
   @@map("tags")
+  @@schema("quippets")
+}
+
+// ------------ Habit Project Models ------------ //
+
+model Message {
+  id      Int      @id @default(autoincrement())
+  text    String
+  userId  Int
+  created DateTime
+  user    User     @relation(fields: [userId], references: [id])
+
+  @@map("messages")
+  @@schema("habits")
+}
+
+model Habit {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  name      String
+  dataType  String
+  user      User       @relation(fields: [userId], references: [id])
+  reminders Reminder[]
+  habitLogs HabitLog[]
+
+  @@map("habits")
+  @@schema("habits")
+}
+
+model HabitLog {
+  id      Int      @id @default(autoincrement())
+  habitId Int
+  date    DateTime @db.Date
+  value   String
+  habit   Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@unique([habitId, date])
+  @@map("habit_logs")
+  @@schema("habits")
+}
+
+model Reminder {
+  id      Int    @id @default(autoincrement())
+  habitId Int
+  time    String
+  habit   Habit  @relation(fields: [habitId], references: [id])
+
+  @@unique([habitId, time])
+  @@map("reminders")
+  @@schema("habits")
 }
