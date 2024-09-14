@@ -1,5 +1,5 @@
-import prisma from './client.db'
-import { Prisma } from './generated/client'
+import prisma from '~/client'
+import { Prisma } from '~/generated/client'
 
 export const getBooks = (userId: number) =>
   prisma.book
