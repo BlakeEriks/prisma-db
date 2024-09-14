@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import prisma from '~/client'
-import { Book, Prisma } from '~/generated/client'
+import { Book, Prisma } from '~/generated'
 
 export type Clipping = {
   source: string

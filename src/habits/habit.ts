@@ -1,5 +1,5 @@
 import prisma from '~/client'
-import { Prisma } from '~/generated/client'
+import { Prisma } from '~/generated'
 
 export const deleteHabit = (id: number) =>
   prisma.habit.delete({

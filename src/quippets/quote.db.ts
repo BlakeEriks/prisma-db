@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import prisma from '~/client'
-import { Prisma } from '~/generated/client'
+import { Prisma } from '~/generated'
 
 export const getQuotes = async (userId: number) =>
   prisma.quote.findMany({

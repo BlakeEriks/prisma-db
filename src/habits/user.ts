@@ -1,5 +1,5 @@
 import prisma from '~/client'
-import { User } from '~/generated/client'
+import { User } from '~/generated'
 
 export const updateUser = (id: number, data: Partial<User>) =>
   prisma.user.update({
