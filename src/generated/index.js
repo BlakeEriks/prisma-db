@@ -194,7 +194,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/blakeeriks/dev/projects/prisma-quippet/src/generated/client",
+      "value": "/Users/blakeeriks/dev/projects/prisma-db/src/generated",
       "fromEnvVar": null
     },
     "config": {
@@ -218,19 +218,20 @@ const config = {
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "/Users/blakeeriks/dev/projects/prisma-quippet/prisma/schema.prisma",
+    "sourceFilePath": "/Users/blakeeriks/dev/projects/prisma-db/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
     "rootEnvPath": null
   },
-  "relativePath": "../../../prisma",
+  "relativePath": "../../prisma",
   "clientVersion": "5.19.1",
   "engineVersion": "69d742ee20b815d88e17e54db4a2a7a3b30324e3",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -239,8 +240,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  binaryTargets   = [\"native\", \"rhel-openssl-1.0.x\", \"darwin-arm64\"]\n  previewFeatures = [\"multiSchema\"]\n  output          = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n  schemas  = [\"public\", \"quippets\", \"habits\"]\n}\n\n// Cross-purpose user table\nmodel User {\n  id        Int            @id @default(autoincrement())\n  name      String\n  quotes    Quote[]\n  favorites UserFavorite[] @relation(\"UserFavorites\") // Many-to-many relation through UserFavorite\n\n  // Telegram fields\n  telegramId BigInt    @unique\n  messages   Message[]\n\n  // Habit project fields\n  habits   Habit[]\n  timezone String  @default(\"America/New_York\")\n\n  @@map(\"users\")\n  @@schema(\"public\")\n}\n\n// ------------ Quippet Project Models ------------ //\nmodel Quote {\n  id           Int            @id @default(autoincrement())\n  createdAt    DateTime       @unique @default(now())\n  meta         String?\n  content      String\n  quotee       String?\n  user         User           @relation(fields: [userId], references: [id])\n  userId       Int\n  tags         Tag[]\n  deleted      Boolean        @default(false)\n  book         Book?          @relation(fields: [bookId], references: [id])\n  bookId       Int?\n  userFavorite UserFavorite[] @relation(\"UserFavorites\") // Many-to-many\n\n  @@map(\"quotes\")\n  @@schema(\"quippets\")\n}\n\nmodel UserFavorite {\n  user    User  @relation(fields: [userId], references: [id], name: \"UserFavorites\")\n  userId  Int\n  quote   Quote @relation(fields: [quoteId], references: [id], name: \"UserFavorites\")\n  quoteId Int\n\n  @@id([userId, quoteId])\n  @@map(\"user_favorites\")\n  @@schema(\"quippets\")\n}\n\nmodel Book {\n  id       Int     @id @default(autoincrement())\n  title    String  @unique\n  author   Author  @relation(fields: [authorId], references: [id])\n  authorId Int\n  quotes   Quote[]\n  source   String?\n\n  @@map(\"books\")\n  @@schema(\"quippets\")\n}\n\nmodel Author {\n  id    Int    @id @default(autoincrement())\n  name  String @unique\n  books Book[]\n\n  @@map(\"authors\")\n  @@schema(\"quippets\")\n}\n\nmodel Tag {\n  id     Int     @id @default(autoincrement())\n  name   String  @unique\n  quotes Quote[]\n\n  @@map(\"tags\")\n  @@schema(\"quippets\")\n}\n\n// ------------ Habit Project Models ------------ //\n\nmodel Message {\n  id      Int      @id @default(autoincrement())\n  text    String\n  userId  Int\n  created DateTime\n  user    User     @relation(fields: [userId], references: [id])\n\n  @@map(\"messages\")\n  @@schema(\"habits\")\n}\n\nmodel Habit {\n  id        Int        @id @default(autoincrement())\n  userId    Int\n  name      String\n  dataType  String\n  user      User       @relation(fields: [userId], references: [id])\n  reminders Reminder[]\n  habitLogs HabitLog[]\n\n  @@map(\"habits\")\n  @@schema(\"habits\")\n}\n\nmodel HabitLog {\n  id      Int      @id @default(autoincrement())\n  habitId Int\n  date    DateTime @db.Date\n  value   String\n  habit   Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)\n\n  @@unique([habitId, date])\n  @@map(\"habit_logs\")\n  @@schema(\"habits\")\n}\n\nmodel Reminder {\n  id      Int    @id @default(autoincrement())\n  habitId Int\n  time    String\n  habit   Habit  @relation(fields: [habitId], references: [id])\n\n  @@unique([habitId, time])\n  @@map(\"reminders\")\n  @@schema(\"habits\")\n}\n",
-  "inlineSchemaHash": "f9da3eddbff057600646f982b66a6aa60715b398855eb82ba5a632f287d3f824",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  binaryTargets   = [\"native\", \"rhel-openssl-1.0.x\", \"darwin-arm64\"]\n  previewFeatures = [\"multiSchema\"]\n  output          = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n  schemas  = [\"public\", \"quippets\", \"habits\"]\n}\n\n// Cross-purpose user table\nmodel User {\n  id        Int            @id @default(autoincrement())\n  name      String\n  quotes    Quote[]\n  favorites UserFavorite[] @relation(\"UserFavorites\") // Many-to-many relation through UserFavorite\n\n  // Telegram fields\n  telegramId BigInt    @unique\n  messages   Message[]\n\n  // Habit project fields\n  habits   Habit[]\n  timezone String  @default(\"America/New_York\")\n\n  @@map(\"users\")\n  @@schema(\"public\")\n}\n\n// ------------ Quippet Project Models ------------ //\nmodel Quote {\n  id           Int            @id @default(autoincrement())\n  createdAt    DateTime       @unique @default(now())\n  meta         String?\n  content      String\n  quotee       String?\n  user         User           @relation(fields: [userId], references: [id])\n  userId       Int\n  tags         Tag[]\n  deleted      Boolean        @default(false)\n  book         Book?          @relation(fields: [bookId], references: [id])\n  bookId       Int?\n  userFavorite UserFavorite[] @relation(\"UserFavorites\") // Many-to-many\n\n  @@map(\"quotes\")\n  @@schema(\"quippets\")\n}\n\nmodel UserFavorite {\n  user    User  @relation(fields: [userId], references: [id], name: \"UserFavorites\")\n  userId  Int\n  quote   Quote @relation(fields: [quoteId], references: [id], name: \"UserFavorites\")\n  quoteId Int\n\n  @@id([userId, quoteId])\n  @@map(\"user_favorites\")\n  @@schema(\"quippets\")\n}\n\nmodel Book {\n  id       Int     @id @default(autoincrement())\n  title    String  @unique\n  author   Author  @relation(fields: [authorId], references: [id])\n  authorId Int\n  quotes   Quote[]\n  source   String?\n\n  @@map(\"books\")\n  @@schema(\"quippets\")\n}\n\nmodel Author {\n  id    Int    @id @default(autoincrement())\n  name  String @unique\n  books Book[]\n\n  @@map(\"authors\")\n  @@schema(\"quippets\")\n}\n\nmodel Tag {\n  id     Int     @id @default(autoincrement())\n  name   String  @unique\n  quotes Quote[]\n\n  @@map(\"tags\")\n  @@schema(\"quippets\")\n}\n\n// ------------ Habit Project Models ------------ //\n\nmodel Message {\n  id      Int      @id @default(autoincrement())\n  text    String\n  userId  Int\n  created DateTime\n  user    User     @relation(fields: [userId], references: [id])\n\n  @@map(\"messages\")\n  @@schema(\"habits\")\n}\n\nmodel Habit {\n  id        Int        @id @default(autoincrement())\n  userId    Int\n  name      String\n  dataType  String\n  user      User       @relation(fields: [userId], references: [id])\n  reminders Reminder[]\n  habitLogs HabitLog[]\n\n  @@map(\"habits\")\n  @@schema(\"habits\")\n}\n\nmodel HabitLog {\n  id      Int      @id @default(autoincrement())\n  habitId Int\n  date    DateTime @db.Date\n  value   String\n  habit   Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)\n\n  @@unique([habitId, date])\n  @@map(\"habit_logs\")\n  @@schema(\"habits\")\n}\n\nmodel Reminder {\n  id      Int    @id @default(autoincrement())\n  habitId Int\n  time    String\n  habit   Habit  @relation(fields: [habitId], references: [id])\n\n  @@unique([habitId, time])\n  @@map(\"reminders\")\n  @@schema(\"habits\")\n}\n",
+  "inlineSchemaHash": "49d807333b7351538604859ac1672781f3e3fd8038837d283446dc4f93ce2a51",
   "copyEngine": true
 }
 
@@ -249,8 +250,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "src/generated/client",
-    "generated/client",
+    "src/generated",
+    "generated",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -279,15 +280,15 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin.dylib.node");
-path.join(process.cwd(), "src/generated/client/libquery_engine-darwin.dylib.node")
+path.join(process.cwd(), "src/generated/libquery_engine-darwin.dylib.node")
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-rhel-openssl-1.0.x.so.node");
-path.join(process.cwd(), "src/generated/client/libquery_engine-rhel-openssl-1.0.x.so.node")
+path.join(process.cwd(), "src/generated/libquery_engine-rhel-openssl-1.0.x.so.node")
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "src/generated/client/libquery_engine-darwin-arm64.dylib.node")
+path.join(process.cwd(), "src/generated/libquery_engine-darwin-arm64.dylib.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "src/generated/client/schema.prisma")
+path.join(process.cwd(), "src/generated/schema.prisma")
