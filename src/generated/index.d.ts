@@ -2011,7 +2011,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: number
     name: string
-    telegramId: bigint
+    telegramId: bigint | null
     timezone: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -2080,7 +2080,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      telegramId: bigint
+      telegramId: bigint | null
       timezone: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -11891,7 +11891,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
     name?: StringFilter<"User"> | string
-    telegramId?: BigIntFilter<"User"> | bigint | number
+    telegramId?: BigIntNullableFilter<"User"> | bigint | number | null
     timezone?: StringFilter<"User"> | string
     quotes?: QuoteListRelationFilter
     favorites?: UserFavoriteListRelationFilter
@@ -11902,7 +11902,7 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    telegramId?: SortOrder
+    telegramId?: SortOrderInput | SortOrder
     timezone?: SortOrder
     quotes?: QuoteOrderByRelationAggregateInput
     favorites?: UserFavoriteOrderByRelationAggregateInput
@@ -11912,22 +11912,22 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    telegramId?: bigint | number
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    telegramId?: BigIntNullableFilter<"User"> | bigint | number | null
     timezone?: StringFilter<"User"> | string
     quotes?: QuoteListRelationFilter
     favorites?: UserFavoriteListRelationFilter
     messages?: MessageListRelationFilter
     habits?: HabitListRelationFilter
-  }, "id" | "telegramId">
+  }, "id">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    telegramId?: SortOrder
+    telegramId?: SortOrderInput | SortOrder
     timezone?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -11942,7 +11942,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
     name?: StringWithAggregatesFilter<"User"> | string
-    telegramId?: BigIntWithAggregatesFilter<"User"> | bigint | number
+    telegramId?: BigIntNullableWithAggregatesFilter<"User"> | bigint | number | null
     timezone?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -12425,7 +12425,7 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteCreateNestedManyWithoutUserInput
     favorites?: UserFavoriteCreateNestedManyWithoutUserInput
@@ -12436,7 +12436,7 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: number
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
     favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
@@ -12446,7 +12446,7 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUpdateManyWithoutUserNestedInput
     favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
@@ -12457,7 +12457,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
     favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
@@ -12468,20 +12468,20 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: number
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
   }
 
   export type UserUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
   }
 
@@ -12927,15 +12927,15 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type BigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+  export type BigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
     lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
   export type QuoteListRelationFilter = {
@@ -12960,6 +12960,11 @@ export namespace Prisma {
     every?: HabitWhereInput
     some?: HabitWhereInput
     none?: HabitWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type QuoteOrderByRelationAggregateInput = {
@@ -13043,20 +13048,20 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
     lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -13115,11 +13120,6 @@ export namespace Prisma {
   export type BookNullableRelationFilter = {
     is?: BookWhereInput | null
     isNot?: BookWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type TagOrderByRelationAggregateInput = {
@@ -13570,8 +13570,8 @@ export namespace Prisma {
     set?: string
   }
 
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
+  export type NullableBigIntFieldUpdateOperationsInput = {
+    set?: bigint | number | null
     increment?: bigint | number
     decrement?: bigint | number
     multiply?: bigint | number
@@ -14157,15 +14157,15 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedBigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
     lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14212,20 +14212,42 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
     lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -14256,17 +14278,6 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14322,17 +14333,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type QuoteCreateWithoutUserInput = {
@@ -14540,7 +14540,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutQuotesInput = {
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     favorites?: UserFavoriteCreateNestedManyWithoutUserInput
     messages?: MessageCreateNestedManyWithoutUserInput
@@ -14550,7 +14550,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutQuotesInput = {
     id?: number
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
     messages?: MessageUncheckedCreateNestedManyWithoutUserInput
@@ -14625,7 +14625,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutQuotesInput = {
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
     messages?: MessageUpdateManyWithoutUserNestedInput
@@ -14635,7 +14635,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutQuotesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
     messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
@@ -14708,7 +14708,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFavoritesInput = {
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteCreateNestedManyWithoutUserInput
     messages?: MessageCreateNestedManyWithoutUserInput
@@ -14718,7 +14718,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutFavoritesInput = {
     id?: number
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
     messages?: MessageUncheckedCreateNestedManyWithoutUserInput
@@ -14771,7 +14771,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFavoritesInput = {
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUpdateManyWithoutUserNestedInput
     messages?: MessageUpdateManyWithoutUserNestedInput
@@ -14781,7 +14781,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutFavoritesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
     messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
@@ -15000,7 +15000,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutMessagesInput = {
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteCreateNestedManyWithoutUserInput
     favorites?: UserFavoriteCreateNestedManyWithoutUserInput
@@ -15010,7 +15010,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutMessagesInput = {
     id?: number
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
     favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
@@ -15035,7 +15035,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutMessagesInput = {
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUpdateManyWithoutUserNestedInput
     favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
@@ -15045,7 +15045,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutMessagesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
     favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput
@@ -15054,7 +15054,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutHabitsInput = {
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteCreateNestedManyWithoutUserInput
     favorites?: UserFavoriteCreateNestedManyWithoutUserInput
@@ -15064,7 +15064,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutHabitsInput = {
     id?: number
     name: string
-    telegramId: bigint | number
+    telegramId?: bigint | number | null
     timezone?: string
     quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
     favorites?: UserFavoriteUncheckedCreateNestedManyWithoutUserInput
@@ -15129,7 +15129,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutHabitsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUpdateManyWithoutUserNestedInput
     favorites?: UserFavoriteUpdateManyWithoutUserNestedInput
@@ -15139,7 +15139,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutHabitsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
     favorites?: UserFavoriteUncheckedUpdateManyWithoutUserNestedInput

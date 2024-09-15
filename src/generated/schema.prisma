@@ -19,7 +19,7 @@ model User {
   favorites UserFavorite[] @relation("UserFavorites") // Many-to-many relation through UserFavorite
 
   // Telegram fields
-  telegramId BigInt    @unique
+  telegramId BigInt?
   messages   Message[]
 
   // Habit project fields
