@@ -1,5 +1,5 @@
-import prisma from './client'
 import { Prisma } from './generated'
+import prisma from './prisma'
 
 export const getUsers = () => prisma.user.findMany({})
 

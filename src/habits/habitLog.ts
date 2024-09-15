@@ -1,4 +1,4 @@
-import prisma from '~/client'
+import prisma from '~/prisma'
 
 export const getLatestHabitLog = (userId: number) =>
   prisma.habitLog.findFirst({

@@ -1,4 +1,4 @@
-import prisma from '~/client'
+import prisma from '~/prisma'
 
 type CreateReminder = {
   habitId: number
