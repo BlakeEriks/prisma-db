@@ -1,5 +1,5 @@
+import prisma from '@db/prisma'
 import { Prisma } from '@prisma/client'
-import prisma from '~/prisma'
 
 export const deleteHabit = (id: number) =>
   prisma.habit.delete({
