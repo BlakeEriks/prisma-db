@@ -1,10 +1,11 @@
 {
-  "name": "prisma-quippet",
+  "name": "prisma-db",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate dev"
+    "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate dev",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,10 @@
     "prisma": "^5.19.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
-  }
+  },
+  "files": [
+    "src",
+    "prisma",
+    "node_modules/.prisma"
+  ]
 }

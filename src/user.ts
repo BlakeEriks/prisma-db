@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Prisma, User } from '@prisma/client'
 import prisma from './prisma'
 
 export const getUsers = () => prisma.user.findMany({})
@@ -8,3 +8,11 @@ export const createUser = (data: Prisma.UserCreateInput) => prisma.user.create({
 export const getUserById = (id: number) => prisma.user.findUnique({ where: { id } })
 
 export const getUserByName = (name: string) => prisma.user.findFirst({ where: { name } })
+
+export const updateUser = (id: number, data: Partial<User>) =>
+  prisma.user.update({
+    where: { id },
+    data,
+  })
+
+export const getAllUsers = () => prisma.user.findMany()
