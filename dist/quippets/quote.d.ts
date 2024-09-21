@@ -34,7 +34,7 @@ export declare const toggleFavorite: (userId: number, quoteId: number) => Promis
     userId: number;
     quoteId: number;
 }>;
-export declare const getQuoteById: (quoteId: number) => import("@db/generated").Prisma.Prisma__QuoteClient<{
+export declare const getQuoteById: (quoteId: number) => Prisma.Prisma__QuoteClient<{
     id: number;
     createdAt: Date;
     meta: string | null;
@@ -43,7 +43,7 @@ export declare const getQuoteById: (quoteId: number) => import("@db/generated").
     userId: number;
     deleted: boolean;
     bookId: number | null;
-} | null, null, import("@db/generated/runtime/library").DefaultArgs>;
+} | null, null, import("@prisma/client/runtime/library").DefaultArgs>;
 export declare const sampleQuotesByUser: (userId: number, count: number) => Promise<{
     id: number;
     createdAt: Date;

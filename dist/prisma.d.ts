@@ -1,3 +1,3 @@
-import { PrismaClient } from '@db/generated';
-declare const prisma: PrismaClient<import("@db/generated").Prisma.PrismaClientOptions, never, import("@db/generated/runtime/library").DefaultArgs>;
+import { PrismaClient } from '@prisma/client';
+declare const prisma: PrismaClient<import(".prisma/client").Prisma.PrismaClientOptions, never, import("@prisma/client/runtime/library").DefaultArgs>;
 export default prisma;

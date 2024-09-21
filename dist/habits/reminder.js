@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createReminder = void 0;
-const prisma_1 = __importDefault(require("@db/prisma"));
+const prisma_1 = __importDefault(require("../prisma"));
 const createReminder = (_a) => __awaiter(void 0, [_a], void 0, function* ({ habitId, time }) { return prisma_1.default.reminder.create({ data: { habitId, time } }); });
 exports.createReminder = createReminder;
 //# sourceMappingURL=reminder.js.map

@@ -1,4 +1,4 @@
-import prisma from '@db/prisma'
+import prisma from '../prisma'
 
 export const getLatestHabitLog = (userId: number) =>
   prisma.habitLog.findFirst({

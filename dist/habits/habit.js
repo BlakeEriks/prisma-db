@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveHabitLogs = exports.deleteHabit = void 0;
-const prisma_1 = __importDefault(require("@db/prisma"));
+const prisma_1 = __importDefault(require("../prisma"));
 const deleteHabit = (id) => prisma_1.default.habit.delete({
     where: { id },
 });

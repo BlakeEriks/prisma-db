@@ -1,4 +1,4 @@
-import prisma from '@db/prisma'
+import prisma from '../prisma'
 
 type CreateReminder = {
   habitId: number

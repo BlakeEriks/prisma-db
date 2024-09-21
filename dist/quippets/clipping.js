@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveClippings = exports.parseClippings = void 0;
-const prisma_1 = __importDefault(require("@db/prisma"));
 const lodash_1 = __importDefault(require("lodash"));
+const prisma_1 = __importDefault(require("../prisma"));
 const parseClippings = (clippingsText) => {
     const clippings = clippingsText
         .split('==========')
