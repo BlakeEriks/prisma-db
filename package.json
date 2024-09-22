@@ -26,6 +26,7 @@
   },
   "files": [
     "dist",
-    "prisma"
+    "prisma",
+    "node_modules/.prisma"
   ]
 }
