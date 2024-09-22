@@ -2,7 +2,7 @@ generator client {
   provider        = "prisma-client-js"
   binaryTargets   = ["native", "rhel-openssl-1.0.x", "darwin-arm64"]
   previewFeatures = ["multiSchema"]
-  output          = "../src/generated"
+  output          = "../dist/generated"
 }
 
 datasource db {
