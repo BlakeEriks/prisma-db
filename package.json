@@ -26,6 +26,6 @@
   },
   "files": [
     "dist",
-    "prisma",
+    "prisma"
   ]
 }
