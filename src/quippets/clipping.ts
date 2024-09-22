@@ -1,5 +1,5 @@
-import { Book, Prisma } from '@prisma/client'
 import _ from 'lodash'
+import { Book, Prisma } from '../generated'
 import prisma from '../prisma'
 
 export type Clipping = {

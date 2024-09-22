@@ -1,5 +1,5 @@
-import { Prisma } from '@prisma/client'
 import _ from 'lodash'
+import { Prisma } from '../generated'
 import prisma from '../prisma'
 
 export const getQuotes = async (userId: number) =>
