@@ -7,6 +7,7 @@
     "prepare": "npm run generate && npm run build",
     "generate": "npx prisma generate",
     "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate dev",
+    "migrate:prod": "dotenv -e .env.prod -- npx prisma migrate dev",
     "build": "npx tsc"
   },
   "keywords": [],
