@@ -1,4 +1,3 @@
-export * from './generated'
 export * from './habits/index'
 export * from './prisma'
 export * from './quippets/index'
