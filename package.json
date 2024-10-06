@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run generate && npm run build",
-    "generate": "PRISMA_GENERATE_OUTPUT=../dist/generated npx prisma generate",
+    "generate": "npx prisma generate",
     "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate dev",
     "migrate:prod": "dotenv -e .env.prod -- npx prisma migrate dev",
-    "build": "npx tsc"
+    "build": "npx tsc && cp -r src/generated dist/generated"
   },
   "keywords": [],
   "author": "",
